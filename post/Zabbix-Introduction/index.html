@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Zabbix Introduction - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Charles Miao" /><meta name="description" content="Zabbix介紹 Alexei Vladishev 创建了Zabbix 项目, 当前处于活跃开发状态, Zabbix SIA提供支持. Zabbix 是一个企业级的、开源的、分布式的监控套件 Zabbix 可以监控网络" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-Introduction/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Zabbix Introduction" />
+<meta property="og:description" content="Zabbix介紹 Alexei Vladishev 创建了Zabbix 项目, 当前处于活跃开发状态, Zabbix SIA提供支持. Zabbix 是一个企业级的、开源的、分布式的监控套件 Zabbix 可以监控网络" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-Introduction/" />
+<meta property="article:published_time" content="2019-11-14T18:26:47+08:00" />
+<meta property="article:modified_time" content="2019-11-14T18:26:47+08:00" />
+<meta itemprop="name" content="Zabbix Introduction">
+<meta itemprop="description" content="Zabbix介紹 Alexei Vladishev 创建了Zabbix 项目, 当前处于活跃开发状态, Zabbix SIA提供支持. Zabbix 是一个企业级的、开源的、分布式的监控套件 Zabbix 可以监控网络">
+<meta itemprop="datePublished" content="2019-11-14T18:26:47&#43;08:00" />
+<meta itemprop="dateModified" content="2019-11-14T18:26:47&#43;08:00" />
+<meta itemprop="wordCount" content="1347">
+
+
+
+<meta itemprop="keywords" content="Zabbix," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zabbix Introduction"/>
+<meta name="twitter:description" content="Zabbix介紹 Alexei Vladishev 创建了Zabbix 项目, 当前处于活跃开发状态, Zabbix SIA提供支持. Zabbix 是一个企业级的、开源的、分布式的监控套件 Zabbix 可以监控网络"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Zabbix Introduction</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-11-14 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 1347 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#zabbix介紹">Zabbix介紹</a></li>
+    <li><a href="#zabbix特性">Zabbix特性</a></li>
+    <li><a href="#zabbix安裝和手冊">Zabbix安裝和手冊</a></li>
+    <li><a href="#zabbix應用數據采集">Zabbix應用（數據采集）</a></li>
+    <li><a href="#zabbix應用圖形展示">Zabbix應用（圖形展示）</a></li>
+    <li><a href="#zabbix應用觸發通知">Zabbix應用（觸發通知）</a></li>
+    <li><a href="#其他應用">其他應用</a></li>
+    <li><a href="#參考資料">參考資料</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="zabbix介紹">Zabbix介紹</h2>
+<p>Alexei Vladishev 创建了Zabbix 项目, 当前处于活跃开发状态, Zabbix SIA提供支持.</p>
+<ul>
+<li>Zabbix 是一个<strong>企业级的</strong>、<strong>开源的</strong>、分布式的监控套件</li>
+<li>Zabbix <strong>可以监控网络和服务的状况</strong>. Zabbix 利用灵活的告警机制，允许用户对事件发送基于Email 的告警.这样可以保证快速的对问题作出相应. Zabbix 可以利用存储数据提供杰出的报告及图形化方式. 这一特性将幫助用户完成容量规划.</li>
+<li>Zabbix 支持polling 和trapping 两种方式. <strong>所有的Zabbix 报告都可以通过配置参数在WEB 前端进行访问</strong>. Web前端将帮助你在任何区域都能够迅速获得你的网络及服务状况. Zabbix 可以通过尽可能的配置来扮演监控你的IT 基础框架的角色，而不管你是来自于小型组织还是大规模的公司.</li>
+<li>Zabbix 是<strong>零成本</strong>的. 因为Zabbix 编写和发布基于GPL V2 协议. 意味着源代码是免费发布的.</li>
+<li>Zabbix 公司也提供<strong>商业化的技术支持</strong>.</li>
+</ul>
+<h2 id="zabbix特性">Zabbix特性</h2>
+<ul>
+<li>数据收集（系統可用性/SNMP/IPMI/自定義）</li>
+<li>灵活的阀值定义（觸發器Trigger）</li>
+<li>高级告警配置</li>
+<li>实时绘图</li>
+<li>扩展的图形化显示（聚合圖/網絡拓撲圖）</li>
+<li>历史数据存储（趨勢數據）</li>
+<li>配置简单（可以使用模板）</li>
+<li>模板使用（可繼承）</li>
+<li>网络自动发现（網絡設備/文件系統/網卡設備/SNMP OID等）</li>
+<li>快速的web 接口</li>
+<li>Zabbix API（二次開發）</li>
+<li>权限系统</li>
+<li>全特性、agent 易扩展（支持Windows和Linux）</li>
+<li>二进制守护进程（C 开发，高性能，低内存消耗，易移植）</li>
+<li>具备应对复杂环境情况</li>
+</ul>
+<h2 id="zabbix安裝和手冊">Zabbix安裝和手冊</h2>
+<ul>
+<li>服務端配置</li>
+</ul>
+<p><a href="https://my.oschina.net/zhangyangyang/blog/841043">https://my.oschina.net/zhangyangyang/blog/841043</a></p>
+<ul>
+<li>Windows客戶端配置</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/9befd0bc7188">https://www.jianshu.com/p/9befd0bc7188</a></p>
+<ul>
+<li>官方手冊</li>
+</ul>
+<p><a href="https://www.zabbix.com/documentation/3.4/zh/manual">https://www.zabbix.com/documentation/3.4/zh/manual</a></p>
+<ul>
+<li>非官方手冊</li>
+</ul>
+<p>《Zabbix 教程从入门到精通》</p>
+<p>作者：凉白开</p>
+<p>电子书：<a href="http://ebook.ttlsa.com/monitor/">http://ebook.ttlsa.com/monitor/</a></p>
+<p>文章列表：<a href="http://www.ttlsa.com/zabbix/follow-ttlsa-to-study-zabbix/">http://www.ttlsa.com/zabbix/follow-ttlsa-to-study-zabbix/</a></p>
+<h2 id="zabbix應用數據采集">Zabbix應用（數據采集）</h2>
+<ul>
+<li>Agentd客戶端自帶item key（CPU/内存使用率等）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/1.png" alt="own"></p>
+<ul>
+<li>Agentd客戶端自定義item key/ 自定義檢查脚本（DELL服務器硬件運行狀況：溫度/風扇/内存/網卡/CPU/硬盤/邏輯磁盤/Power Supply等）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/2.png" alt="custom"></p>
+<ul>
+<li>自定義item key和檢查脚本透過sender指令發送給服務器，同時服務器配置Trapper監控項（CPU型號/CPU數量/OS版本等），主要用於Zabbix獲取數據有超時的情況</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/3.png" alt="sender"></p>
+<ul>
+<li>HP服務器硬件監控（溫度/風扇/内存/網卡/CPU/硬盤/Power Supply等）</li>
+</ul>
+<p>帶外：iLO網口設定/IPMI設定/SNMP設定/SNMP OID</p>
+<p>帶内：系統内SNMP設定/HP ProLiant Insight Management Agents/ SNMP OID</p>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/4.png" alt="snmp_ipmi"></p>
+<h2 id="zabbix應用圖形展示">Zabbix應用（圖形展示）</h2>
+<ul>
+<li>圖形</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/5.png" alt="graph"></p>
+<ul>
+<li>聚合圖形</li>
+<li>拓撲圖</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/6.png" alt="topology"></p>
+<h2 id="zabbix應用觸發通知">Zabbix應用（觸發通知）</h2>
+<ul>
+<li>觸發（CPU使用率高於60%/ 内存空間小於2G/ 磁盤空間小於20%/ 服務器5分鐘連接不到/ 風扇故障/ CPU故障燈硬件異常等）</li>
+<li>CPU使用率異常觸發報警</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/7.png" alt="trigger"></p>
+<ul>
+<li>CPU使用率恢復正常</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/8.png" alt="recovery"></p>
+<ul>
+<li>通知（郵件通知/ 脚本通知）</li>
+</ul>
+<h2 id="其他應用">其他應用</h2>
+<ul>
+<li>異常自動處理（重啓服務器/ 重啓服務/ 切換備份服務器等）</li>
+<li>Zabbix API二次開發（开发web 界面、开发手机端zabbix、获取zabbix 指定数据、创建zabbix 监控项等）</li>
+<li>資產清單</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Charles-Miao/blog/master/static/Zabbix-Introduction/9.png" alt="other"></p>
+<h2 id="參考資料">參考資料</h2>
+<p><a href="https://fashengba.com/post/zabbix-item-keys.html">Zabbix基礎監控項Keys介紹</a></p>
+<p><a href="http://www.zmzblog.com/monitor/zabbix-how-to-monitoring-hp-gen10-server-hardware.html">Zabbix通過SNMP監控HP Gen10服務器硬件</a></p>
+<p><a href="https://support.hpe.com/hpsc/doc/public/display?docld=c01851759">HP ProLiant ML/DL/BL iLO2 - 管理控制器驅動程序和管理接</a><a href="https://support.hpe.com/hpsc/doc/public/display?docId=c01851759">口</a><a href="https://support.hpe.com/hpsc/doc/public/display?docld=c01851759">驅動</a><a href="https://support.hpe.com/hpsc/doc/public/display?docId=c01851759">程序如何工作</a></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Charles Miao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Zabbix/">Zabbix</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/about-the-blog/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">About The Blog</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Charles Miao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

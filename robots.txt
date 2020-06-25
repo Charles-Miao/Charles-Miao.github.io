@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://Charles-Miao.github.io/sitemap.xml
+Sitemap: https://Charles-Miao.github.io/sitemap.xml

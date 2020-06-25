@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>生活 on Charles&#39;s Blog</title>
-    <link>http://Charles-Miao.github.io/categories/%E7%94%9F%E6%B4%BB/</link>
+    <link>https://Charles-Miao.github.io/categories/%E7%94%9F%E6%B4%BB/</link>
     <description>Recent content in 生活 on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 25 Jun 2020 10:11:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2020 09:32:30 +0800</lastBuildDate>
     
-	<atom:link href="http://Charles-Miao.github.io/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://Charles-Miao.github.io/categories/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>博客情怀</title>
-      <link>http://Charles-Miao.github.io/post/about-the-blog/</link>
-      <pubDate>Thu, 25 Jun 2020 10:11:00 +0800</pubDate>
+      <title>About The Blog</title>
+      <link>https://Charles-Miao.github.io/post/about-the-blog/</link>
+      <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
       
-      <guid>http://Charles-Miao.github.io/post/about-the-blog/</guid>
+      <guid>https://Charles-Miao.github.io/post/about-the-blog/</guid>
       <description>博客缘起 很久很久以前看到过一篇关于怎么学习新知识的文章，其中提到学习既要有输入也要有输出。输入分为主动输入，被动输入等，输出则分为实践输出，</description>
     </item>
     
