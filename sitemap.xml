@@ -1,0 +1,52 @@
+<?xml-stylesheet type="text/xsl" href="http://Charles-Miao.github.io/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://Charles-Miao.github.io/about/</loc>
+    <lastmod>2020-06-25T09:32:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Charles-Miao.github.io/categories/</loc>
+    <lastmod>2020-06-25T10:11:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Charles-Miao.github.io/</loc>
+    <lastmod>2020-06-25T10:11:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Charles-Miao.github.io/post/</loc>
+    <lastmod>2020-06-25T10:11:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Charles-Miao.github.io/post/about-the-blog/</loc>
+    <lastmod>2020-06-25T10:11:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Charles-Miao.github.io/categories/%E7%94%9F%E6%B4%BB/</loc>
+    <lastmod>2020-06-25T10:11:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://Charles-Miao.github.io/tags/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Charles&#39;s Blog</title>
+    <link>http://Charles-Miao.github.io/</link>
+    <description>Recent content on Charles&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 25 Jun 2020 10:11:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>http://Charles-Miao.github.io/about/</link>
+      <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
+      
+      <guid>http://Charles-Miao.github.io/about/</guid>
+      <description>伪极客 平时喜欢瞎折腾 有空喜欢看看书，听听播客 喜欢非主流音乐，轻音乐，电音，人声，古典乐 目前在代工厂从事运维工作</description>
+    </item>
+    
+    <item>
+      <title>博客情怀</title>
+      <link>http://Charles-Miao.github.io/post/about-the-blog/</link>
+      <pubDate>Thu, 25 Jun 2020 10:11:00 +0800</pubDate>
+      
+      <guid>http://Charles-Miao.github.io/post/about-the-blog/</guid>
+      <description>博客缘起 很久很久以前看到过一篇关于怎么学习新知识的文章，其中提到学习既要有输入也要有输出。输入分为主动输入，被动输入等，输出则分为实践输出，</description>
+    </item>
+    
+  </channel>
+</rss>
