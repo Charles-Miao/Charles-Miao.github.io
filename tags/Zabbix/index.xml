@@ -6,13 +6,31 @@
     <description>Recent content in Zabbix on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 14 Nov 2019 18:26:47 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2020 11:53:17 +0800</lastBuildDate>
     
 	<atom:link href="https://Charles-Miao.github.io/tags/Zabbix/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Zabbix Introduction</title>
+      <title>Zabbix in Action - Part 2</title>
+      <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</link>
+      <pubDate>Sun, 28 Jun 2020 11:53:17 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</guid>
+      <description>&lt;p&gt;主要讲解HP DL160 G6/ RHEL 5如何安装agent，如何配置snmp，以及如何配置DL160 G6的硬件监控&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Zabbix in Action - Part 1</title>
+      <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</link>
+      <pubDate>Thu, 21 Nov 2019 10:38:09 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zabbix Intro &amp; Demo</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-Introduction/</link>
       <pubDate>Thu, 14 Nov 2019 18:26:47 +0800</pubDate>
       
