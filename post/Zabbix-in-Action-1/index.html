@@ -250,15 +250,15 @@ sudo /etc/init.d/zabbix-server restart
 <li>需要安装iLO 3/4 Management Controller Driver Package</li>
 <li>需要安装HPE Insight Management Agents</li>
 <li>需要安装Smart Array SAS/SATA Controller Driver，用于读取硬盘信息（<strong>这个当时搞了好久</strong>）</li>
-<li>OID查询：http://oidref.com/1.3.6.1.4.1.3582.4.1.4.1.2.1.19</li>
-<li>HP服务器驱动查找：https://support.hpe.com/hpesc/public/km/product/1009087943/hpe-proliant-dl380-gen9-server-models?ismnp=0&amp;l5oid=7271241#t=DriversandSoftware&amp;sort=relevancy&amp;layout=table</li>
+<li>OID查询：<a href="http://oidref.com/1.3.6.1.4.1.3582.4.1.4.1.2.1.19">http://oidref.com/1.3.6.1.4.1.3582.4.1.4.1.2.1.19</a></li>
+<li>HP服务器驱动查找：<a href="https://support.hpe.com/hpesc/public/km/product/1009087943/hpe-proliant-dl380-gen9-server-models?ismnp=0&amp;l5oid=7271241#t=DriversandSoftware&amp;sort=relevancy&amp;layout=table">https://support.hpe.com/hpesc/public/km/product/1009087943/hpe-proliant-dl380-gen9-server-models?ismnp=0&amp;l5oid=7271241#t=DriversandSoftware&amp;sort=relevancy&amp;layout=table</a></li>
 </ul>
 <h2 id="dl160-g6--supermicro透过ipmi--snmp协议进行硬件监控">DL160 G6 &amp; Supermicro透过ipmi &amp; snmp协议进行硬件监控</h2>
 <ul>
 <li>DL160 IPMI接口共用NIC1，需要將BMC NIC Allocatio設定為Shared，賬號：admin，密碼：admin</li>
 <li>Supermicro IPMI接口有單獨的網卡，設定完之後需要<strong>斷電重啓</strong>，賬號：ADMIN，密碼：ADMIN</li>
 <li>Supsermico服務器透過SNMP協議監控HDD狀況（需要安裝MegaRAID Storage Manager）</li>
-<li>IOD查询：https://mibs.observium.org/mib/LSI-MegaRAID-SAS-MIB/</li>
+<li>IOD查询：<a href="https://mibs.observium.org/mib/LSI-MegaRAID-SAS-MIB/">https://mibs.observium.org/mib/LSI-MegaRAID-SAS-MIB/</a></li>
 <li>Supermicro其他硬件信息透過ipmi協議獲取</li>
 </ul>
 <div class="highlight"><div class="chroma">
@@ -275,16 +275,16 @@ ipmitool -I lanplus -H 192.168.123.149 -U ADMIN -P ADMIN sensor get &#34;P1-DIMM
 <p>DELL服务器因为过旧，都没有安装带外管理的卡，所以硬件监控全部是透过自定key的方式实现的</p>
 <ul>
 <li>服务器需要安装OMSA管理工具</li>
-<li>python脚本参见：https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Zabbix/dell</li>
+<li>python脚本参见：<a href="https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Zabbix/dell">https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Zabbix/dell</a></li>
 </ul>
 <h2 id="windows服务器一些特殊信息获取">Windows服务器一些特殊信息获取</h2>
 <p>因为有很多信息客户端无法获取到，所以需要自己写自定义key，有些指令因为处理时间较长，需要透过Sender的方式进行获取</p>
 <ul>
-<li>python脚本参见：https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Zabbix/windows</li>
+<li>python脚本参见：<a href="https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Zabbix/windows">https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Zabbix/windows</a></li>
 </ul>
 <h2 id="zabbix-web端配置模板">Zabbix web端配置模板</h2>
 <ul>
-<li>详细参见：https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/template</li>
+<li>详细参见：<a href="https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/template">https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/template</a></li>
 </ul>
     </div>
 
