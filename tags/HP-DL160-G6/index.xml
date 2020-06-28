@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HP DL160 G6 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/HP-DL160-G6/</link>
+    <description>Recent content in HP DL160 G6 on Charles&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 28 Jun 2020 11:53:17 +0800</lastBuildDate>
+    
+	<atom:link href="https://Charles-Miao.github.io/tags/HP-DL160-G6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Zabbix in Action - Part 2</title>
+      <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</link>
+      <pubDate>Sun, 28 Jun 2020 11:53:17 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</guid>
+      <description>&lt;p&gt;主要讲解HP DL160 G6/ RHEL 5如何安装agent，如何配置snmp，以及如何配置DL160 G6的硬件监控&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
