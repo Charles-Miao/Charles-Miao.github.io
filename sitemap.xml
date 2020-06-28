@@ -23,7 +23,7 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/tags/HP-DL160-G6/</loc>
+    <loc>https://Charles-Miao.github.io/tags/Linux/</loc>
     <lastmod>2020-06-28T11:53:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -31,13 +31,6 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/post/</loc>
-    <lastmod>2020-06-28T11:53:17+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/tags/RHEL-5/</loc>
     <lastmod>2020-06-28T11:53:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -81,6 +74,13 @@
   <url>
     <loc>https://Charles-Miao.github.io/categories/%E7%94%9F%E6%B4%BB/</loc>
     <lastmod>2020-06-25T09:32:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Windows/</loc>
+    <lastmod>2019-11-21T10:38:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

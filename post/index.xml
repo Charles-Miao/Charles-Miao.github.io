@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>Zabbix in Action - Part 2</title>
+      <title>Zabbix in Action - Linux</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</link>
       <pubDate>Sun, 28 Jun 2020 11:53:17 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</guid>
-      <description>&lt;p&gt;主要讲解HP DL160 G6/ RHEL 5如何安装agent，如何配置snmp，以及如何配置DL160 G6的硬件监控&lt;/p&gt;</description>
+      <description>&lt;p&gt;主要讲解RHEL 5如何安装和配置agent &amp;amp; snmp协议，以及如何实现HP DL160 G6的硬件监控&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -26,16 +26,20 @@
       <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/post/about-the-blog/</guid>
-      <description>博客缘起 很久很久以前看到过一篇关于怎么学习新知识的文章，其中提到学习既要有输入也要有输出。输入分为主动输入，被动输入等，输出则分为实践输出，</description>
+      <description>&lt;p&gt;主要讲博客因何而起，以及一路怎么实现的博客，顺便还介绍了一些笔记类工具&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>Zabbix in Action - Part 1</title>
+      <title>Zabbix in Action - Windows</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</link>
       <pubDate>Thu, 21 Nov 2019 10:38:09 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</guid>
-      <description></description>
+      <description>&lt;h2 id=&#34;软硬件环境&#34;&gt;软硬件环境&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Server端：Ubuntu 16.04虚拟机&lt;/li&gt;
+&lt;li&gt;Agent端：Windows Server，主要硬件有DL380 G7、DL380 G9、DL380 G10、DL160 G6、DELL2900、DELL2950、supermicro等&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -44,7 +48,7 @@
       <pubDate>Thu, 14 Nov 2019 18:26:47 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/post/Zabbix-Introduction/</guid>
-      <description>Zabbix介紹 Alexei Vladishev 创建了Zabbix 项目, 当前处于活跃开发状态, Zabbix SIA提供支持. Zabbix 是一个企业级的、开源的、分布式的监控套件 Zabbix 可以监控网络</description>
+      <description>&lt;p&gt;主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等&lt;/p&gt;</description>
     </item>
     
   </channel>
