@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grafana on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/Grafana/</link>
+    <description>Recent content in Grafana on Charles&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Jul 2020 22:25:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://Charles-Miao.github.io/tags/Grafana/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Zabbix in Action - Grafana</title>
+      <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</link>
+      <pubDate>Tue, 07 Jul 2020 22:25:58 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</guid>
+      <description>&lt;h2 id=&#34;outline&#34;&gt;Outline&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Grafana+Zabbix&lt;/li&gt;
+&lt;li&gt;文件同步监控实战（Grafana+MySQL）&lt;/li&gt;
+&lt;li&gt;MySQL配置&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
