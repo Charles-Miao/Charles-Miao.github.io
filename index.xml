@@ -26,7 +26,7 @@
       <pubDate>Tue, 07 Jul 2020 22:25:58 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</guid>
-      <description>&lt;h2 id=&#34;outline&#34;&gt;Outline&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Grafana+Zabbix&lt;/li&gt;
 &lt;li&gt;文件同步监控实战（Grafana+MySQL）&lt;/li&gt;
