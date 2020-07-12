@@ -40,7 +40,7 @@
       <pubDate>Sun, 28 Jun 2020 11:53:17 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</guid>
-      <description>&lt;h2 id=&#34;outline&#34;&gt;Outline&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;RHEL 5如何安装和配置agent &amp;amp; snmp协议&lt;/li&gt;
 &lt;li&gt;RHEL 5如何实现HP DL160 G6的硬件监控&lt;/li&gt;
