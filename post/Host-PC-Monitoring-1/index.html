@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>生产电脑智慧化管理 - 蓝图篇 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Charles Miao" /><meta name="description" content="" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="生产电脑智慧化管理 - 蓝图篇" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/" />
+<meta property="article:published_time" content="2020-08-11T22:03:23+08:00" />
+<meta property="article:modified_time" content="2020-08-11T22:03:23+08:00" />
+<meta itemprop="name" content="生产电脑智慧化管理 - 蓝图篇">
+<meta itemprop="description" content="">
+<meta itemprop="datePublished" content="2020-08-11T22:03:23&#43;08:00" />
+<meta itemprop="dateModified" content="2020-08-11T22:03:23&#43;08:00" />
+<meta itemprop="wordCount" content="793">
+
+
+
+<meta itemprop="keywords" content="Windows,PC," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="生产电脑智慧化管理 - 蓝图篇"/>
+<meta name="twitter:description" content=""/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">生产电脑智慧化管理 - 蓝图篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-11 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 793 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#蓝图">蓝图</a></li>
+    <li><a href="#实战">实战</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="背景">背景</h2>
+<ol>
+<li>
+<p>日常需要手动维护</p>
+<ul>
+<li>手动安装系统、手动安装驱动、手动更新程序</li>
+<li>手动升级补丁、手动休眠和shutdown、现场手动处理电脑异常、手动检查officescan连接状况和电脑激活状况</li>
+<li>电脑基本信息、安全信息、系统性能、系统运行状况等数据全部需要手动确认和记录，无法透过电脑信息分析问题</li>
+<li>电脑故障无系统追踪，无法透过历史数据分析问题</li>
+</ul>
+</li>
+<li>
+<p>数位化，大势所趋</p>
+<ul>
+<li>各个工厂都在大力发展自动化线体，针对这种线体中的设备、治具、仪器、电脑等必定需要系统监控和自动化维护</li>
+</ul>
+</li>
+</ol>
+<h2 id="蓝图">蓝图</h2>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Host-PC-Monitoring/blueprint.PNG?raw=true" alt="blueprint"></p>
+<ul>
+<li>首先，将电脑各种手动维护改为自动化维护</li>
+<li>其次，使用系统监控电脑数据，并实现远程协助</li>
+<li>最后，透过监控和历史数据对电脑进行更智能化的维护</li>
+</ul>
+<h2 id="实战">实战</h2>
+<ul>
+<li>封装Windows image
+<ul>
+<li>使用工具：EasySysprep</li>
+<li>参考连接：https://cloud.tencent.com/developer/article/1438238</li>
+</ul>
+</li>
+<li>自动化部署电脑系统、驱动和程式（单独章节说明）
+<ul>
+<li>使用工具和方法：Ansible、PXE备份还原、自定义系统开发</li>
+</ul>
+</li>
+<li>自动升级电脑补丁
+<ul>
+<li>使用工具：WSUS</li>
+</ul>
+</li>
+<li>电脑自动休眠和shutdown（待完善）</li>
+<li>远程登录产线电脑，并协助处理问题
+<ul>
+<li>使用工具：TightVNC</li>
+<li>使用方法：将VNC工具封装在电脑image中，透过监控系统获取电脑的IP信息，再透过服务器远程控制产线电脑</li>
+</ul>
+</li>
+<li>自动检查officescan和正版激活状况
+<ul>
+<li>自定义开发工具：https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer</li>
+<li>透过监控系统实现闭环管理</li>
+</ul>
+</li>
+<li>电脑监控系统设计和开发（单独章节说明）
+<ul>
+<li>实现监控电脑基本信息、安全信息、系统性能、系统运行状况等</li>
+</ul>
+</li>
+<li>透过监控数据分析电脑问题（单独章节说明）
+<ul>
+<li>使用工具和方法：R，相关性分析</li>
+</ul>
+</li>
+<li>电脑故障追踪，协助分析问题（单独章节说明）
+<ul>
+<li>使用工具：Mantis，trac</li>
+</ul>
+</li>
+<li>电脑智慧化管理案例分享（单独章节说明）</li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Charles Miao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-08-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Windows/">Windows</a>
+          <a href="/tags/PC/">PC</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/Zabbix-in-Action-3/">
+            <span class="next-text nav-default">Zabbix in Action - Grafana</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Charles Miao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
