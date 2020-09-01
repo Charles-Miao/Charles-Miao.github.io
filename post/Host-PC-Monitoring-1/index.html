@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  做这个专案的背景 系统化管理蓝图构思 实战工具和方法介绍 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  专案背景 蓝图和构思 实战工具和方法 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -43,9 +43,9 @@
 <meta property="og:title" content="生产电脑智慧化管理 - 蓝图篇" />
 <meta property="og:description" content="主要内容
 
-做这个专案的背景
-系统化管理蓝图构思
-实战工具和方法介绍
+专案背景
+蓝图和构思
+实战工具和方法
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/" />
@@ -54,13 +54,13 @@
 <meta itemprop="name" content="生产电脑智慧化管理 - 蓝图篇">
 <meta itemprop="description" content="主要内容
 
-做这个专案的背景
-系统化管理蓝图构思
-实战工具和方法介绍
+专案背景
+蓝图和构思
+实战工具和方法
 ">
 <meta itemprop="datePublished" content="2020-08-11T22:03:23&#43;08:00" />
 <meta itemprop="dateModified" content="2020-08-11T22:03:23&#43;08:00" />
-<meta itemprop="wordCount" content="823">
+<meta itemprop="wordCount" content="855">
 
 
 
@@ -68,9 +68,9 @@
 <meta name="twitter:title" content="生产电脑智慧化管理 - 蓝图篇"/>
 <meta name="twitter:description" content="主要内容
 
-做这个专案的背景
-系统化管理蓝图构思
-实战工具和方法介绍
+专案背景
+蓝图和构思
+实战工具和方法
 "/>
 
 <!--[if lte IE 9]>
@@ -145,7 +145,7 @@
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 823 字 </span>
+          <span class="more-meta"> 约 855 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -167,9 +167,9 @@
     <div class="post-content">
       <h2 id="主要内容">主要内容</h2>
 <ul>
-<li>做这个专案的背景</li>
-<li>系统化管理蓝图构思</li>
-<li>实战工具和方法介绍</li>
+<li>专案背景</li>
+<li>蓝图和构思</li>
+<li>实战工具和方法</li>
 </ul>
 <h2 id="背景">背景</h2>
 <ol>
@@ -198,51 +198,64 @@
 </ul>
 <h2 id="实战">实战</h2>
 <ul>
-<li>封装Windows image
+<li>
+<p>封装Windows image</p>
 <ul>
 <li>使用工具：EasySysprep</li>
-<li>参考连接：https://cloud.tencent.com/developer/article/1438238</li>
+<li>参考连接：<a href="https://cloud.tencent.com/developer/article/1438238">https://cloud.tencent.com/developer/article/1438238</a></li>
 </ul>
 </li>
-<li>自动化部署电脑系统、驱动和程式（单独章节说明）
-<ul>
-<li>使用工具和方法：Ansible、PXE备份还原、自定义系统开发</li>
-</ul>
-</li>
-<li>自动升级电脑补丁
+<li>
+<p>自动升级电脑补丁</p>
 <ul>
 <li>使用工具：WSUS</li>
 </ul>
 </li>
-<li>电脑自动休眠和shutdown（待完善）</li>
-<li>远程登录产线电脑，并协助处理问题
+<li>
+<p>远程登录产线电脑，并协助处理问题</p>
 <ul>
 <li>使用工具：TightVNC</li>
 <li>使用方法：将VNC工具封装在电脑image中，透过监控系统获取电脑的IP信息，再透过服务器远程控制产线电脑</li>
 </ul>
 </li>
-<li>自动检查officescan和正版激活状况
+<li>
+<p>自动检查officescan和正版激活状况</p>
 <ul>
-<li>自定义开发工具：https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer</li>
+<li>自定义开发工具：<a href="https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer">https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer</a></li>
 <li>透过监控系统实现闭环管理</li>
 </ul>
 </li>
-<li>电脑监控系统设计和开发（单独章节说明）
+<li>
+<p>电脑监控系统设计和开发</p>
 <ul>
 <li>实现监控电脑基本信息、安全信息、系统性能、系统运行状况等</li>
+<li>介绍连接：<a href="https://charles-miao.github.io/post/Host-PC-Monitoring-2/">https://charles-miao.github.io/post/Host-PC-Monitoring-2/</a></li>
 </ul>
 </li>
-<li>透过监控数据分析电脑问题（单独章节说明）
+<li>
+<p>透过监控数据分析电脑问题（待更新）</p>
 <ul>
 <li>使用工具和方法：R，相关性分析</li>
 </ul>
 </li>
-<li>电脑故障追踪，协助分析问题（单独章节说明）
+<li>
+<p>自动化部署电脑系统、驱动和程式（待更新）</p>
+<ul>
+<li>使用工具和方法：Ansible、PXE备份还原、自定义系统开发</li>
+</ul>
+</li>
+<li>
+<p>电脑故障追踪，协助分析问题（待完善）</p>
 <ul>
 <li>使用工具：Mantis，trac</li>
 </ul>
 </li>
-<li>电脑智慧化管理案例分享（单独章节说明）</li>
+<li>
+<p>电脑智慧化管理案例分享（待完善）</p>
+</li>
+<li>
+<p>电脑自动休眠和shutdown（待完善）</p>
+</li>
 </ul>
     </div>
 
@@ -267,7 +280,11 @@
           <a href="/tags/PC/">PC</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/Host-PC-Monitoring-2/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">生产电脑智慧化管理 - 数据可视化篇</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/Zabbix-in-Action-3/">
             <span class="next-text nav-default">Zabbix in Action - Grafana</span>
             <span class="next-text nav-mobile">下一篇</span>
