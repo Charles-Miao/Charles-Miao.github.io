@@ -23,6 +23,13 @@
   </url>
   
   <url>
+    <loc>https://Charles-Miao.github.io/tags/DYI/</loc>
+    <lastmod>2020-09-01T22:49:33+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://Charles-Miao.github.io/post/</loc>
     <lastmod>2020-09-01T22:49:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -44,21 +51,7 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
-    <lastmod>2020-09-01T22:49:33+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-2/</loc>
-    <lastmod>2020-09-01T22:49:33+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/tags/%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2020-09-01T22:49:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
