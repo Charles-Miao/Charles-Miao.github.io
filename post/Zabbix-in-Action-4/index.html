@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Zabbix in Action - DL160 G6 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  背景说明 升级Windows Server 2012探索 升级CentOS 7探索 解决方案 其他说明 " /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-in-Action-4/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Zabbix in Action - DL160 G6" />
+<meta property="og:description" content="主要内容
+
+背景说明
+升级Windows Server 2012探索
+升级CentOS 7探索
+解决方案
+其他说明
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-4/" />
+<meta property="article:published_time" content="2021-05-18T22:22:27+08:00" />
+<meta property="article:modified_time" content="2021-05-18T22:22:27+08:00" />
+<meta itemprop="name" content="Zabbix in Action - DL160 G6">
+<meta itemprop="description" content="主要内容
+
+背景说明
+升级Windows Server 2012探索
+升级CentOS 7探索
+解决方案
+其他说明
+">
+<meta itemprop="datePublished" content="2021-05-18T22:22:27&#43;08:00" />
+<meta itemprop="dateModified" content="2021-05-18T22:22:27&#43;08:00" />
+<meta itemprop="wordCount" content="1167">
+
+
+
+<meta itemprop="keywords" content="Zabbix,Linux,HP," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zabbix in Action - DL160 G6"/>
+<meta name="twitter:description" content="主要内容
+
+背景说明
+升级Windows Server 2012探索
+升级CentOS 7探索
+解决方案
+其他说明
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Zabbix in Action - DL160 G6</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-05-18 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 1167 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#主要内容">主要内容</a></li>
+    <li><a href="#背景说明">背景说明</a></li>
+    <li><a href="#升级windows-server-2012探索">升级Windows Server 2012探索</a></li>
+    <li><a href="#升级centos-7探索">升级CentOS-7探索</a></li>
+    <li><a href="#解决方案">解决方案</a></li>
+    <li><a href="#其他说明">其他说明</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="主要内容">主要内容</h2>
+<ul>
+<li>背景说明</li>
+<li>升级Windows Server 2012探索</li>
+<li>升级CentOS 7探索</li>
+<li>解决方案</li>
+<li>其他说明</li>
+</ul>
+<h2 id="背景说明">背景说明</h2>
+<ul>
+<li>公司需求针对EOS OS（CenotOS-6和Windows Server 2008）进行系统升级</li>
+<li>DL160 G6升级系统后无法进行硬件监控</li>
+</ul>
+<h2 id="升级windows-server-2012探索">升级Windows Server 2012探索</h2>
+<ul>
+<li>惠普官网没有支持2012的驱动</li>
+</ul>
+<h2 id="升级centos-7探索">升级CentOS-7探索</h2>
+<ul>
+<li>需要安装hp-snmp-agent、hp-health、hpacucli驱动，以及SNMP服务</li>
+<li>惠普官网没有支持CentOS-7的驱动</li>
+<li>CentOS-6的hp-health和hpacucli驱动可以正常安装</li>
+<li>CentOS-6的hp-snmp-agent无法进行安装，查看报错信息发现hp-snmp-agent是基于低版本的snmp-5.5（CentOS-6）</li>
+<li>进一步确认CentOS-7无法安装低版本的snmp-5.5，CentOS-7.9默认安装的是snmp-5.7</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -ivh XXX.rpm <span class="c1">#安装rpm包</span>
+rpm -qa <span class="p">|</span> grep <span class="s2">&#34;hp-health&#34;</span> <span class="c1">#查询已经安装的hp-health软件包</span>
+rpm -e XXX.rpm --nodeps <span class="c1">#卸载软件包</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解决方案">解决方案</h2>
+<ul>
+<li>
+<p>温度，可以透过ipmi进行读值和监控，模板参考<a href="https://share.zabbix.com/cat-server-hardware/hp/template-server-hp-ilo100i-ipmi">template-ilo-100i</a>，此模板基于Zabbix 4.0，参见item：Front Panel</p>
+</li>
+<li>
+<p>风扇，可以透过ipmi进行读值和监控，模板参考<a href="https://share.zabbix.com/cat-server-hardware/hp/template-server-hp-ilo100i-ipmi">template-ilo-100i</a>，此模板基于Zabbix 4.0，参见item：FAN1_INLET</p>
+</li>
+<li>
+<p>内存，安装hp-health驱动，可以透过hpasmcli指令进行读值，可以透过自定义key进行监控</p>
+</li>
+<li>
+<p>CPU，安装hp-health驱动，可以透过hpasmcli指令进行读值，可以透过自定义key进行监控</p>
+</li>
+<li>
+<p>Powersupply，此型号PS只有一个，无法透过ipmi和hpasmcli进行读值，也不需要读值</p>
+</li>
+<li>
+<p>Disk，安装hpacucli驱动，可以透过指令hpacucli进行读值，可以透过自定义key进行监控</p>
+</li>
+<li>
+<p>DL160 G6安装最新版本的hp-health，会报<a href="https://community.hpe.com/t5/System-Administration/hpasmcli-not-working-after-update-to-Debian-Jessie-8-7/m-p/6942203#M54944">ERROR: Failed to get SMBIOS system ID.</a>，退回旧版hp-health-9.50可以解决此error</p>
+</li>
+<li>
+<p><a href="http://www.361way.com/hpacucli/5890.html">hpacucli &amp; hpasmcli管理工具介绍</a></p>
+</li>
+<li>
+<p><a href="https://cmdref.net/hardware/proliant/hpasmcli.html">hpasmcli - How to use hpasmcli command on HP Proliant Server</a></p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">hpacucli ctrl all show config   <span class="c1">#Raid和HDD状况</span>
+hpasmcli -s <span class="s1">&#39;show dimm&#39;</span>         <span class="c1">#查看内存信息</span>
+hpasmcli -s <span class="s1">&#39;show TEMP&#39;</span>         <span class="c1">#查看硬件温度</span>
+hpasmcli -s <span class="s1">&#39;show fans&#39;</span>         <span class="c1">#查看风扇信息</span>
+hpasmcli -s <span class="s1">&#39;show powersupply&#39;</span>  <span class="c1">#查看电源模块</span>
+hpasmcli -s <span class="s1">&#39;show server&#39;</span>       <span class="c1">#查看机器型号,序列号,CPU,内存大小</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="其他说明">其他说明</h2>
+<ul>
+<li>
+<p>CentOS-6 EOS Date is 11/30/2020</p>
+</li>
+<li>
+<p>CentOS-7 EOS Date is 6/30/2024</p>
+</li>
+<li>
+<p>Windows Server 2008 EOS Date is 1/14/2020</p>
+</li>
+<li>
+<p>Windows Server 2012 EOS Date is 10/10/2023</p>
+</li>
+<li>
+<p>Windows Server 2020 EOS Date is 1/12/2027</p>
+</li>
+<li>
+<p>DELL2950、DELL2900和DL380 G7可以正常升级至Windows Server 2016，但是内存使用率会过高，需要关闭Windows defender，并将Windows Update改为手动更新，建议退回到Windows Server 2012</p>
+</li>
+<li>
+<p>DL380 G7升级到Windows Server 2016后无法监控内存信息，建议退回至Windows Server 2012</p>
+</li>
+<li>
+<p>DL380 G9和G10可以正常升级至Windows Server 2016</p>
+</li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Charles Miao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-05-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Zabbix/">Zabbix</a>
+          <a href="/tags/Linux/">Linux</a>
+          <a href="/tags/HP/">HP</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/Host-PC-Monitoring-3/">
+            <span class="next-text nav-default">生产电脑智慧化管理 - 有趣的数据分析</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Charles Miao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
