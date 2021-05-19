@@ -6,7 +6,7 @@
     <description>Recent content on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 18 May 2021 22:22:27 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 May 2021 22:15:08 +0800</lastBuildDate>
     
 	<atom:link href="https://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,6 +18,20 @@
       
       <guid>https://Charles-Miao.github.io/about/</guid>
       <description>GTD深度用户 伪极客，平时喜欢瞎折腾 有空喜欢看看书，听听播客 喜欢非主流音乐，轻音乐，电音，人声，古典乐 目前在代工厂从事运维工作</description>
+    </item>
+    
+    <item>
+      <title>Zabbix自定义Key读值为空</title>
+      <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</link>
+      <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</guid>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;问题说明&lt;/li&gt;
+&lt;li&gt;分析思路&lt;/li&gt;
+&lt;li&gt;解决方案&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>

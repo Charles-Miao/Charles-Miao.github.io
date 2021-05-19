@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Zabbix in Action - DL160 G6 - Charles&#39;s Blog</title>
+  <title>Zabbix自定义Key读值为空 - Charles&#39;s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  背景说明 升级Windows Server 2012探索 升级CentOS 7探索 解决方案 其他说明 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  问题说明 分析思路 解决方案 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.72.0 with theme even" />
 
 
-<link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-in-Action-4/" />
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-in-Action-5/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,43 +40,37 @@
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="Zabbix in Action - DL160 G6" />
+<meta property="og:title" content="Zabbix自定义Key读值为空" />
 <meta property="og:description" content="主要内容
 
-背景说明
-升级Windows Server 2012探索
-升级CentOS 7探索
+问题说明
+分析思路
 解决方案
-其他说明
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-4/" />
-<meta property="article:published_time" content="2021-05-18T22:22:27+08:00" />
-<meta property="article:modified_time" content="2021-05-18T22:22:27+08:00" />
-<meta itemprop="name" content="Zabbix in Action - DL160 G6">
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-5/" />
+<meta property="article:published_time" content="2021-05-19T22:15:08+08:00" />
+<meta property="article:modified_time" content="2021-05-19T22:15:08+08:00" />
+<meta itemprop="name" content="Zabbix自定义Key读值为空">
 <meta itemprop="description" content="主要内容
 
-背景说明
-升级Windows Server 2012探索
-升级CentOS 7探索
+问题说明
+分析思路
 解决方案
-其他说明
 ">
-<meta itemprop="datePublished" content="2021-05-18T22:22:27&#43;08:00" />
-<meta itemprop="dateModified" content="2021-05-18T22:22:27&#43;08:00" />
-<meta itemprop="wordCount" content="1167">
+<meta itemprop="datePublished" content="2021-05-19T22:15:08&#43;08:00" />
+<meta itemprop="dateModified" content="2021-05-19T22:15:08&#43;08:00" />
+<meta itemprop="wordCount" content="536">
 
 
 
-<meta itemprop="keywords" content="Zabbix,Linux,HP," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Zabbix in Action - DL160 G6"/>
+<meta itemprop="keywords" content="Zabbix,apacucli,Python,Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zabbix自定义Key读值为空"/>
 <meta name="twitter:description" content="主要内容
 
-背景说明
-升级Windows Server 2012探索
-升级CentOS 7探索
+问题说明
+分析思路
 解决方案
-其他说明
 "/>
 
 <!--[if lte IE 9]>
@@ -144,15 +138,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Zabbix in Action - DL160 G6</h1>
+      <h1 class="post-title">Zabbix自定义Key读值为空</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2021-05-18 </span>
+        <span class="post-time"> 2021-05-19 </span>
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 1167 字 </span>
-          <span class="more-meta"> 预计阅读 3 分钟 </span>
+          <span class="more-meta"> 约 536 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -163,11 +157,9 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#主要内容">主要内容</a></li>
-    <li><a href="#背景说明">背景说明</a></li>
-    <li><a href="#升级windows-server-2012探索">升级Windows Server 2012探索</a></li>
-    <li><a href="#升级centos-7探索">升级CentOS-7探索</a></li>
+    <li><a href="#问题说明">问题说明</a></li>
+    <li><a href="#分析思路">分析思路</a></li>
     <li><a href="#解决方案">解决方案</a></li>
-    <li><a href="#其他说明">其他说明</a></li>
   </ul>
 </nav>
   </div>
@@ -175,70 +167,18 @@
     <div class="post-content">
       <h2 id="主要内容">主要内容</h2>
 <ul>
-<li>背景说明</li>
-<li>升级Windows Server 2012探索</li>
-<li>升级CentOS 7探索</li>
+<li>问题说明</li>
+<li>分析思路</li>
 <li>解决方案</li>
-<li>其他说明</li>
 </ul>
-<h2 id="背景说明">背景说明</h2>
+<h2 id="问题说明">问题说明</h2>
 <ul>
-<li>公司需求针对EOS OS（CenotOS-6和Windows Server 2008）进行系统升级</li>
-<li>DL160 G6升级系统后无法进行硬件监控</li>
+<li>透过<a href="https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/CentOS-7">Python脚本</a>调用hpacucli指令读取硬件信息，本地可以正常读取硬件信息，zabbix server端透过zabbix_get指令读值为空</li>
 </ul>
-<h2 id="升级windows-server-2012探索">升级Windows Server 2012探索</h2>
+<h2 id="分析思路">分析思路</h2>
 <ul>
-<li>惠普官网没有支持2012的驱动</li>
-</ul>
-<h2 id="升级centos-7探索">升级CentOS-7探索</h2>
-<ul>
-<li>需要安装hp-snmp-agent、hp-health、hpacucli驱动，以及SNMP服务</li>
-<li>惠普官网没有支持CentOS-7的驱动</li>
-<li>CentOS-6的hp-health和hpacucli驱动可以正常安装</li>
-<li>CentOS-6的hp-snmp-agent无法进行安装，查看报错信息发现hp-snmp-agent是基于低版本的snmp-5.5（CentOS-6）</li>
-<li>进一步确认CentOS-7无法安装低版本的snmp-5.5，CentOS-7.9默认安装的是snmp-5.7</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -ivh XXX.rpm <span class="c1">#安装rpm包</span>
-rpm -qa <span class="p">|</span> grep <span class="s2">&#34;hp-health&#34;</span> <span class="c1">#查询已经安装的hp-health软件包</span>
-rpm -e XXX.rpm --nodeps <span class="c1">#卸载软件包</span>
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="解决方案">解决方案</h2>
-<ul>
-<li>
-<p>温度，可以透过ipmi进行读值和监控，模板参考<a href="https://share.zabbix.com/cat-server-hardware/hp/template-server-hp-ilo100i-ipmi">template-ilo-100i</a>，此模板基于Zabbix 4.0，参见item：Front Panel</p>
-</li>
-<li>
-<p>风扇，可以透过ipmi进行读值和监控，模板参考<a href="https://share.zabbix.com/cat-server-hardware/hp/template-server-hp-ilo100i-ipmi">template-ilo-100i</a>，此模板基于Zabbix 4.0，参见item：FAN1_INLET</p>
-</li>
-<li>
-<p>内存，安装hp-health驱动，可以透过hpasmcli指令进行读值，可以透过自定义key进行监控</p>
-</li>
-<li>
-<p>CPU，安装hp-health驱动，可以透过hpasmcli指令进行读值，可以透过自定义key进行监控</p>
-</li>
-<li>
-<p>Powersupply，此型号PS只有一个，无法透过ipmi和hpasmcli进行读值，也不需要读值</p>
-</li>
-<li>
-<p>Disk，安装hpacucli驱动，可以透过指令hpacucli进行读值，可以透过自定义key进行监控</p>
-</li>
-<li>
-<p>DL160 G6安装最新版本的hp-health，会报<a href="https://community.hpe.com/t5/System-Administration/hpasmcli-not-working-after-update-to-Debian-Jessie-8-7/m-p/6942203#M54944">ERROR: Failed to get SMBIOS system ID.</a>，退回旧版hp-health-9.50可以解决此error</p>
-</li>
-<li>
-<p><a href="http://www.361way.com/hpacucli/5890.html">hpacucli &amp; hpasmcli管理工具介绍</a></p>
-</li>
-<li>
-<p><a href="https://cmdref.net/hardware/proliant/hpasmcli.html">hpasmcli - How to use hpasmcli command on HP Proliant Server</a></p>
-</li>
+<li>Google<a href="https://www.yuanmas.com/info/rgzEoJ5Ay8.html">自定义脚本获取key失败怎么办？</a>，赋予zabbix账号管理员权限，现象依旧</li>
+<li>调整配置档案zabbix_agent.conf中的debuglevel参数，默认为3只显示warning信息，4为debug模式，透过debug log（/var/log/zabbix）发现，指令执行没有特别异常，现象依旧（此时已崩溃，Google无解，debug log无解）</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -248,42 +188,51 @@ rpm -e XXX.rpm --nodeps <span class="c1">#卸载软件包</span>
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">hpacucli ctrl all show config   <span class="c1">#Raid和HDD状况</span>
-hpasmcli -s <span class="s1">&#39;show dimm&#39;</span>         <span class="c1">#查看内存信息</span>
-hpasmcli -s <span class="s1">&#39;show TEMP&#39;</span>         <span class="c1">#查看硬件温度</span>
-hpasmcli -s <span class="s1">&#39;show fans&#39;</span>         <span class="c1">#查看风扇信息</span>
-hpasmcli -s <span class="s1">&#39;show powersupply&#39;</span>  <span class="c1">#查看电源模块</span>
-hpasmcli -s <span class="s1">&#39;show server&#39;</span>       <span class="c1">#查看机器型号,序列号,CPU,内存大小</span>
+<pre class="chroma"><code class="language-text" data-lang="text">  4752:20210519:153212.560 Requested [hp.pdisk_discovery]
+  4752:20210519:153212.560 In zbx_popen() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39;
+  4752:20210519:153212.561 End of zbx_popen():7
+  4841:20210519:153212.561 zbx_popen(): executing script
+  4752:20210519:153212.666 In zbx_waitpid()
+  4752:20210519:153212.667 zbx_waitpid() exited, status:0
+  4752:20210519:153212.667 End of zbx_waitpid():4841
+  4752:20210519:153212.667 EXECUTE_STR() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39; len:12 cmd_result:&#39;{&#34;data&#34;: []}&#39;
+  4752:20210519:153212.667 Sending back [{&#34;data&#34;: []}]
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="其他说明">其他说明</h2>
+</div><ul>
+<li>调试python脚本，发现使用zabbix账号调用hpacucli指令时，此指令未正常运行，无任何报错</li>
+<li>使用admin账号執行hpacucli指令提示：<strong>Error: You need to have administrator rights to continue.</strong></li>
+<li>赋予admin管理员权限，并使用sudo hpacucli可以正常执行指令</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">visudo <span class="c1">#赋予admin权限，可执行所有指令，并无需输入password</span>
+admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解决方案">解决方案</h2>
 <ul>
-<li>
-<p>CentOS-6 EOS Date is 11/30/2020</p>
-</li>
-<li>
-<p>CentOS-7 EOS Date is 6/30/2024</p>
-</li>
-<li>
-<p>Windows Server 2008 EOS Date is 1/14/2020</p>
-</li>
-<li>
-<p>Windows Server 2012 EOS Date is 10/10/2023</p>
-</li>
-<li>
-<p>Windows Server 2020 EOS Date is 1/12/2027</p>
-</li>
-<li>
-<p>DELL2950、DELL2900和DL380 G7可以正常升级至Windows Server 2016，但是内存使用率会过高，需要关闭Windows defender，并将Windows Update改为手动更新，建议退回到Windows Server 2012</p>
-</li>
-<li>
-<p>DL380 G7升级到Windows Server 2016后无法监控内存信息，建议退回至Windows Server 2012</p>
-</li>
-<li>
-<p>DL380 G9和G10可以正常升级至Windows Server 2016</p>
-</li>
+<li>visudo，賦予zabbix管理員權限</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">zabbix <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用<strong>sudo hpacucli</strong>指令运行</li>
 </ul>
     </div>
 
@@ -295,7 +244,7 @@ hpasmcli -s <span class="s1">&#39;show server&#39;</span>       <span class="c1"
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">
-        2021-05-18
+        2021-05-19
         
     </span>
   </p>
@@ -305,17 +254,14 @@ hpasmcli -s <span class="s1">&#39;show server&#39;</span>       <span class="c1"
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/Zabbix/">Zabbix</a>
+          <a href="/tags/apacucli/">apacucli</a>
+          <a href="/tags/Python/">Python</a>
           <a href="/tags/Linux/">Linux</a>
-          <a href="/tags/HP/">HP</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/Zabbix-in-Action-5/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Zabbix自定义Key读值为空</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/Host-PC-Monitoring-3/">
-            <span class="next-text nav-default">生产电脑智慧化管理 - 有趣的数据分析</span>
+        
+        <a class="next" href="/post/Zabbix-in-Action-4/">
+            <span class="next-text nav-default">Zabbix in Action - DL160 G6</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
