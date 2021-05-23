@@ -6,10 +6,23 @@
     <description>Recent content in Linux on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 May 2021 22:15:08 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 23 May 2021 21:39:49 +0800</lastBuildDate>
     
 	<atom:link href="https://Charles-Miao.github.io/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux基础 - Part1</title>
+      <link>https://Charles-Miao.github.io/post/Linux-Admin-1/</link>
+      <pubDate>Sun, 23 May 2021 21:39:49 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Linux-Admin-1/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;硬件系统&lt;/li&gt;
+&lt;li&gt;系统管理命令&lt;/li&gt;
+&lt;li&gt;快捷键&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>Zabbix自定义Key读值为空</title>
