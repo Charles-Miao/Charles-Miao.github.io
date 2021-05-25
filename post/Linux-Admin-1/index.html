@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content=" 硬件系统 系统管理命令 快捷键 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Charles Miao" /><meta name="description" content=" 硬件系统 系统管理命令 快捷键 系统目录结构 重要文件 vim快捷键 系统优化 其他指令 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -45,6 +45,11 @@
 硬件系统
 系统管理命令
 快捷键
+系统目录结构
+重要文件
+vim快捷键
+系统优化
+其他指令
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-1/" />
@@ -55,10 +60,15 @@
 硬件系统
 系统管理命令
 快捷键
+系统目录结构
+重要文件
+vim快捷键
+系统优化
+其他指令
 ">
 <meta itemprop="datePublished" content="2021-05-23T21:39:49&#43;08:00" />
 <meta itemprop="dateModified" content="2021-05-23T21:39:49&#43;08:00" />
-<meta itemprop="wordCount" content="123">
+<meta itemprop="wordCount" content="1580">
 
 
 
@@ -68,6 +78,11 @@
 硬件系统
 系统管理命令
 快捷键
+系统目录结构
+重要文件
+vim快捷键
+系统优化
+其他指令
 "/>
 
 <!--[if lte IE 9]>
@@ -142,8 +157,8 @@
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 123 字 </span>
-          <span class="more-meta"> 预计阅读 1 分钟 </span>
+          <span class="more-meta"> 约 1580 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -156,6 +171,11 @@
     <li><a href="#硬件系统">硬件系统</a></li>
     <li><a href="#系统管理命令">系统管理命令</a></li>
     <li><a href="#快捷键">快捷键</a></li>
+    <li><a href="#系统目录结构">系统目录结构</a></li>
+    <li><a href="#重要文件">重要文件</a></li>
+    <li><a href="#vi快捷键">vi快捷键</a></li>
+    <li><a href="#系统优化">系统优化</a></li>
+    <li><a href="#其他指令">其他指令</a></li>
   </ul>
 </nav>
   </div>
@@ -165,6 +185,11 @@
 <li>硬件系统</li>
 <li>系统管理命令</li>
 <li>快捷键</li>
+<li>系统目录结构</li>
+<li>重要文件</li>
+<li>vim快捷键</li>
+<li>系统优化</li>
+<li>其他指令</li>
 </ul>
 <h2 id="硬件系统">硬件系统</h2>
 <ul>
@@ -176,33 +201,477 @@
 <li>dell，联想，浪潮，华为</li>
 </ul>
 <h2 id="系统管理命令">系统管理命令</h2>
-<ul>
-<li>shutdown -h, -r, -c</li>
-<li>ls, ls -d, ll, ls -l</li>
-<li>mkdir -p</li>
-<li>man</li>
-<li>cd</li>
-<li>pwd</li>
-<li>touch</li>
-<li>vim</li>
-<li>cat</li>
-<li>cp -r, \cp</li>
-<li>rm -rf, \rm</li>
-<li>mv</li>
-</ul>
-<h2 id="快捷键">快捷键</h2>
-<ul>
-<li>ctrl+l</li>
-<li>ctrl+d</li>
-<li>ctrl+a</li>
-<li>ctrl+e</li>
-<li>ctrl+左右方向键</li>
-<li>ctrl+w</li>
-<li>ctrl+u</li>
-<li>ctrl+k</li>
-<li>ctrl+y</li>
-<li>esc+.</li>
-</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">shutdown -h
+shutdown -r
+shutdown -c
+
+ls
+ls -d
+<span class="nv">ll</span> <span class="o">==</span> ls -l
+
+mkdir -p
+<span class="nb">cd</span>
+<span class="nb">pwd</span>
+
+man
+
+touch
+vim
+cat
+
+cp -r
+<span class="se">\c</span>p
+rm -rf
+<span class="se">\r</span>m
+mv
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="快捷键">快捷键</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ctrl+l,清屏指令</span>
+<span class="c1"># ctrl+d,注销</span>
+<span class="c1"># ctrl+a,行首</span>
+<span class="c1"># ctrl+e,行尾</span>
+<span class="c1"># ctrl+左右方向键,单个词组移动</span>
+<span class="c1"># ctrl+w,字符剪切</span>
+<span class="c1"># ctrl+u,行首到光标剪切</span>
+<span class="c1"># ctrl+k,光标到行尾剪切</span>
+<span class="c1"># ctrl+y,黏贴</span>
+<span class="c1"># esc+.,上一行指令的最后一个参数</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="系统目录结构">系统目录结构</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># bin, sbin</span>
+<span class="c1"># boot</span>
+<span class="c1"># dev</span>
+<span class="c1"># etc</span>
+<span class="c1"># home, root</span>
+<span class="c1"># lib, lib64</span>
+<span class="c1"># lost+found</span>
+<span class="c1"># mnt</span>
+<span class="c1"># opt</span>
+<span class="c1"># proc</span>
+<span class="c1"># /etc/selinux</span>
+<span class="c1"># sys</span>
+<span class="c1"># tmp</span>
+<span class="c1"># usr</span>
+<span class="c1"># var</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="重要文件">重要文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#网卡配置</span>
+vim /etc/sysconfig/network-scripts/ifcfg-eth0
+systemctl restart network
+
+<span class="c1">#DNS解析配置</span>
+vim /etc/sysconfig/network-scripts/ifcfg-eth0
+
+<span class="c1">#主机名</span>
+vim /etc/hostname
+hostnamectl set-hostname newname
+
+<span class="c1">#解析映射文件</span>
+vim /etc/hosts
+
+<span class="c1">#磁盘挂载文件（df，查看磁盘挂载状况）</span>
+vim /etc/fstab
+
+<span class="c1">#开机自启动</span>
+vim /etc/rc.local
+
+<span class="c1">#cetnos6系统运行级别(0/1/2/3/4/5/6)</span>
+vim /etc/inittab
+
+<span class="c1">#centos7系统运行级别(poweroff.target/ rescue.target/ multi-user.target/ graphical.target/ reboot.target)</span>
+systemctl get-default
+systemctl set-default rescue.target
+ls –l /usr/lib/system/system/runlevel*target
+
+<span class="c1">#变量加载文件</span>
+vim /etc/profile<span class="o">==</span>/etc/bashrc
+vim ~/.bashrc<span class="o">==</span>~/.bash_profile
+<span class="nb">source</span> /etc/profile
+which
+<span class="nb">export</span>
+
+<span class="c1">#系统别名</span>
+<span class="nb">alias</span>
+
+<span class="c1">#登陆之后提示信息</span>
+vim /etc/motd
+
+<span class="c1">#登陆之前提示信息</span>
+vim /etc/issue
+
+<span class="c1">#硬件信息</span>
+cat /proc/cpuinfo
+cat /proc/loadavg
+w
+cat /proc/meminfo
+free –h
+cat /proc/mounts
+df –h
+
+<span class="c1">#系统版本</span>
+cat /etc/redhat-release
+uname –a
+
+<span class="c1">#优化命令提示符颜色</span>
+vim /etc/profile
+<span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\[\e[32;1m\][\u@\h \W]\$ \[\e[0m\]&#39;</span>
+<span class="nb">source</span> /etc/profile
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="vi快捷键">vi快捷键</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">I <span class="c1">#将光标移至行首，再进入编辑状态</span>
+o <span class="c1">#在光标所在行下面，新起一行进行编辑（重点）</span>
+O <span class="c1">#在光标所在行上面，新起一行进行编辑</span>
+a <span class="c1">#将光标移动到右边下一个字符，进行编辑</span>
+A <span class="c1">#将光标移动到行尾，并进行编辑（重点）</span>
+C <span class="c1">#将光标到行尾进行剪切，并进入编辑（重点）</span>
+cc <span class="c1">#将整行进行删除，并进入编辑</span>
+
+G <span class="c1">#将光标移至尾部</span>
+gg <span class="c1">#将光标移至首部</span>
+ngg <span class="c1">#n表示移到第几行</span>
+$ <span class="c1">#将光标移至一行的结尾</span>
+0或^ <span class="c1">#移到一行的行首</span>
+
+/ <span class="c1">#底行模式搜索，向下搜索</span>
+? <span class="c1">#底行模式搜索，向上搜索</span>
+
+p <span class="c1">#将内容进行粘贴</span>
+np <span class="c1">#多行粘贴</span>
+yy <span class="c1">#复制</span>
+nyy <span class="c1">#多行复制</span>
+
+dd, u <span class="c1">#删除和恢复</span>
+
+<span class="c1">#查看文件时显示行号和不显示行号</span>
+:set nu
+:set nonu
+
+ctrl+r <span class="c1">#redo和undo相反</span>
+dG <span class="c1">#将光标位置删除到文章底部</span>
+
+:set ic <span class="c1">#忽略大小写查找</span>
+:set noic <span class="c1">#不忽略大小查找</span>
+/search-text<span class="se">\c</span> <span class="c1">#忽略大小写查找</span>
+
+<span class="c1">#vim高级功能</span>
+/#搜索文件中没有的信息，取消高亮
+:2,4move9 <span class="c1">#将第2行~4行的内容移到第9行</span>
+:2,4copy9 <span class="c1">#将第2行~4行的内容拷贝到第9行</span>
+:%s#oldboy <span class="c1">#oldgirl#g#将文件中指定内容全部替换</span>
+<span class="c1">#s substitute 替换</span>
+<span class="c1">#g global 全局</span>
+:2,4s#oldboy#oldgirl#g <span class="c1">#替换部分内容第2~4行</span>
+:12,<span class="nv">$s</span><span class="c1">#oldboy#oldgirl#g #替换部分内容第12行~结尾</span>
+
+<span class="c1">#批量添加信息</span>
+ctrl+v <span class="c1">#进入视图模式</span>
+<span class="c1">#方向键选择</span>
+shift+i <span class="c1">#进行单行编辑</span>
+esc <span class="c1">#实现批量修改</span>
+
+<span class="c1">#批量删除信息</span>
+ctrl+v <span class="c1">#进入视图模式</span>
+<span class="c1">#方向键选择</span>
+d or x <span class="c1">#删除</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="系统优化">系统优化</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#	yum源优化</span>
+<span class="c1">#	防火墙优化</span>
+<span class="c1">#	selinux优化，vim /etc/selinux/config</span>
+<span class="c1">#	字符编码优化，vim /etc/locale.conf</span>
+<span class="c1">#	优化远程连接速度，vim /etc/ssh/sshd_config，vim /etc/hosts</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="其他指令">其他指令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tail -6
+head -5
+tail –f
+
+<span class="c1">#创建用户</span>
+useradd charles
+passwd charles
+
+<span class="c1">#rpm指令</span>
+rpm -qa sl <span class="c1">#query查询软件安装版本</span>
+rpm -ql sl <span class="c1">#查询并list出所有安装的数据</span>
+rpm -qf ssh <span class="c1">#查看命令属于哪个软件包</span>
+rpm -qf <span class="sb">`</span>which ssh<span class="sb">`</span>
+
+<span class="c1">#ss==netstat（yum install -y net-tools）</span>
+ss -lntup
+<span class="c1">#-l list</span>
+<span class="c1">#-n number</span>
+<span class="c1">#-t tcp协议</span>
+<span class="c1">#-u udp协议</span>
+<span class="c1">#-p process进程信息</span>
+
+<span class="c1">#按照时间排序</span>
+ls -ltr /etc/
+<span class="c1">#t，按时间排序</span>
+<span class="c1">#r，逆向排序</span>
+
+cat -n /oldboy/oldboy.txt <span class="c1">#查看文件，并显示行号</span>
+
+less /etc/service <span class="c1">#查看文件</span>
+<span class="c1">#回车，向下逐行</span>
+<span class="c1">#空格，向下逐页</span>
+<span class="c1">#方向键上，向上逐行</span>
+<span class="c1">#b，向上逐页</span>
+
+<span class="c1">#多行添加文件</span>
+cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
+</span><span class="s">&gt; oldboy01
+</span><span class="s">&gt; oldboy02
+</span><span class="s">&gt; oldboy03
+</span><span class="s">&gt; EOF</span>
+
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
