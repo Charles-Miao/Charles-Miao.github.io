@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux基础 - Part3 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  系统启动流程 权限配置 用户相关文件和指令 定时服务 磁盘管理 其他知识 " /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Linux-Admin-3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Linux基础 - Part3" />
+<meta property="og:description" content="主要内容
+
+系统启动流程
+权限配置
+用户相关文件和指令
+定时服务
+磁盘管理
+其他知识
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-3/" />
+<meta property="article:published_time" content="2021-05-26T22:34:12+08:00" />
+<meta property="article:modified_time" content="2021-05-26T22:34:12+08:00" />
+<meta itemprop="name" content="Linux基础 - Part3">
+<meta itemprop="description" content="主要内容
+
+系统启动流程
+权限配置
+用户相关文件和指令
+定时服务
+磁盘管理
+其他知识
+">
+<meta itemprop="datePublished" content="2021-05-26T22:34:12&#43;08:00" />
+<meta itemprop="dateModified" content="2021-05-26T22:34:12&#43;08:00" />
+<meta itemprop="wordCount" content="3523">
+
+
+
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux基础 - Part3"/>
+<meta name="twitter:description" content="主要内容
+
+系统启动流程
+权限配置
+用户相关文件和指令
+定时服务
+磁盘管理
+其他知识
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux基础 - Part3</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-05-26 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 3523 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#系统启动流程">系统启动流程</a></li>
+    <li><a href="#权限配置">权限配置</a></li>
+    <li><a href="#用户相关文件和指令">用户相关文件和指令</a></li>
+    <li><a href="#定时服务">定时服务</a></li>
+    <li><a href="#磁盘管理">磁盘管理</a></li>
+    <li><a href="#其他知识">其他知识</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="主要内容">主要内容</h1>
+<ul>
+<li>系统启动流程</li>
+<li>权限配置</li>
+<li>用户相关文件和指令</li>
+<li>定时服务</li>
+<li>磁盘管理</li>
+<li>其他知识</li>
+</ul>
+<blockquote>
+<p><a href="https://github.com/Charles-Miao/Linux/blob/master/Linux%E5%9F%BA%E7%A1%80/%E7%AC%94%E8%AE%B020~24.txt">详细笔记</a></p>
+</blockquote>
+<h2 id="系统启动流程">系统启动流程</h2>
+<ul>
+<li>CentOS6</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#1. 加电自检</span>
+<span class="c1">#2. mbr引导，读取磁盘的mbr存储记录信息，引导系统启动</span>
+<span class="c1">#3. grub菜单，选择启动的内核，进行单用户模式重置密码</span>
+<span class="c1">#4. 加载系统内核信息，可以更好的使用内核控制硬件</span>
+<span class="c1">#5. 第一个进程运行起来 init</span>
+<span class="c1">#6. 加载系统运行级别/etc/inittab</span>
+<span class="c1">#7. 初始化脚本运行，初始化系统主机名称和网卡信息</span>
+<span class="c1">#8. 运行系统特殊脚本，服务运行的脚本</span>
+<span class="c1">#9. 运行mingetty进程，显示登陆界面</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>CentOS7</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#1. 加电自检</span>
+<span class="c1">#2. mbr引导，读取磁盘的mbr存储记录信息，引导系统启动</span>
+<span class="c1">#3. grub菜单，选择启动的内核，进行单用户模式重置密码</span>
+<span class="c1">#4. 加载系统内核信息，可以更好的使用内核控制硬件</span>
+<span class="c1">#5. 第一个进程运行起来 systemd（服务启动时，同时一起启动）</span>
+<span class="c1">#6. 读取系统启动文件 /etc/systemd/system/default.target</span>
+<span class="c1">#7. 读取系统初始化文件 /user/lib/sysetmd/system/sysinit.target</span>
+<span class="c1">#8. 使服务器开机自启动 /etc/systemd/system 加载此目录中的信息，实现服务开机自动启动</span>
+<span class="c1">#9. 运行mingetty进程，显示登陆界面</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="权限配置">权限配置</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#文件权限配置的结论</span>
+<span class="c1">#1. root用户对所有文件有绝对的权限，只要有执行权限，root用户可以无敌存在</span>
+<span class="c1">#2. 对于文件来说，写的权限和执行的权限，都需要有读权限配置</span>
+<span class="c1">#3. 如果想对文件进行操作，必须对文件赋予读的权限</span>
+<span class="c1">#4. 一个普通文件默认权限：644，保证属主用户对文件可以编辑，保证其他用户可以读取文件内容</span>
+
+<span class="c1">#目录权限配置的结论</span>
+<span class="c1">#1. root用户对目录信息有绝对权限</span>
+<span class="c1">#2. 对于目录来说，写的权限和读的权限，都需要执行权限的配合</span>
+<span class="c1">#3. 如果想对目录进行操作，必须对目录赋予执行权限</span>
+<span class="c1">#4. 一个目录文件默认权限：755，保证属主用户对目录进行编辑，保证其他用户可以读取目录中的信息，并可以进入目录</span>
+
+chmod u+r/w/x
+chmod u-r/w/x 
+chmod <span class="nv">u</span><span class="o">=</span>rw
+chmod <span class="m">761</span>
+chmod <span class="nv">a</span><span class="o">=</span>x <span class="c1">#所有用户添加可执行权限</span>
+
+<span class="c1">#修改umask值可以修改默认目录文件权限，umask默认值0022</span>
+<span class="c1">#默认文件权限：666-022=644</span>
+<span class="c1">#umask值是奇数：666-033=633+11=644</span>
+<span class="c1">#umask值是偶数：666-022=644</span>
+<span class="c1">#默认目录权限：777-022=755</span>
+<span class="c1">#umask值是奇数：777-033=744</span>
+<span class="c1">#umask值是偶数：777-022=755</span>
+vim /etc/profile <span class="c1">#永久修改umask信息</span>
+
+<span class="c1">#设置特殊权限位</span>
+<span class="c1">#rwx-w---x 9个权限位，实际有12个权限位</span>
+<span class="c1">#setuid权限位设置，将文件属主拥有的能力，分配给所有人</span>
+chmod u+s /bin/cat
+chmod <span class="m">4755</span> /bin/cat
+<span class="c1">#setgid权限位设置，将文件属组拥有的能力，分配给所有用户组</span>
+<span class="c1">#sticky bit粘滞位，可以将不同用户信息放置到共享目录中，实现不同用户数据可以互相查看，但是不可以互相随意修改</span>
+chmod o+t 目录信息
+chmod <span class="m">1777</span> 目录信息
+
+<span class="c1">#防范系统中的重要文件不被修改</span>
+<span class="c1">#1. 给文件加锁，使root用户也不可以修改</span>
+chattr +i /etc/passwd <span class="c1">#设置方法</span>
+chattr -i /etc/passwd <span class="c1">#解锁命令</span>
+mv /bin/chattr /root/charles <span class="c1">#修改指令名称</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="用户相关文件和指令">用户相关文件和指令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">useradd oldgirl <span class="c1">#/home/oldgirl/目录中的数据内容会参考/etc/skel目录中的信息</span>
+.bash_history <span class="c1">#历史命令记录文件，保存在磁盘中</span>
+<span class="nb">history</span> <span class="c1">#历史命令保存在内存中</span>
+<span class="nb">history</span> <span class="c1">#清空内存中历史命令</span>
+.viminfo <span class="c1">#vim样式设置</span>
+
+/etc/passwd <span class="c1">#记录系统用户信息文件</span>
+<span class="c1"># 第一列，用户名</span>
+<span class="c1"># 第二列，用户密码信息</span>
+<span class="c1"># 第三列，uid信息</span>
+<span class="c1"># 第四列，gid信息</span>
+<span class="c1"># 第五列，注释信息</span>
+<span class="c1"># 第六列，用户目录信息</span>
+<span class="c1"># 第七列，用户登录系统方式</span>
+<span class="c1"># 	/bin/bash，通用的解释器</span>
+<span class="c1"># 	/usr/bin/sh，等价于/bin/bash</span>
+<span class="c1"># 	/usr/bin/bash，等价于/bin/bash</span>
+<span class="c1"># 	/sbin/nologin，无法登录系统</span>
+<span class="c1">#	/usr/sbin/nologin，无法登录系统</span>
+/etc/shadow <span class="c1">#系统用户密码文件</span>
+/etc/group <span class="c1">#组用户记录文件</span>
+/etc/gshadow <span class="c1">#组用户密码信息</span>
+
+useradd oldboy -M -s /sbin/nologin -u <span class="m">2000</span> -g Alex -G Charles -c <span class="s2">&#34;manager database&#34;</span> <span class="c1">#创建用户</span>
+<span class="c1"># -M，不创建家目录</span>
+<span class="c1"># -s，指定使用shell方式</span>
+<span class="c1"># -u，指定用户uid数值信息</span>
+<span class="c1"># -g，指定用户所属的主要组信息</span>
+<span class="c1"># -G，指定用户所属的附属组信息</span>
+<span class="c1"># -c，添加指定用户注释说明</span>
+
+usermod <span class="c1">#修改用户信息</span>
+<span class="c1"># -s，修改用户登录方式</span>
+<span class="c1"># -g，修改用户的主要组信息</span>
+<span class="c1"># -G，修改用户的附属组信息</span>
+<span class="c1"># -c，修改用户的注释信息</span>
+<span class="c1"># -u，修改用户uid数值信息</span>
+
+<span class="c1">#删除用户信息</span>
+userdel -r <span class="c1">#彻底删除用户以及用户的家目录</span>
+
+chown <span class="c1">#修改属主和属组信息</span>
+chown oldboy.root /etc/hosts <span class="c1">#修改文件属主和属组信息</span>
+chown -R Alex01.Alex01 oldboy_dir <span class="c1">#递归修改目录&amp;目录内文件的属主和属组信息</span>
+
+id <span class="c1">#显示用户信息</span>
+w <span class="c1">#显示正在登录系统的用户信息</span>
+<span class="c1"># USER，什么用户登录系统</span>
+<span class="c1"># TTY，登录方式</span>
+<span class="c1"># pts/x，远程登录</span>
+<span class="c1"># tty1，本地登录</span>
+<span class="c1"># echo &#34;message&#34; &gt; /dev/pts/1，发送信息给pts/1用户</span>
+<span class="c1"># FROM，从哪里登录服务器</span>
+<span class="c1"># LOGIN，登录时间</span>
+<span class="c1"># IDLE，空闲时间</span>
+<span class="c1"># JCPU PCPU，用户操作系统消耗的CPU资源时间</span>
+<span class="c1"># WHAT，用户在干什么</span>
+
+last <span class="c1">#最近谁登录系统</span>
+lastlog <span class="c1">#显示所有用户最近一次远程登录的信息</span>
+
+<span class="c1">#用户权限赋予</span>
+<span class="c1"># 1. 直接切换root账号，su -root</span>
+<span class="c1"># 2. 给文件赋予权限</span>
+<span class="c1"># 3. root赋予普通用户权限</span>
+visudo <span class="c1">#93行添加，oldboy ALL=(ALL) /usr/sbin/useradd, /user/bin/rm</span>
+sudo -l <span class="c1">#验证已获得的权限</span>
+sudo useradd Alex21
+
+su root <span class="c1">#部分环境变量切换有变化</span>
+su - root <span class="c1">#全部环境变量切换有变化</span>
+
+<span class="c1">#sudo功能配置说明</span>
+<span class="c1">#1. 给更多权限</span>
+oldboy <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> /user/sbin/*, !/user/sbin/visudo, /usr/bin/*
+<span class="c1">#2. 不需要账号密码</span>
+oldboy <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> NOPASSWD: /user/sbin/*, !/user/sbin/visudo, /usr/bin/*
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="定时服务">定时服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#定时任务实现方式</span>
+<span class="c1">#日志文件需要定期进行切割处理</span>
+
+<span class="c1">#系统特殊目录，将脚本放到对应目录后自动执行：</span>
+/etc/cron.hourly
+/etc/corn.daily
+/etc/corn.weekly
+/etc/corn.monthly
+
+<span class="c1">#用户定时任务</span>
+crontab -l <span class="c1">#查看</span>
+crontab -e <span class="c1">#编辑</span>
+vim /var/spool/cron/root <span class="c1">#root用户设置的定时任务配置文件</span>
+vim /var/spool/cron/oldboy <span class="c1">#oldboy用户设置的定时任务配置文件</span>
+
+cat /etc/crontab <span class="c1">#查看规则</span>
+<span class="m">00</span> <span class="m">02</span> * * * <span class="c1">#每天2点</span>
+*/5 * * * * <span class="c1">#每5分钟</span>
+01-05 <span class="m">02</span> * * * <span class="c1">#2:01, 2:02, 2:03, 2:04, 2:05</span>
+<span class="m">00</span> 14,20 * * * <span class="c1">#每天14和20点</span>
+20/10 <span class="m">01</span> * * * <span class="c1">#1点20开始每隔10分钟执行一次</span>
+
+<span class="c1">#定时任务排查方法</span>
+cat /var/spool/cron/root <span class="c1">#检查文件</span>
+cat /car/log/cron <span class="c1">#检查日志</span>
+
+<span class="c1"># 规范：</span>
+<span class="c1"># 1. 需要有注释</span>
+<span class="c1"># 2. 尽量使用绝对路径</span>
+<span class="c1"># 3. 命令需要使用绝对路径（定时任务执行时，识别的PATH信息只有/usr/bin:/bin）</span>
+<span class="c1"># 4. 编写定时任务时，可以将输出到屏幕上的信息保存到黑洞里，避免占用磁盘空间</span>
+* * * * * sh test.sh <span class="p">&amp;</span>&gt;/dev/null
+<span class="c1"># 5. 编写定时任务，尽量不要产生屏幕输出信息</span>
+<span class="c1"># 6. 多个定时任务命令，最好使用脚本实现</span>
+<span class="c1"># 7. 定时任务中无法识别任务中的一些特殊符号</span>
+* * * * * /bin/date <span class="s2">&#34;+\%F \%T&#34;</span> &gt; /tmp/time.txt，使用转义字符
+<span class="c1"># 利用脚本编写任务</span>
+
+<span class="c1"># 补充：</span>
+<span class="c1"># 定时任务输出到屏幕上的信息都会以邮件的方式告知用户，mail放在如下目录/var/spool/mail/root，若关闭systemctl stop postfix，则会在如下目录中生成很多草稿/var/spool/postfix/maildrop/*</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="磁盘管理">磁盘管理</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#分区</span>
+<span class="c1">#1. 插入新硬盘10G</span>
+<span class="c1">#2. 检查是否识别到新磁盘</span> 
+ll /dev/sdb
+<span class="c1">#3. 对磁盘进行分区处理</span>
+fdisk -l <span class="c1">#查看分区信息</span>
+fdisk /dev/sdb <span class="c1">#对磁盘进行分区</span>
+d <span class="c1">#删除分区*****</span>
+g <span class="c1">#创建新的GPT分区表</span>
+l <span class="c1">#列出可以分区的类型</span>
+m <span class="c1">#输出帮助菜单</span>
+n <span class="c1">#新建一个分区*****</span>
+p <span class="c1">#输出分区结果信息*****</span>
+q <span class="c1">#不保存退出</span>
+t <span class="c1">#改变分区的系统id==改变分区类型</span>
+u <span class="c1">#改变分区方式，是否按照扇区划分</span>
+w <span class="c1">#保存退出，将分区的信息写入分区表*****</span>
+<span class="c1">#4. 让系统可以加载识别分区信息</span>
+partprobe /dev/sdb
+
+<span class="c1">#格式化</span>
+mkfs.xfs /dev/sdb1
+mkfs -t xfs /dev/sdb2
+ext3/4 <span class="c1">#centos6</span>
+xfs <span class="c1">#centos7 格式化效率较高，数据存储效率提升（数据库服务器）</span>
+
+<span class="c1">#挂载应用</span>
+mount /dev/sdb1 /mnt
+df -h <span class="c1">#检查是否挂载ok</span>
+
+<span class="c1">#自动挂载</span>
+vim /etc/rc.local <span class="c1">#放入开机启动</span>
+vim /etc/fstab <span class="c1">#修改磁盘挂载文件</span>
+<span class="c1">#uuid，挂载点，指定文件系统格式，defaults挂载参数，0不备份磁盘，0不检查磁盘</span>
+blkid <span class="c1">#获取UUID</span>
+
+<span class="c1"># 分区大于2TB的硬盘</span>
+<span class="c1"># 1. 使用parted命令进行分区</span>
+<span class="c1"># 2. 使用parted命令进行分区</span>
+mklabel gpt <span class="c1">#创建一个分区表，gpt可以创建多余4个的主分区</span>
+print <span class="c1">#显示分区信息</span>
+mkpart <span class="c1">#创建一个分区</span>
+quit <span class="c1">#退出分区状况</span>
+<span class="c1"># 3. 加载磁盘分区</span>
+partprobe /dev/sdc
+<span class="c1"># 4. 格式化</span>
+mkfs.xfs /dev/sdc1
+<span class="c1"># 5. 挂载</span>
+
+<span class="c1"># 企业磁盘常见问题</span>
+<span class="c1"># 1. 删除没用的数据</span>
+<span class="c1"># 2. 找出大的没用数据</span>
+find / -type f -size +xxx
+du -sh /* <span class="p">|</span> sort -h
+<span class="c1"># 3. inodes用完</span>
+df -i
+
+<span class="c1"># 如何调整swap空间</span>
+dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/tmp/1G <span class="nv">bs</span><span class="o">=</span>100M <span class="nv">count</span><span class="o">=</span><span class="m">10</span> <span class="c1">#创建1G大小文件</span>
+mkswap /tmp/1G <span class="c1">#指定空间作为swap空间</span>
+swapon /tmp/1G <span class="c1">#加载使用swap空间</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="其他知识">其他知识</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -ivh XXX.rpm <span class="c1">#手动安装软件</span>
+
+<span class="c1">#linux和windows主机之间传输数据</span>
+yum install -y lrzsz
+<span class="c1">#在linux上进行操作</span>
+rz -y <span class="c1">#从windows上下载重要数据信息</span>
+sz -y <span class="c1">#数据信息，从linux上上传重要数据到windows</span>
+
+dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/tmp/oldboy.txt <span class="nv">bs</span><span class="o">=</span>10M <span class="nv">count</span><span class="o">=</span><span class="m">100</span> <span class="c1">#创建1G大小文件</span>
+
+sort -n -k2 <span class="c1">#按照数字，按照第二列进行排序</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Charles Miao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-05-26
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/Linux-Admin-2/">
+            <span class="next-text nav-default">Linux基础 - Part2</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Charles Miao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
