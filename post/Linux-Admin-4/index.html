@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux基础 - Part4 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  交换机和路由器 网络层次模型 TCP三次握手和四次挥手 相关网络协议 子网和路由 网络服务 其他知识 " /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.72.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Linux-Admin-4/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Linux基础 - Part4" />
+<meta property="og:description" content="主要内容
+
+交换机和路由器
+网络层次模型
+TCP三次握手和四次挥手
+相关网络协议
+子网和路由
+网络服务
+其他知识
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-4/" />
+<meta property="article:published_time" content="2021-06-05T21:55:22+08:00" />
+<meta property="article:modified_time" content="2021-06-05T21:55:22+08:00" />
+<meta itemprop="name" content="Linux基础 - Part4">
+<meta itemprop="description" content="主要内容
+
+交换机和路由器
+网络层次模型
+TCP三次握手和四次挥手
+相关网络协议
+子网和路由
+网络服务
+其他知识
+">
+<meta itemprop="datePublished" content="2021-06-05T21:55:22&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-05T21:55:22&#43;08:00" />
+<meta itemprop="wordCount" content="3264">
+
+
+
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux基础 - Part4"/>
+<meta name="twitter:description" content="主要内容
+
+交换机和路由器
+网络层次模型
+TCP三次握手和四次挥手
+相关网络协议
+子网和路由
+网络服务
+其他知识
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux基础 - Part4</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-06-05 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 3264 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#交换机和路由器">交换机和路由器</a></li>
+    <li><a href="#网络层次模型">网络层次模型</a>
+      <ul>
+        <li><a href="#osi7层模型">OSI7层模型</a></li>
+        <li><a href="#osi7层模型建立主机与主机之间的通讯封装和解封装">OSI7层模型建立主机与主机之间的通讯(封装和解封装)</a></li>
+        <li><a href="#tcpip四层模型">TCP/IP四层模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#tcp三次握手和四次挥手">TCP三次握手和四次挥手</a>
+      <ul>
+        <li><a href="#tcp三次握手">TCP三次握手</a></li>
+        <li><a href="#tcp四次挥手">TCP四次挥手</a></li>
+        <li><a href="#tcp的十一种状态集">TCP的十一种状态集</a></li>
+      </ul>
+    </li>
+    <li><a href="#相关网络协议">相关网络协议</a>
+      <ul>
+        <li><a href="#dns解析原理">DNS解析原理</a></li>
+        <li><a href="#arp协议">ARP协议</a></li>
+      </ul>
+    </li>
+    <li><a href="#子网和路由">子网和路由</a>
+      <ul>
+        <li><a href="#系统静态路由配置">系统静态路由配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#网络服务">网络服务</a>
+      <ul>
+        <li><a href="#ssh服务">SSH服务</a></li>
+        <li><a href="#dhcp服务">DHCP服务</a></li>
+        <li><a href="#vsftp服务">vsftp服务</a></li>
+        <li><a href="#samba服务">samba服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#其他知识">其他知识</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="主要内容">主要内容</h1>
+<ul>
+<li>交换机和路由器</li>
+<li>网络层次模型</li>
+<li>TCP三次握手和四次挥手</li>
+<li>相关网络协议</li>
+<li>子网和路由</li>
+<li>网络服务</li>
+<li>其他知识</li>
+</ul>
+<h2 id="交换机和路由器">交换机和路由器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 交换机（广播），路由器（路由表）</span>
+
+<span class="c1"># 路由表信息如何生成</span>
+<span class="c1"># 1. 直连网络环境自动生成</span>
+<span class="c1"># 2. 利用手工配置，静态配置</span>
+<span class="c1"># 3. 利用路由协议自动生成，动态配置</span>
+
+<span class="c1"># 动态路由配置</span>
+<span class="c1"># RIP动态路由配置，把自动生成的发布出去</span>
+
+<span class="c1"># 网络架构设计方法：</span>
+<span class="c1"># 核心层：路由器，网关接口，实现和外网通讯，需要有冗余能力</span>
+<span class="c1"># 汇聚层：交换机，三层交换机，需要有冗余能力，策略控制</span>
+<span class="c1"># 接入层：交换机，二层交换机，终端设备接入网络</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%BA%A4%E6%8D%A2%E6%9C%BA&amp;%E8%B7%AF%E7%94%B1%E5%99%A8.GIF?raw=true" alt="switch_router"></p>
+<h2 id="网络层次模型">网络层次模型</h2>
+<h3 id="osi7层模型">OSI7层模型</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 应用层，应用程序接口规范</span>
+<span class="c1"># 表示层，数据转换加密压缩</span>
+<span class="c1"># 会话层，控制网络连接建立或者终止</span>
+<span class="c1"># 传输层，保证数据传输的可靠性</span>
+<span class="c1"># 网络层，可以实现透过路由找到目标网络，路由能力，三层设备</span>
+<span class="c1"># 数据链路层，可以实现透过交换找到真正目标主机，交换能力，二层设备</span>
+<span class="c1"># 物理层，指定一些网络物理设备标准，网卡，网线，光纤</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="osi7层模型建立主机与主机之间的通讯封装和解封装">OSI7层模型建立主机与主机之间的通讯(封装和解封装)</h3>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/OSI%E6%95%B0%E6%8D%AE%E5%B0%81%E5%8C%85%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Encapsulation">
+<img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/OSI%E4%BA%92%E8%81%94%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Decapsulation">
+<img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E4%B8%8E%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Encap_Decap"></p>
+<h3 id="tcpip四层模型">TCP/IP四层模型</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># TCP协议：传输控制协议，面向连接的网络协议，在线发送文件，数据传输可靠性高，传输效率低</span>
+<span class="c1"># UDP协议：用户报文协议，无连接的网络协议，离线发送文件，数据传输可靠性低，传输效率高</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/TCP%20IP%E7%9B%B8%E5%85%B3%E5%8D%8F%E8%AE%AE.JPG?raw=true" alt="protocol"></p>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/OSI%E6%A8%A1%E5%9E%8B%E5%92%8CTCP%20IP%E6%A8%A1%E5%9E%8B%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.JPG?raw=true" alt="OSI7_TCP_IP"></p>
+<h2 id="tcp三次握手和四次挥手">TCP三次握手和四次挥手</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 预备知识：</span>
+<span class="c1"># 源端口，目标端口</span>
+<span class="c1"># 端口号最多为65535，2的16次方</span>
+<span class="c1"># 控制字段</span>
+<span class="c1"># syn(1)，请求建立连接控制字段</span>
+<span class="c1"># fin(1)，请求断开连接控制字段</span>
+<span class="c1"># ack(1)，数据信息确认控制字段</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="tcp三次握手">TCP三次握手</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 主机A向主机B发送TCP报文，报文中控制字段syn置为1，请求建立连接</span>
+<span class="c1"># 2. 主机B向主机A发送TCP响应报文，报文中控制字段syn置为1，ack置为1</span>
+<span class="c1"># 3. 主机A向主机B发送TCP报文，报文中控制字段ack置为1，确认主机B发送信息已经接收到了</span>
+
+<span class="c1"># 1. 发送syn请求建立连接控制字段，发送seq序列号信息（X），第一个数据包的序列号默认为0</span>
+<span class="c1"># 2. 发送syn请求建立连接控制字段，同时还会发送ack确认控制字段</span>
+<span class="c1">#     发送seq序列号信息（Y），还会发送ACK确认号（X+1）信息（对上一个数据序列号信息进行确认）</span>
+<span class="c1"># 3. 发送ack确认控制字段，发送seq序列号信息（X+1），发送ack确认号（Y+1）</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%AE%80%E5%9B%BE.JPG?raw=true" alt="three_handshake"></p>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E4%B8%8E%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="three_handshake"></p>
+<h3 id="tcp四次挥手">TCP四次挥手</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 发送find请求断开连接控制字段</span>
+<span class="c1"># 2. 发送ack确认控制字段</span>
+<span class="c1"># 3. 发送find请求断开连接字段，发送ack确认字段</span>
+<span class="c1"># 4. 发送ack控制字段</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.JPG?raw=true" alt="four_wave"></p>
+<h3 id="tcp的十一种状态集">TCP的十一种状态集</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># TCP三次握手：5种状态</span>
+<span class="c1"># 0. 最开始2台主机都处于关闭状态	closed</span>
+<span class="c1"># 1. 服务端将相应服务进行开启		closed --- listen</span>
+<span class="c1"># 2. 客户端向服务端发出连接请求		closed --- syn_sent</span>
+<span class="c1"># 3. 服务端接收到连接请求，进行去确认	listen --- syn_rcvd</span>
+<span class="c1"># 4. 客户端再次进行确认		syn_sent --- established</span>
+<span class="c1"># 5. 服务器接收到确认信息		syn_rcvd --- established</span>
+
+<span class="c1"># TCP四次握手</span>
+<span class="c1"># 1. 客户端发送请求断开连接信息			established --- fin_wait1</span>
+<span class="c1"># 2. 服务器接收断开连接请求，并进行确认		established ---close_wait</span>
+<span class="c1"># 3. 客户端接收到了确认信息			fin_wait1 --- fin_wait2</span>
+<span class="c1"># 4. 服务端发送ack和fin字段			close_wait --- last_ack</span>
+<span class="c1"># 5. 客户端接收到请求断开连接信息，发送确认	fin_wait2 --- time wait</span>
+<span class="c1"># 6. 服务器端接收到确认信息			last_ack --- closed</span>
+<span class="c1"># 7. 客户端等待一段时间			time_wait --- closed</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%9B%86.JPG?raw=true" alt="three_handshake"></p>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%9B%86.JPG?raw=true" alt="four_wave"></p>
+<h2 id="相关网络协议">相关网络协议</h2>
+<h3 id="dns解析原理">DNS解析原理</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install -y bind-utils
+dig www.baidu.com <span class="c1">#查看运行解析信息</span>
+dig www.baidu.com +trace <span class="c1">#追踪解析过程</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/DNS1.JPG?raw=true" alt="dns1">
+<img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/DNS2.JPG?raw=true" alt="dns2">
+<img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/DNS3.JPG?raw=true" alt="dns3"></p>
+<h3 id="arp协议">ARP协议</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ARP，已知IP地址解析mac地址信息</span>
+<span class="c1"># 方法：在知道ip地址，不知道mac地址的情况下，发送一个广播到对应主机即可知道mac地址</span>
+<span class="c1"># 作用：减少交换网络中广播的产生</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/ARP.JPG?raw=true" alt="arp"></p>
+<h2 id="子网和路由">子网和路由</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#私网地址网段不能出现在公网路由器路由表中</span>
+<span class="c1">#不划分子网，会造成地址浪费，广播风暴，路有压力</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="系统静态路由配置">系统静态路由配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># centos6，route，和网络相关的命令使用net-tools</span>
+rpm -qf <span class="sb">`</span>which route<span class="sb">`</span>
+<span class="c1"># 静态默认路由：</span>
+<span class="c1"># 1. 编写网卡配置文件</span>
+<span class="c1"># 2. 利用命令临时配置</span>
+route add default gw 10.0.0.254
+route del default gw 10.0.0.254
+<span class="c1"># 静态网段路由：</span>
+route add  net 172.16.1.0 netmask 255.255.255.0 gw 192.168.1.1
+route del  net 172.16.1.0 netmask 255.255.255.0 gw 192.168.1.1
+<span class="c1"># 静态主机路由：</span>
+route add -host 10.0.3.201 dev eth1
+route del -host 10.0.3.201 dev eth1
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># centos7，ip route，和网络相关的命令使用iproute</span>
+rpm -qf <span class="sb">`</span>which ip<span class="sb">`</span>
+<span class="c1"># 静态默认路由：</span>
+<span class="c1"># 1. 编写网卡配置文件</span>
+<span class="c1"># 2. 利用命令临时配置</span>
+ip route add default via 10.0.0.2
+ip route del default via 10.0.0.2
+<span class="c1"># 静态网段路由：</span>
+ip route add  net 172.16.1.0 netmask 255.255.255.0 via 192.168.1.1
+ip route del  net 172.16.1.0 netmask 255.255.255.0 via 192.168.1.1
+<span class="c1"># 静态主机路由：</span>
+ip route add -host 10.0.3.201 via 10.0.1.2
+ip route del -host 10.0.3.201 via 10.0.1.2
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="网络服务">网络服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">nslookup <span class="c1">#域名解析命令</span>
+traceroute <span class="c1">#路由跟踪命令</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ssh服务">SSH服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#scp远程复制</span>
+scp root@192.168.44.2:/root/test.txt . <span class="c1">#下载</span>
+scp -r /root/123/ root@192.168.44.2/root <span class="c1">#上传</span>
+
+<span class="c1">#sftp文件传输和登录</span>
+sftp root@192.168.4.2
+ls <span class="c1">#查看服务器</span>
+<span class="nb">cd</span> <span class="c1">#切换服务器目录</span>
+lls <span class="c1">#查看本地数据</span>
+lcd <span class="c1">#切换本地目录</span>
+get <span class="c1">#下载</span>
+put <span class="c1">#上传</span>
+
+<span class="c1">#密钥对验证</span>
+ssh-keygen -t rsa <span class="c1">#step1:client端生成秘钥</span>
+<span class="c1">#step2:把公钥传到服务器端</span>
+cat id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys <span class="c1">#step3:将公钥上传到服务器端</span>
+chmod <span class="m">600</span> authorized_keys <span class="c1">#step4修改文件权限</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="dhcp服务">DHCP服务</h3>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/DHCP.JPG?raw=true" alt="dhcp"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 端口号</span>
+<span class="c1"># ipv4 udp67，udp68</span>
+<span class="c1"># ipv6 udp546，udp547</span>
+
+<span class="c1">#配置dhcp服务器</span>
+vi /etc/dhcp/dhcpd.conf
+service dhcpd restart
+
+<span class="c1">#配置客户端</span>
+vim /etc/sysconfig/network-scripts/ifcfg-eth0
+service network restart
+
+<span class="c1">#服务器端查看分配的地址</span>
+vim /var/lib/dhcpd/dhcpd.leases
+<span class="c1">#客户端查看分配的地址</span>
+vim /var/lib/dhclient/dhclient-eth0.leases
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="vsftp服务">vsftp服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 主动模式和被动模式</span>
+<span class="c1"># 主动模式端口为20，被动模式是随机端口</span>
+<span class="c1"># 主动模式（默认模式），client端防火墙可能会屏蔽20端口，client可能无法访问ftp服务</span>
+<span class="c1"># 被动模式，client端主动访问服务器，服务器端口可控，防火墙设定可控，不存在访问不了的问题</span>
+
+vim /etc/vsftpd/vsftpd.conf <span class="c1">#配置文件</span>
+
+<span class="c1">#用户控制列表文件</span>
+/etc/vsftpd/ftpusers
+/etc/vsftpd/user_list
+
+<span class="c1"># 匿名访问注意事项</span>
+<span class="c1"># 1. 默认上传目录：/var/ftp/pub/</span>
+<span class="c1"># 2. 如果允许上传，需要服务权限和系统目录权限同时允许</span>
+<span class="c1"># 3. vsftp服务的伪用户是ftp</span>
+
+<span class="c1"># 本地用户访问</span>
+<span class="c1"># 1. 本地用户账号，如果允许上传，需要服务权限和系统目录权限同时允许</span>
+<span class="c1"># 2. chroot_local_user=YES，开启用户目录限制，把用户限制在用户主目录中</span>
+<span class="c1"># 3. chroot_list_enable=YES</span>
+<span class="c1"># chroot_list_file=/etc/vsftpd/chroot_list，此文件中的用户可以随便切换目录</span>
+
+<span class="c1"># 虚拟用户访问</span>
+<span class="c1"># 1. 添加虚拟用户口令文件</span>
+<span class="c1"># 2. 生成虚拟用户口令认证文件（yum -y install db4-utils，db_load指令将文本转变成认证数据库）</span>
+<span class="c1"># 3. 编辑vsftpd的PAM认证文件，vi /etc/pam.d/vsftpd</span>
+<span class="c1"># 4. 建立本地映射用户并设置宿主目录权限</span>
+<span class="c1"># useradd -d /home/vftproot -s /sbin/nologin vuser</span>
+<span class="c1"># chmod 755 /home/vftproot</span>
+<span class="c1"># 5. 修改配置文件</span>
+<span class="c1"># guest_enable=YES</span>
+<span class="c1"># guest_username=vuser</span>
+<span class="c1"># pam_service_name=vsftpd</span>
+<span class="c1"># 6. 重启vsftpd服务，并测试</span>
+<span class="c1"># 7. 调整虚拟用户权限</span>
+<span class="c1"># anonymous_enable=NO</span>
+<span class="c1"># anon_upload_enable=YES</span>
+<span class="c1"># anon_mkdir_write_enable=YES</span>
+<span class="c1"># anon_other_write_enable=YES</span>
+
+<span class="c1"># 为每个虚拟用户配置不同的权限</span>
+<span class="c1"># 1. 修改配置文件</span>
+<span class="c1"># user_config_dir=/etc/vsftpd/vusers_dir</span>
+<span class="c1"># 2. 为每个虚拟用户建立配置文件</span>
+<span class="c1"># vim /etc/vsftpd/vusers_dir/cangls</span>
+<span class="c1"># anon_upload_enable=YES</span>
+<span class="c1"># anon_mkdir_write_enable=YES</span>
+<span class="c1"># anon_other_write_enable=YES</span>
+<span class="c1"># local_root=/tmp/vcangls</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="samba服务">samba服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#samba安装</span>
+service smb start
+service nmb start
+
+<span class="c1">#相关文件</span>
+/etc/samba/smb.conf
+/etc/samba/lmhosts
+/etc/samba/smbpasswd
+/etc/samba/smbusers <span class="c1">#用户别名，用于适应不同操作系统中用户名习惯</span>
+testparm <span class="c1">#监测配置文件是否正确</span>
+
+<span class="c1"># share级别：</span>
+<span class="c1"># chown nobody /study/，share方式共享目录时，需要将目录改为所有用户可以访问</span>
+<span class="c1"># 创建的共享目录需要修改所有者，否则无法正常访问（系统权限和配置文件里的权限都需要允许）</span>
+
+<span class="c1">#linux客户端访问</span>
+smbclient -L //192.168.123.210 <span class="c1">#查看主机共享资源</span>
+smbclient //192.168.123.210/share <span class="c1">#访问共享目录，指令类似ftp</span>
+
+<span class="c1">#user级别：</span>
+smbpasswd -a username <span class="c1">#为系统用户单独设定samba密码</span>
+<span class="c1">#ftp建议使用虚拟用户，从安全性考虑，虚拟用户不可以登录系统</span>
+pdbedit -a -u username <span class="c1">#同smbpasswd命令</span>
+pdbedit -L <span class="c1">#查看已经存在samba用户</span>
+pdbedit -x -u username <span class="c1">#删除samba用户</span>
+smbpasswd -x username <span class="c1">#删除samba用户</span>
+
+<span class="c1"># 多用户，多用户，多权限设定</span>
+<span class="c1"># 1. 先设定文件夹，和samba配置档案（可查看，可写），不设定特定用户权限</span>
+<span class="c1"># 2. 再设定文件夹权限700，chomd 700 share_folder</span>
+<span class="c1"># 3. 创建samba密码，smbpasswd -a username</span>
+<span class="c1"># 4. 使用acl指令设定特定用户权限，setfacl -m u:username:rwx share_folder/</span>
+<span class="c1"># 5. 查询权限设定结果，getfacl share_folder/</span>
+
+mount -t cifs -o <span class="nv">username</span><span class="o">=</span>username //ip/share_folder /local_folder <span class="c1">#挂载到本地使用</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="其他知识">其他知识</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">netstat -an <span class="p">|</span> grep ESTABLISHED <span class="c1">#查看client端连接数</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Charles Miao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-06-05
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/Linux-Admin-3/">
+            <span class="next-text nav-default">Linux基础 - Part3</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Charles Miao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
