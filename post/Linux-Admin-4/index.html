@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  交换机和路由器 网络层次模型 TCP三次握手和四次挥手 相关网络协议 子网和路由 网络服务 其他知识 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  交换机和路由器 网络层次模型 TCP三次握手和四次挥手 相关服务和协议 子网和路由 网络服务 其他知识 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -46,7 +46,7 @@
 交换机和路由器
 网络层次模型
 TCP三次握手和四次挥手
-相关网络协议
+相关服务和协议
 子网和路由
 网络服务
 其他知识
@@ -61,14 +61,14 @@ TCP三次握手和四次挥手
 交换机和路由器
 网络层次模型
 TCP三次握手和四次挥手
-相关网络协议
+相关服务和协议
 子网和路由
 网络服务
 其他知识
 ">
 <meta itemprop="datePublished" content="2021-06-05T21:55:22&#43;08:00" />
 <meta itemprop="dateModified" content="2021-06-05T21:55:22&#43;08:00" />
-<meta itemprop="wordCount" content="3264">
+<meta itemprop="wordCount" content="3301">
 
 
 
@@ -79,7 +79,7 @@ TCP三次握手和四次挥手
 交换机和路由器
 网络层次模型
 TCP三次握手和四次挥手
-相关网络协议
+相关服务和协议
 子网和路由
 网络服务
 其他知识
@@ -157,7 +157,7 @@ TCP三次握手和四次挥手
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 3264 字 </span>
+          <span class="more-meta"> 约 3301 字 </span>
           <span class="more-meta"> 预计阅读 7 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -174,6 +174,9 @@ TCP三次握手和四次挥手
         <li><a href="#osi7层模型">OSI7层模型</a></li>
         <li><a href="#osi7层模型建立主机与主机之间的通讯封装和解封装">OSI7层模型建立主机与主机之间的通讯(封装和解封装)</a></li>
         <li><a href="#tcpip四层模型">TCP/IP四层模型</a></li>
+        <li><a href="#四层模型的加密和解密">四层模型的加密和解密</a></li>
+        <li><a href="#四层模型相关协议">四层模型相关协议</a></li>
+        <li><a href="#4层和7层模型对比">4层和7层模型对比</a></li>
       </ul>
     </li>
     <li><a href="#tcp三次握手和四次挥手">TCP三次握手和四次挥手</a>
@@ -183,7 +186,7 @@ TCP三次握手和四次挥手
         <li><a href="#tcp的十一种状态集">TCP的十一种状态集</a></li>
       </ul>
     </li>
-    <li><a href="#相关网络协议">相关网络协议</a>
+    <li><a href="#相关服务和协议">相关服务和协议</a>
       <ul>
         <li><a href="#dns解析原理">DNS解析原理</a></li>
         <li><a href="#arp协议">ARP协议</a></li>
@@ -213,11 +216,17 @@ TCP三次握手和四次挥手
 <li>交换机和路由器</li>
 <li>网络层次模型</li>
 <li>TCP三次握手和四次挥手</li>
-<li>相关网络协议</li>
+<li>相关服务和协议</li>
 <li>子网和路由</li>
 <li>网络服务</li>
 <li>其他知识</li>
 </ul>
+<blockquote>
+<p><a href="https://github.com/Charles-Miao/Linux/blob/master/Linux%E5%9F%BA%E7%A1%80/%E7%AC%94%E8%AE%B025~26.txt">详细笔记1</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/Charles-Miao/Linux/blob/master/Linux%E5%9F%BA%E7%A1%80/%E7%AC%94%E8%AE%B025~26%E8%A1%A5%E5%85%85.txt">详细笔记2</a></p>
+</blockquote>
 <h2 id="交换机和路由器">交换机和路由器</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -278,8 +287,7 @@ TCP三次握手和四次挥手
 </div>
 </div><h3 id="osi7层模型建立主机与主机之间的通讯封装和解封装">OSI7层模型建立主机与主机之间的通讯(封装和解封装)</h3>
 <p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/OSI%E6%95%B0%E6%8D%AE%E5%B0%81%E5%8C%85%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Encapsulation">
-<img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/OSI%E4%BA%92%E8%81%94%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Decapsulation">
-<img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E4%B8%8E%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Encap_Decap"></p>
+<img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/OSI%E4%BA%92%E8%81%94%E6%95%B0%E6%8D%AE%E5%8C%85%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Decapsulation"></p>
 <h3 id="tcpip四层模型">TCP/IP四层模型</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -291,7 +299,11 @@ TCP三次握手和四次挥手
 <span class="c1"># UDP协议：用户报文协议，无连接的网络协议，离线发送文件，数据传输可靠性低，传输效率高</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/TCP%20IP%E7%9B%B8%E5%85%B3%E5%8D%8F%E8%AE%AE.JPG?raw=true" alt="protocol"></p>
+</div><h3 id="四层模型的加密和解密">四层模型的加密和解密</h3>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E4%B8%8E%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="Encap_Decap"></p>
+<h3 id="四层模型相关协议">四层模型相关协议</h3>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/TCP%20IP%E7%9B%B8%E5%85%B3%E5%8D%8F%E8%AE%AE.JPG?raw=true" alt="protocol"></p>
+<h3 id="4层和7层模型对比">4层和7层模型对比</h3>
 <p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/OSI%E6%A8%A1%E5%9E%8B%E5%92%8CTCP%20IP%E6%A8%A1%E5%9E%8B%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.JPG?raw=true" alt="OSI7_TCP_IP"></p>
 <h2 id="tcp三次握手和四次挥手">TCP三次握手和四次挥手</h2>
 <div class="highlight"><div class="chroma">
@@ -320,25 +332,29 @@ TCP三次握手和四次挥手
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 主机A向主机B发送TCP报文，报文中控制字段syn置为1，请求建立连接</span>
 <span class="c1"># 2. 主机B向主机A发送TCP响应报文，报文中控制字段syn置为1，ack置为1</span>
 <span class="c1"># 3. 主机A向主机B发送TCP报文，报文中控制字段ack置为1，确认主机B发送信息已经接收到了</span>
-
-<span class="c1"># 1. 发送syn请求建立连接控制字段，发送seq序列号信息（X），第一个数据包的序列号默认为0</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%AE%80%E5%9B%BE.JPG?raw=true" alt="three_handshake"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 发送syn请求建立连接控制字段，发送seq序列号信息（X），第一个数据包的序列号默认为0</span>
 <span class="c1"># 2. 发送syn请求建立连接控制字段，同时还会发送ack确认控制字段</span>
 <span class="c1">#     发送seq序列号信息（Y），还会发送ACK确认号（X+1）信息（对上一个数据序列号信息进行确认）</span>
 <span class="c1"># 3. 发送ack确认控制字段，发送seq序列号信息（X+1），发送ack确认号（Y+1）</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%AE%80%E5%9B%BE.JPG?raw=true" alt="three_handshake"></p>
-<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E6%95%B0%E6%8D%AE%E5%B0%81%E8%A3%85%E4%B8%8E%E8%A7%A3%E5%B0%81%E8%A3%85%E8%BF%87%E7%A8%8B.JPG?raw=true" alt="three_handshake"></p>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.JPG?raw=true" alt="three_handshake_detail"></p>
 <h3 id="tcp四次挥手">TCP四次挥手</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -358,22 +374,13 @@ TCP三次握手和四次挥手
 <h3 id="tcp的十一种状态集">TCP的十一种状态集</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># TCP三次握手：5种状态</span>
@@ -383,8 +390,22 @@ TCP三次握手和四次挥手
 <span class="c1"># 3. 服务端接收到连接请求，进行去确认	listen --- syn_rcvd</span>
 <span class="c1"># 4. 客户端再次进行确认		syn_sent --- established</span>
 <span class="c1"># 5. 服务器接收到确认信息		syn_rcvd --- established</span>
-
-<span class="c1"># TCP四次握手</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%9B%86.JPG?raw=true" alt="three_handshake"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># TCP四次挥手</span>
 <span class="c1"># 1. 客户端发送请求断开连接信息			established --- fin_wait1</span>
 <span class="c1"># 2. 服务器接收断开连接请求，并进行确认		established ---close_wait</span>
 <span class="c1"># 3. 客户端接收到了确认信息			fin_wait1 --- fin_wait2</span>
@@ -394,9 +415,8 @@ TCP三次握手和四次挥手
 <span class="c1"># 7. 客户端等待一段时间			time_wait --- closed</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%9B%86.JPG?raw=true" alt="three_handshake"></p>
-<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%9B%86.JPG?raw=true" alt="four_wave"></p>
-<h2 id="相关网络协议">相关网络协议</h2>
+</div><p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Network/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E7%8A%B6%E6%80%81%E5%8F%98%E5%8C%96%E9%9B%86.JPG?raw=true" alt="four_wave"></p>
+<h2 id="相关服务和协议">相关服务和协议</h2>
 <h3 id="dns解析原理">DNS解析原理</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
