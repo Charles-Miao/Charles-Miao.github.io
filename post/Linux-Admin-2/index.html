@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.72.0 with theme even" />
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
 
 
 <link rel="canonical" href="https://Charles-Miao.github.io/post/Linux-Admin-2/" />
@@ -53,9 +53,10 @@ awk
 其他知识
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-2/" />
-<meta property="article:published_time" content="2021-05-25T21:56:36+08:00" />
-<meta property="article:modified_time" content="2021-05-25T21:56:36+08:00" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-2/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-05-25T21:56:36&#43;08:00" />
+<meta property="article:modified_time" content="2021-05-25T21:56:36&#43;08:00" />
+
 <meta itemprop="name" content="Linux基础 - Part2">
 <meta itemprop="description" content="主要内容
 
@@ -67,13 +68,9 @@ find
 sed
 awk
 其他知识
-">
-<meta itemprop="datePublished" content="2021-05-25T21:56:36&#43;08:00" />
+"><meta itemprop="datePublished" content="2021-05-25T21:56:36&#43;08:00" />
 <meta itemprop="dateModified" content="2021-05-25T21:56:36&#43;08:00" />
 <meta itemprop="wordCount" content="3201">
-
-
-
 <meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux基础 - Part2"/>
 <meta name="twitter:description" content="主要内容
@@ -613,7 +610,7 @@ sed <span class="s1">&#39;s#test#test2#g&#39;</span> 文件信息
 ip a s eth0 <span class="p">|</span> sed -n <span class="s1">&#39;3p&#39;</span> <span class="p">|</span> sed -r <span class="s1">&#39;s#^.*net(.*)/24.*#\1#g&#39;</span>
 ip a s eth0 <span class="p">|</span> sed -rn <span class="s1">&#39;3s#^.*net(.*)/24.*#\1#gp&#39;</span>
 sed -i.bak <span class="s1">&#39;s#test#test2#g&#39;</span> person.txt <span class="c1">#在修改的同时生成一个person.txt.bak的备份文件</span>
-ls oldboy*.txt <span class="p">|</span> sed -r <span class="s1">&#39;s#(.*)txt#mv &amp; \1jpg#g&#39;</span> <span class="p">|</span> bash <span class="c1">#批量修改拓展名</span>	
+ls oldboy*.txt <span class="p">|</span> sed -r <span class="s1">&#39;s#(.*)txt#mv &amp; \1jpg#g&#39;</span> <span class="p">|</span> bash <span class="c1">#批量修改拓展名	</span>
 rename .jpg .txt oldboy*.jpg <span class="c1">#批量修改拓展名</span>
 
 </code></pre></td></tr></table>
@@ -800,7 +797,7 @@ vimdiff path1 path2
 date <span class="s2">&#34;+%F %T&#34;</span>
 date <span class="s2">&#34;+%y-%m-%d %H:%M:%S&#34;</span>
 date -s <span class="s2">&#34;&#34;</span> <span class="c1">#设定时间</span>
-date +%F -d <span class="s2">&#34;+1day&#34;</span> <span class="c1">#显示未来和历史时间</span> 
+date +%F -d <span class="s2">&#34;+1day&#34;</span> <span class="c1">#显示未来和历史时间 </span>
 ntpdate ntp1.aliyun.com <span class="c1">#时间同步</span>
 
 yum install -y lrzsz <span class="c1">#windows和linux文件传输</span>
@@ -914,7 +911,7 @@ yum install -y lrzsz <span class="c1">#windows和linux文件传输</span>
 
 
 
-<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
 
 
 

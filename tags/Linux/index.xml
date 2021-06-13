@@ -6,11 +6,7 @@
     <description>Recent content in Linux on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 05 Jun 2021 21:55:22 +0800</lastBuildDate>
-    
-	<atom:link href="https://Charles-Miao.github.io/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 05 Jun 2021 21:55:22 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux基础 - Part4</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-4/</link>
