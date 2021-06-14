@@ -9,28 +9,14 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/</loc>
-    <lastmod>2021-06-07T23:19:19+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/post/Linux-Admin-5/</loc>
-    <lastmod>2021-06-07T23:19:19+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/post/</loc>
-    <lastmod>2021-06-07T23:19:19+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://Charles-Miao.github.io/categories/</loc>
+    <lastmod>2021-06-05T21:55:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/</loc>
     <lastmod>2021-06-05T21:55:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -45,6 +31,13 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/post/Linux-Admin-4/</loc>
+    <lastmod>2021-06-05T21:55:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/</loc>
     <lastmod>2021-06-05T21:55:22+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
