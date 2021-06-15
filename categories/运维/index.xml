@@ -6,7 +6,21 @@
     <description>Recent content in 运维 on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 05 Jun 2021 21:55:22 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Jun 2021 23:19:19 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux基础 - Part5</title>
+      <link>https://Charles-Miao.github.io/post/Linux-Admin-5/</link>
+      <pubDate>Mon, 07 Jun 2021 23:19:19 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Linux-Admin-5/</guid>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;备份服务器&lt;/li&gt;
+&lt;li&gt;存储服务器&lt;/li&gt;
+&lt;li&gt;实时同步服务&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
     <item>
       <title>Linux基础 - Part4</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-4/</link>

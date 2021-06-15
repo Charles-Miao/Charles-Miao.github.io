@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Linux Admin 5 - Charles&#39;s Blog</title>
+  <title>Linux基础 - Part5 - Charles&#39;s Blog</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="test" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  备份服务器 存储服务器 实时同步服务 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,20 +40,35 @@
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="Linux Admin 5" />
-<meta property="og:description" content="test" />
+<meta property="og:title" content="Linux基础 - Part5" />
+<meta property="og:description" content="主要内容
+
+备份服务器
+存储服务器
+实时同步服务
+" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-5/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-06-07T23:19:19&#43;08:00" />
 <meta property="article:modified_time" content="2021-06-07T23:19:19&#43;08:00" />
 
-<meta itemprop="name" content="Linux Admin 5">
-<meta itemprop="description" content="test"><meta itemprop="datePublished" content="2021-06-07T23:19:19&#43;08:00" />
+<meta itemprop="name" content="Linux基础 - Part5">
+<meta itemprop="description" content="主要内容
+
+备份服务器
+存储服务器
+实时同步服务
+"><meta itemprop="datePublished" content="2021-06-07T23:19:19&#43;08:00" />
 <meta itemprop="dateModified" content="2021-06-07T23:19:19&#43;08:00" />
-<meta itemprop="wordCount" content="1">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux Admin 5"/>
-<meta name="twitter:description" content="test"/>
+<meta itemprop="wordCount" content="3981">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux基础 - Part5"/>
+<meta name="twitter:description" content="主要内容
+
+备份服务器
+存储服务器
+实时同步服务
+"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -120,13 +135,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Linux Admin 5</h1>
+      <h1 class="post-title">Linux基础 - Part5</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2021-06-07 </span>
-        
-          <span class="more-meta"> 约 1 字 </span>
-          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 3981 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
@@ -134,11 +151,687 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content">
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#备份服务器">备份服务器</a>
+      <ul>
+        <li><a href="#rsync软件使用方法">rsync软件使用方法</a></li>
+        <li><a href="#rsync守护进程模式搭建">rsync守护进程模式搭建</a></li>
+        <li><a href="#rsync命令的常用参数">rsync命令的常用参数</a></li>
+        <li><a href="#企业应用rsync技巧">企业应用rsync技巧</a></li>
+        <li><a href="#企业全网备份项目">企业全网备份项目</a></li>
+      </ul>
+    </li>
+    <li><a href="#存储服务器">存储服务器</a>
+      <ul>
+        <li><a href="#nfs服务介绍">nfs服务介绍</a></li>
+        <li><a href="#nfs部署流程">NFS部署流程</a></li>
+        <li><a href="#nfs服务端详细配置说明">nfs服务端详细配置说明</a></li>
+        <li><a href="#nfs客户端详细配置说明">nfs客户端详细配置说明</a></li>
+        <li><a href="#nfs服务挂载不上排查方法">NFS服务挂载不上排查方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#实时同步服务">实时同步服务</a></li>
+  </ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
-      <h1 id="test">test</h1>
+      <h1 id="主要内容">主要内容</h1>
+<ul>
+<li>备份服务器</li>
+<li>存储服务器</li>
+<li>实时同步服务</li>
+</ul>
+<blockquote>
+<p><a href="https://github.com/Charles-Miao/Linux/blob/master/Linux%E5%9F%BA%E7%A1%80/%E7%AC%94%E8%AE%B027~31.txt">详细笔记</a></p>
+</blockquote>
+<h2 id="备份服务器">备份服务器</h2>
+<h3 id="rsync软件使用方法">rsync软件使用方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#rsync软件使用方法</span>
+rsync /etc/hosts /tmp <span class="c1">#替代本地备份cp指令</span>
+rsync -rp /etc/hosts root@172.16.1.41:/backup <span class="c1">#替代远程备份scp指令</span>
+rsync -rp /oldboy 172.16.1.41:/backup <span class="c1">#备份目录没有斜线，备份目录自身</span>
+rsync -rp /oldboy/ 172.16.1.41:/backup <span class="c1">#备份目录有斜线，备份目录下面的子文件</span>
+rsync -rp --delete /null/ 172.16.1.41:/backup <span class="c1">#镜像同步，删除速度比rm指令快</span>
+rsync /etc/hosts <span class="c1">#替代ls指令,查看此文件</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="rsync守护进程模式搭建">rsync守护进程模式搭建</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#1. 下载安装软件</span>
+rpm -qa <span class="p">|</span> grep rsync
+yum install -y rsync
+<span class="c1">#2. 编写配置文件</span>
+vim /etc/rsyncd.conf
+
+<span class="nv">uid</span> <span class="o">=</span> rsync			<span class="c1">#指定管理备份目录的用户</span>
+<span class="nv">gid</span> <span class="o">=</span> rsync			<span class="c1">#指定管理备份目录的用户组</span>
+<span class="nv">port</span> <span class="o">=</span> 873			<span class="c1">#定义rsync备份服务的网络端口号</span>
+fake <span class="nv">super</span> <span class="o">=</span> yes			<span class="c1">#将rsync虚拟用户伪装为一个超级管理员用户</span>
+use <span class="nv">chroot</span> <span class="o">=</span> no			<span class="c1">#和安全相关的配置</span>
+max <span class="nv">connections</span> <span class="o">=</span> 200		<span class="c1">#最大连接数</span>
+<span class="nv">timeout</span> <span class="o">=</span> 300			<span class="c1">#超时时间（单位sec）</span>
+pid <span class="nv">file</span> <span class="o">=</span> /var/run/rsyncd.pid		<span class="c1">#进程号码信息：1. 可以快速kill进程（kill `cat /var/run/rsyncd.pid`）；2. 判断一个服务是否正常运行</span>
+lock <span class="nv">file</span> <span class="o">=</span> /var/run/rsync.lock		<span class="c1">#锁文件</span>
+log <span class="nv">file</span> <span class="o">=</span> /var/log/rsyncd.log		<span class="c1">#日志文件</span>
+ignore errors			<span class="c1">#忽略简单错误</span>
+<span class="nb">read</span> <span class="nv">only</span> <span class="o">=</span> <span class="nb">false</span>			<span class="c1">#指定备份目录可读可写</span>
+<span class="nv">list</span> <span class="o">=</span> <span class="nb">false</span>			<span class="c1">#禁止客户端list出所有模块（rsync rsync_backup@172.16.1.41::）</span>
+hosts <span class="nv">allow</span> <span class="o">=</span> 172.16.1.0/24		<span class="c1">#白名单</span>
+hosts <span class="nv">deny</span> <span class="o">=</span> 0.0.0.0/32		<span class="c1">#黑名单</span>
+auth <span class="nv">users</span> <span class="o">=</span> rsync_bakcup		<span class="c1">#指定认证用户</span>
+secrets <span class="nv">file</span> <span class="o">=</span> /etc/rsync.password	<span class="c1">#认证用户密码文件（用户和密码信息）</span>
+<span class="o">[</span>backup<span class="o">]</span>				<span class="c1">#模块信息</span>
+<span class="nv">comment</span> <span class="o">=</span> <span class="s2">&#34;backup dir by charles&#34;</span>	
+<span class="nv">path</span> <span class="o">=</span> /backup			<span class="c1">#模块中配置参数，指定备份目录</span>
+
+<span class="c1">#3. 创建rsync服务的虚拟用户</span>
+useradd rsync -M -s /sbin/nologin
+
+<span class="c1">#4. 创建备份服务认证密码文件</span>
+<span class="nb">echo</span> <span class="s2">&#34;rsync_backup:241668@WSX&#34;</span> &gt; /etc/rsync.password
+chmod <span class="m">600</span> /etc/rsync.password
+
+<span class="c1">#5. 创建备份目录并修改属主属组信息</span>
+mkdir /backup
+chown rsync.rsync /backup/
+
+<span class="c1">#6. 启动并设定开机运行</span>
+systemctl start rsyncd
+systemctl <span class="nb">enable</span> rsyncd
+
+<span class="c1">#7. 测试</span>
+rsync -avz /etc/hosts rsync_backup@172.16.1.41::backup
+
+<span class="c1"># 客户端配置</span>
+
+<span class="c1">#1. 创建密码文件</span>
+<span class="nb">echo</span> <span class="s2">&#34;241668@WSX&#34;</span> &gt; /etc/rsync.password
+chmod <span class="m">600</span> /etc/rsync.password
+
+<span class="c1">#2. 进行免交互传输数据测试</span>
+rsync -avz /etc/hosts rsync_bakcup@172.16.1.41::backup --password-file<span class="o">=</span>/etc/rsync.password
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="rsync命令的常用参数">rsync命令的常用参数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># -v，显示详细传输信息</span>
+<span class="c1"># -a，命令的归档参数，包含rtopgDl参数</span>
+<span class="c1"># -r，递归参数</span>
+<span class="c1"># -t，保持文件属性信息时间信息不变（修改时间）</span>
+<span class="c1"># -o，保持文件属主信息不变</span>
+<span class="c1"># -g，保持文件属组信息不变</span>
+<span class="c1"># -p，保持文件权限信息不变</span>
+<span class="c1"># -D，保持设备文件信息不变</span>
+<span class="c1"># -l，保持链接文件属性不变</span>
+<span class="c1"># -L，保持链接文件数据信息不变</span>
+<span class="c1"># -P，显示文件传输进度</span>
+<span class="c1"># --exclude=PATTERN，排除指定数据不被传输</span>
+<span class="c1"># --exclude-from=file，排除指定数据不被传输（批量排除）</span>
+<span class="c1"># --bwlimit=RATE，限制传输的速率</span>
+<span class="c1"># --delete，镜像同步</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="企业应用rsync技巧">企业应用rsync技巧</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 添加多模块，可以让不同部门的资料拷贝到不同目录中</span>
+<span class="c1"># 2. 排除功能，--exclude-from=file</span>
+<span class="c1"># 3. 直接在备份服务器穿件备份目录，不同服务器备份到不同目录</span>
+rsync -avz /etc/hosts rsync_bakcup@172.16.1.41::backup/172.16.1.21/ --password-file<span class="o">=</span>/etc/rsync.password
+<span class="c1"># 4. 守护进程的访问限制</span>
+<span class="c1"># 4.1 只有白名单，除了白名单之外的都不能传</span>
+<span class="c1"># 4.2 只有黑名单，除了黑名单之外的都能传</span>
+<span class="c1"># 4.3 有白名单和黑名单，除了黑名单之外的都能传</span>
+<span class="c1"># 4.4 白名单优先级高于黑名单</span>
+<span class="c1"># 5. 禁止客户端list出所有模块（rsync rsync_backup@172.16.1.41::）</span>
+<span class="nv">list</span> <span class="o">=</span> <span class="nb">false</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="企业全网备份项目">企业全网备份项目</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#客户端：</span>
+mkdir -p /backup/10.0.0.31/
+
+<span class="nb">cd</span> / <span class="c1">#使用相对路径，绝对路径会有提示</span>
+tar zchf /backup/10.0.0.31/system_backup_<span class="k">$(</span>date +%F_week%w<span class="k">)</span>.tar.gz ./var/spool/cron/root ./etc/rc.local ./server/scripts ./etc/sysconfig/iptables
+tar zchf /bakcup/10.0.0.31/www_backup_<span class="k">$(</span>date +%F_week%w<span class="k">)</span>.tar.gz ./var/html/www
+tar zchf /bakcup/10.0.0.31/www_log_bakcup_<span class="k">$(</span>date +%F_week%w<span class="k">)</span>.tar.gz ./app/logs
+<span class="c1">#补充：tar命令-h参数，将连接文件所指向的源文件进行保存备份</span>
+
+find /bakcup -type f -mtime +7 <span class="p">|</span> xargs rm <span class="c1">#删除旧文件</span>
+
+find /backup/ -type f -mtime -1 ! -name <span class="s2">&#34;finger*&#34;</span> <span class="p">|</span>xargs md5sum &gt;&gt;/backup/10.0.0.31/finger.txt <span class="c1">#生成指纹文件</span>
+
+rsync -avz /backup/ rsync_backup@172.16.1.41::backup --password-file<span class="o">=</span>/etc/rsync.password
+
+<span class="c1">#服务端：</span>
+mkdir -p /backup
+
+find /backup/ -type f -mtime +180 ! -name <span class="s2">&#34;*week1.tar.gz&#34;</span> <span class="c1">#删除180天前，并排除周一的数据</span>
+
+find /backup/ -type f -name <span class="s2">&#34;finger.txt&#34;</span> <span class="p">|</span> xargs md5sum -c <span class="c1">#进行md5验证</span>
+
+<span class="c1"># 发送邮件</span>
+<span class="c1">#1. 编写liunx服务邮件相关配置文件</span>
+vim /etc/mail.rc
+<span class="nb">set</span> <span class="nv">from</span><span class="o">=</span>fengkuang33@163.com <span class="nv">smtp</span><span class="o">=</span>smtp.163.com
+<span class="nb">set</span> smtp-auth-user<span class="o">=</span>邮箱账号 smtp-auth-password<span class="o">=</span>登录邮箱密码 smtp-auth<span class="o">=</span>login
+systemctl restart postfix.service
+<span class="c1">#2. 发送邮件测试</span>
+<span class="nb">echo</span> <span class="s2">&#34;邮箱发送测试&#34;</span> <span class="p">|</span> mail -s <span class="s2">&#34;邮箱测试&#34;</span> 1017635452@qq.com
+mail -s <span class="s2">&#34;邮箱测试&#34;</span> 1017635452@qq.com &lt; /temp/check.txt
+
+<span class="c1"># 编写脚本</span>
+sh -x backup.sh <span class="c1">#显示执行过程</span>
+hostname -i <span class="c1">#获取内网地址</span>
+hostname -I <span class="c1">#获取所有地址</span>
+
+<span class="c1"># client端：</span>
+<span class="c1">#!/bin/bash</span>
+<span class="nv">Backup_dir</span><span class="o">=</span><span class="s2">&#34;/backup&#34;</span>
+<span class="nv">IP_info</span><span class="o">=</span><span class="k">$(</span>hostname -i<span class="k">)</span>
+<span class="c1">#create backup dir</span>
+mkdir -p <span class="nv">$Backup_dir</span>/<span class="nv">$IP_info</span>
+<span class="c1">#tar backup data</span>
+<span class="nb">cd</span> /
+tar zchf <span class="nv">$Backup_dir</span>/<span class="nv">$IP_info</span>/system_backup_<span class="k">$(</span>date +%F_week%w<span class="k">)</span>.tar.gz ./var/spool/cron/root ./etc/rc.local ./server/scripts ./etc/sysconfig/iptables
+<span class="c1">#del 7 day ago data</span>
+find <span class="nv">$Backup_dir</span> -type f -mtime +7 <span class="p">|</span> xargs rm 2&gt;/dev/null
+<span class="c1">#create finger file</span>
+find <span class="nv">$Backup_dir</span>/ -type f -mtime -1 ! -name <span class="s2">&#34;finger*&#34;</span> <span class="p">|</span> xargs md5sum &gt;<span class="nv">$Backup_dir</span>/<span class="nv">$IP_info</span>/finger.txt
+<span class="c1">#backup push data info</span>
+rsync -az <span class="nv">$Backup_dir</span>/ rsync_backup@172.16.1.41::backup --password-file<span class="o">=</span>/etc/rsync.password
+
+<span class="c1"># server端：</span>
+<span class="c1">#!/bin/bash</span>
+<span class="c1">#del 180 day ago data</span>
+find /backup/ -type f -mtime +180 ! -name <span class="s2">&#34;*week1.tar.gz&#34;</span> <span class="p">|</span> xargs rm 2&gt;/dev/null
+<span class="c1">#check backup data</span>
+find /backup/ -type f -name <span class="s2">&#34;finger.txt&#34;</span> <span class="p">|</span> xargs md5sum -c &gt;/tmp/check.txt
+<span class="c1">#send check mail</span>
+mail -s <span class="s2">&#34;check backup info for </span><span class="k">$(</span>date +%F<span class="k">)</span><span class="s2">&#34;</span> 1017635452@qq.com &lt; /tmp/check.txt
+
+<span class="c1"># 定时任务</span>
+<span class="c1">#client端：</span>
+crontab -e
+<span class="m">0</span> <span class="m">0</span> * * * /bin/sh /server/scripts/backup.sh <span class="p">&amp;</span>&gt;/dev/null
+<span class="c1">#server端：</span>
+<span class="m">0</span> <span class="m">5</span> * * * /bin/sh /server/scripts/backup_server.sh <span class="p">&amp;</span>&gt;/dev/null
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="存储服务器">存储服务器</h2>
+<h3 id="nfs服务介绍">nfs服务介绍</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># NFS是Network file system缩写，即网络文件共享系统</span>
+<span class="c1"># 中小型企业：FTP、samba（windows-linux）、NFS（linux-linux）</span>
+<span class="c1"># 大型企业：分布式存储（FastDFS，GlusterFS，Moosefs）</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nfs部署流程">NFS部署流程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 服务端部署：</span>
+<span class="c1"># 1. 检查和安装</span>
+rpm -qa <span class="p">|</span> grep -E <span class="s2">&#34;nfs|rpc&#34;</span>
+yum install -y nfs-utils rpcbind
+<span class="c1"># 2. 编写nfs配置文件</span>
+vim /etc/exports
+<span class="c1">#路径	白名单（权限）</span>
+/data	172.16.1.0/24<span class="o">(</span>rw,sync<span class="o">)</span>
+<span class="c1"># 3. 创建存储目录</span>
+mkdir /data
+chown nfsnobody.nfsnobody /data
+<span class="c1"># 4. 启动服务程序</span>
+<span class="c1"># 先启动rpc</span>
+systemctl start rpcbind.service
+systemctl <span class="nb">enable</span> rpcbind.service
+<span class="c1"># 后启动nfs</span>
+systemctl start nfs
+systemctl <span class="nb">enable</span> nfs
+
+<span class="c1"># 客户端部署：</span>
+yum install -y nfs-utils 
+mount -t nfs 172.16.1.31:/data /mnt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nfs服务端详细配置说明">nfs服务端详细配置说明</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 多网段主机进行挂载</span>
+<span class="c1">#方法一</span>
+/data 172.16.1.0/24<span class="o">(</span>rw,sync<span class="o">)</span> 10.0.0.0/24<span class="o">(</span>rw,sync<span class="o">)</span>
+<span class="c1">#方法二</span>
+/data 172.16.1.0/24<span class="o">(</span>rw,sync<span class="o">)</span>
+/data 10.0.0.0/24<span class="o">(</span>rw,sync<span class="o">)</span>
+
+<span class="c1"># 2. nfs配置参数权限</span>
+<span class="c1"># rw，读写权限</span>
+<span class="c1"># ro，只读权限</span>
+<span class="c1"># sync，同步方式存储，直接写入磁盘（安全）</span>
+<span class="c1"># async，异步方式存储，数据放在内存中，慢慢写进磁盘（效率）</span>
+<span class="c1"># no_root_squash，不要将root用户身份进行转换（存储文件时，文件的属主属组信息转换）</span>
+<span class="c1"># root_squash，将root用户身份进行转换为nfsnobody（存储文件时，文件的属主属组信息转换）</span>
+<span class="c1"># all_squash，将所有用户身份进行转换为nfsnobody（存储文件时，文件的属主属组信息转换）</span>
+<span class="c1"># no_all_squash，不要将普通用户身份进行转换（存储文件时，文件的属主属组信息转换）</span>
+
+<span class="c1"># 3. 确保数据的安全性（也是默认配置）：</span>
+<span class="c1"># no_all_squash	需要进行配置	共享目录权限为www（只有www用户可以操作此目录，客户端和服务端www账号的uid必须一样）</span>
+<span class="c1"># root_squash	需要进行配置	data目录的属主为www，nfsnobody无法操作（root无法操作此目录）</span>
+
+<span class="c1"># 4. 如何让root用户可以操作管理www用户管理的data目录</span>
+<span class="c1"># anonuid，anongid，可以指定映射用户信息</span>
+<span class="c1"># 修改映射用户为www（uid=1002），不要设定nfsnobody</span>
+<span class="c1"># /data 172.16.1.0/24(rw,sync,anonuid=1002,anongid=1002)</span>
+
+<span class="c1"># 5. nfs共享目录的权限和下列因素相关</span>
+<span class="c1"># 5.1 目录本省权限</span>
+<span class="c1"># 5.2 和配置文件中的权限配置相关（rw/ro xxx_squash anonuid anongid）</span>
+<span class="c1"># 5.3 和客户端挂载命令的参数有关（mount -o ro，只读）</span>
+
+<span class="c1"># 6. 服务重启方式：</span>
+<span class="c1"># 6.1 restart，强制断开所有连接</span>
+<span class="c1"># 6.2 reload，强制断开没有数据传输的连接（建议使用）</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nfs客户端详细配置说明">nfs客户端详细配置说明</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 自动挂载</span>
+<span class="c1"># 1.1 利用rc.local</span>
+mount -t nfs 172.16.1.31:/data /mnt
+<span class="c1"># 1.2 利用fstab文件（centos7必须开机启动remote-fs.target，centos6必须开机启动netfs）</span>
+172.16.1.31:/data		/mnt		nfs		default		0	<span class="m">0</span>
+<span class="c1"># centos7查看开机启动服务：ll /etc/systemd/system/multi-user.target.wants/</span>
+
+<span class="c1"># 2. mount命令参数</span>
+<span class="c1"># rw，实现挂载后挂载点目录可读可写（默认）</span>
+<span class="c1"># ro，实现挂载后挂载点目录只读</span>
+<span class="c1"># suid，在共享目录中可以让setuid权限位生效（默认）</span>
+<span class="c1"># nosuid，在共享目录中可以让setuid权限位失效，提高安全性</span>
+<span class="c1"># exec，共享目录中的执行文件可以直接执行</span>
+<span class="c1"># noexec，共享目录中执行文件可以无法直接执行，提高安全性</span>
+<span class="c1"># auto，可以实现自动挂载，mount -a实现加载fstab文件自动挂载，无需重启</span>
+<span class="c1"># noauto，不可以实现自动挂载</span>
+<span class="c1"># nouser，禁止普通用户卸载挂载点</span>
+<span class="c1"># user，运行普通用户卸载挂载点</span>
+
+umount -lf /mnt <span class="c1">#强制卸载，-l不退出挂载点，-f强制</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nfs服务挂载不上排查方法">NFS服务挂载不上排查方法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 服务端：</span>
+<span class="c1"># 1. 检查nfs进程信息是否注册，服务启动顺序不对，没有启动nfs</span>
+rpcinfo -p localhost
+<span class="c1"># 2. 检查有没有可用存储目录，配置文件编写有问题，重启nfs</span>
+showmount -e 172.16.1.31
+<span class="c1"># 3. 在服务端进行挂载测试，是否能够在存储目录中创建或删除数据</span>
+<span class="c1"># 客户端：</span>
+<span class="c1"># 1. 检查nfs进程信息是否注册，服务启动顺序不对，没有启动nfs</span>
+rpcinfo -p localhost
+<span class="c1"># 2. 检查有没有可用存储目录，配置文件编写有问题，重启nfs</span>
+showmount -e 172.16.1.31
+ping 172.16.1.31
+telnet 172.16.1.31 <span class="m">111</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="实时同步服务">实时同步服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#原理（rsync备份数据、inotify监控目录是否变化、sersync实时同步）</span>
+
+<span class="c1"># - 方法</span>
+<span class="c1"># 1. rsync部署</span>
+<span class="c1"># 2. inotify部署</span>
+<span class="c1"># 2.1 yum install -y inotify-tools</span>
+<span class="c1"># 2.2 inotifywait命令使用方法</span>
+
+-m <span class="c1">#实现一直监控目录的数据变化</span>
+-r <span class="c1">#进行递归监控</span>
+-q <span class="c1">#quiet，尽量减少信息输出</span>
+--format &lt;fmt&gt; <span class="c1">#指定输出信息的格式</span>
+--timefmt <span class="c1">#指定输出的时间信息格式</span>
+-e <span class="c1">#指定监控的事件信息</span>
+inotifywait -mrq --timefmt <span class="s2">&#34;%F&#34;</span> --format <span class="s2">&#34;%T %w %f %e&#34;</span> /data -e CREATE
+<span class="c1">#create创建、delete删除、moved_to移入、close_write修改</span>
+<span class="c1">#企业应用，防止系统重要文件被破坏</span>
+
+<span class="c1"># 3. sersync部署</span>
+<span class="c1"># 3.1 下载安装，并上传至linux服务器中</span>
+<span class="c1"># https://github.com/wsgzao/sersync</span>
+<span class="c1"># rz -y</span>
+<span class="c1"># 3.2 解压</span>
+unzip sersync_installdir_64bit.zip
+mv sersync_installdir_64bit/sersync/ /usr/local/ 
+<span class="c1"># 3.3 编写配置文件</span>
+vim conf/confxml.xml
+<span class="c1"># 3.4 启动sersync程式</span>
+<span class="c1"># 把/usr/local/sersync/bin加入环境变量$PATH</span>
+<span class="c1"># 参数-d，启动守护进程模式</span>
+<span class="c1"># 参数-r，在监控前，将监控目录与远程主机用rsync命令推送一遍</span>
+<span class="c1"># 参数-o，指定配置文件</span>
+sersync -dro /usr/local/sersync/conf/confxml.xml <span class="c1">#启动实时同步服务</span>
+yum provides killall <span class="c1">#查看killall指令属于哪个包</span>
+yum install -y psmisc
+killall sersync <span class="c1">#停止实时同步服务</span>
+/etc/rc.local &lt;-- sersync -dro /usr/local/sersync/conf/confxml.xml <span class="c1">#实现开机自启动</span>
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     <div class="post-copyright">
@@ -157,7 +850,9 @@
   
 </div>
 <footer class="post-footer">
-      
+      <div class="post-tags">
+          <a href="/tags/Linux/">Linux</a>
+          </div>
       <nav class="post-nav">
         
         <a class="next" href="/post/Linux-Admin-4/">
