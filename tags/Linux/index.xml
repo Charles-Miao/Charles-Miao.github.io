@@ -6,7 +6,20 @@
     <description>Recent content in Linux on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 07 Jun 2021 23:19:19 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Jun 2021 10:16:52 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux基础 - Part6</title>
+      <link>https://Charles-Miao.github.io/post/Linux-Admin-6/</link>
+      <pubDate>Mon, 14 Jun 2021 10:16:52 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/Linux-Admin-6/</guid>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;ssh&lt;/li&gt;
+&lt;li&gt;ansible&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
     <item>
       <title>Linux基础 - Part5</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-5/</link>

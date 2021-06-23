@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux基础 - Part6 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  ssh ansible " /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Linux-Admin-6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Linux基础 - Part6" />
+<meta property="og:description" content="主要内容
+
+ssh
+ansible
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-6/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-06-14T10:16:52&#43;08:00" />
+<meta property="article:modified_time" content="2021-06-14T10:16:52&#43;08:00" />
+
+<meta itemprop="name" content="Linux基础 - Part6">
+<meta itemprop="description" content="主要内容
+
+ssh
+ansible
+"><meta itemprop="datePublished" content="2021-06-14T10:16:52&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-14T10:16:52&#43;08:00" />
+<meta itemprop="wordCount" content="3363">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux基础 - Part6"/>
+<meta name="twitter:description" content="主要内容
+
+ssh
+ansible
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux基础 - Part6</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-06-14 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 3363 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ssh">ssh</a></li>
+    <li><a href="#ansible">ansible</a>
+      <ul>
+        <li><a href="#ansible批量管理服务部署">ansible批量管理服务部署</a></li>
+        <li><a href="#ansible服务架构信息">ansible服务架构信息</a></li>
+        <li><a href="#ansible模块应用">ansible模块应用</a></li>
+        <li><a href="#剧本编写规范pyyaml">剧本编写规范：pyyaml</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="主要内容">主要内容</h1>
+<ul>
+<li>ssh</li>
+<li>ansible</li>
+</ul>
+<h2 id="ssh">ssh</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ssh远程连接的方式</span>
+<span class="c1"># 1. 基于口令的方式</span>
+<span class="c1"># 2. 基于秘钥的方式</span>
+
+<span class="c1"># 基于秘钥连接的部署步骤</span>
+ssh-keygen -t dsa
+ssh-copy-id -i /root/.ssh/id_dsa.pub root@172.16.1.41
+ssh 172.16.1.41
+
+<span class="c1">#批量分发秘钥</span>
+<span class="c1">#!/bin/bash</span>
+<span class="k">for</span> ip in <span class="m">31</span> <span class="m">7</span> <span class="m">41</span>
+<span class="k">do</span>
+	ssh-copy-id -i /root/.ssh/id_dsa.pub root@172.16.1.<span class="nv">$ip</span>
+<span class="k">done</span>
+
+<span class="c1">#免交互分发秘钥</span>
+yum install -y sshpass
+
+<span class="c1">#!/bin/bash</span>
+<span class="k">for</span> ip in <span class="o">{</span>1..100<span class="o">}</span>
+<span class="k">do</span>
+	sshpass -p <span class="m">123456</span> ssh-copy-id -i /root/.ssh/id_dsa.pub root@172.16.1.<span class="nv">$ip</span> <span class="s2">&#34;-o StrictHostKeyChecking=no&#34;</span> <span class="p">&amp;</span>&gt;/dev/null
+	<span class="nb">echo</span> -e <span class="s2">&#34;host 172.16.1.</span><span class="nv">$ip</span><span class="s2"> success.&#34;</span>
+<span class="k">done</span>
+
+<span class="c1">#ssh服务配置文件</span>
+vim /etc/ssh/ssh_config
+
+Port <span class="m">22</span>
+ListenAddress 0.0.0.0
+PermitEmptyPasswords no
+PermitRootLogin yes
+GSSAPIAuthentication no
+UseDNS no
+
+<span class="c1"># ssh远程服务防范入侵</span>
+<span class="c1"># 1. 用秘钥，不用密码</span>
+<span class="c1"># 2. 防火墙封闭ssh，指定源ip限制（局域网）</span>
+<span class="c1"># 3. 开始ssh只监听本地内部ip</span>
+<span class="c1"># 4. 尽量不使用外网ip</span>
+<span class="c1"># 5. 最小化授权，最小化安装软件</span>
+<span class="c1"># 6. 监控重要文件和文件夹</span>
+<span class="c1"># 	/etc/passwd md5sum</span>
+<span class="c1"># 	inotify /bin</span>
+<span class="c1"># 7. 加锁 chattr +i</span>
+
+<span class="c1">#ssh相关的命令</span>
+ssh-keygen
+ssh-copy-id
+sshpass
+ssh
+scp
+sftp
+ls
+<span class="nb">cd</span>
+lls
+lcd
+get
+put
+<span class="nb">help</span>
+bye
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="ansible">ansible</h2>
+<h3 id="ansible批量管理服务部署">ansible批量管理服务部署</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install ansible -y
+<span class="c1">#编写主机清单文件</span>
+vim /etc/ansible/hosts
+<span class="c1">#测试是否可以管理多个主机</span>
+ansible all -a <span class="s2">&#34;hostname&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ansible服务架构信息">ansible服务架构信息</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 主机清单配置</span>
+<span class="c1"># 2. 软件模块信息</span>
+<span class="c1"># 3. 基于秘钥连接主机</span>
+<span class="c1"># 4. 主机需要关闭selinux</span>
+<span class="c1"># 5. 软件剧本功能</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ansible模块应用">ansible模块应用</h3>
+<p>ansible官方网站：https://docs.ansible.com/</p>
+<h4 id="command">command</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ansible	oldboy		-m		<span class="nb">command</span>	-a			<span class="s1">&#39;hostname&#39;</span>
+<span class="c1">#命令	主机组模块名	指定模块参数	模块名称		指定模块执行动作参数	批量执行操作动作</span>
+
+<span class="c1">#扩展应用：</span>
+<span class="c1">#chdir，切换目录</span>
+ansible 172.16.1.31 -m <span class="nb">command</span> -a <span class="s2">&#34;chdir=/tmp touch oldboy.txt&#34;</span>
+
+<span class="c1">#creates，如果文件存在，则不执行命令</span>
+ansible 172.16.1.31 -m <span class="nb">command</span> -a <span class="s2">&#34;creates=/tmp/hosts touch oldboy.txt&#34;</span>
+
+<span class="c1">#removes，如果文件存在，则执行命令</span>
+ansible 172.16.1.31 -m <span class="nb">command</span> -a <span class="s2">&#34;removes=/tmp/hosts touch oldboy.txt&#34;</span>
+
+<span class="c1"># 注意事项：</span>
+<span class="c1"># 有些符号信息无法识别：&lt; &gt; | ; &amp;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="shell万能模块命令类似command所有符号都可以识别">shell（万能模块），命令类似command，所有符号都可以识别</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># shell模块</span>
+<span class="c1"># PS：有时剧本不能反复执行！！！</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="script万能模块参数功能类似command模块">script（万能模块），参数功能类似command模块</h4>
+<h4 id="copy将数据信息进行批量分发">copy，将数据信息进行批量分发</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ansible 172.16.1.31 -m copy -a <span class="s2">&#34;src=/etc/hosts dest=/etc/&#34;</span>
+
+<span class="c1"># 扩展用法：</span>
+<span class="c1"># 1. 修改文件属主和属组信息</span>
+ansible 172.16.1.31 -m copy -a <span class="s2">&#34;src=/etc/hosts dest=/etc/ owner=oldboy group=oldboy&#34;</span>
+
+<span class="c1"># 2. 修改文件的权限信息</span>
+ansible 172.16.1.31 -m copy -a <span class="s2">&#34;src=/etc/hosts dest=/etc/ mode=1777&#34;</span>
+
+<span class="c1"># 3. 对远程文件进行备份</span>
+ansible 172.16.1.31 -m copy -a <span class="s2">&#34;src=/etc/hosts dest=/etc/ backup=yes&#34;</span>
+
+<span class="c1"># 4. 创建一个文件并直接编辑文件信息</span>
+ansible 172.16.1.31 -m copy -a <span class="s2">&#34;content=&#39;oldboy123&#39; dest=/etc/rsync.password&#34;</span>
+
+<span class="c1"># 自行研究：remote_src directory_mode local_follow</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="file设置文件属性信息">file，设置文件属性信息</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ansible 172.16.1.31 -m file -a <span class="s2">&#34;dest=/etc/hosts owner=oldboy group=oldboy mode=666&#34;</span>
+
+<span class="c1"># 扩展用法：</span>
+<span class="c1"># state</span>
+<span class="c1"># =absent，删除文件 </span>
+<span class="c1"># =directory，创建一个目录</span>
+<span class="c1"># =file，检查创建的数据信息是否存在</span>
+<span class="c1"># =hard，创建一个硬链接</span>
+<span class="c1"># =link，创建一个软链接</span>
+<span class="c1"># =touch，创建一个文件</span>
+
+ansible 172.16.1.31 -m file -a <span class="s2">&#34;dest=/oldboy/ state=directory&#34;</span>
+ansible 172.16.1.31 -m file -a <span class="s2">&#34;dest=/oldboy/oldboy.txt state=touch&#34;</span>
+ansible 172.16.1.31 -m file -a <span class="s2">&#34;src=/oldboy/oldboy.txt dest=/oldboy/oldboy_hard.txt state=hard&#34;</span>
+
+<span class="c1"># 自行研究：recurse，递归</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="fetch和copy模块相反批量从被管理端拉取数据">fetch，和copy模块相反，批量从被管理端拉取数据</h4>
+<h4 id="yum模块">yum模块</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># name，指定安装软件名称</span>
+<span class="c1"># state，指定是否安装软件（installed，安装软件；absent，卸载软件）</span>
+ansible 172.16.1.31 -m yum -a <span class="s2">&#34;name=iotop state=installed&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="service模块">service模块</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># name，指定管理的服务名称</span>
+<span class="c1"># state，指定服务状态（started，restarted，stopped）</span>
+<span class="c1"># enabled，指定服务是否开机自启动</span>
+ansible 172.16.1.31 -m service -a <span class="s2">&#34;name=nfs state=started enabled=yes&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="cron模块批量设置多个主机的定时任务信息">cron模块，批量设置多个主机的定时任务信息</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># minute，设置分钟信息</span>
+<span class="c1"># hour，设置小时信息</span>
+<span class="c1"># day，设置日期信息</span>
+<span class="c1"># month，设置月份信息</span>
+<span class="c1"># weekday，设置周信息</span>
+<span class="c1"># job，定义需要干的事情</span>
+ansible 172.16.1.31 -m cron -a <span class="s2">&#34;name=&#39;time sync&#39; minute=0 hour=2 job=&#39;/usr/sbin/ntpdate ntp1.aliyun.com &gt;/dev/null 2&gt;&amp;1&#39;&#34;</span><span class="c1">#创建指定任务</span>
+ansible 172.16.1.31 -m cron -a <span class="s2">&#34;name=&#39;time sync&#39; state=absent&#34;</span> <span class="c1">#删除指定任务</span>
+<span class="c1"># PS：ansible可以删除的定时任务，只能是ansible设置好的定时任务</span>
+ansible 172.16.1.31 -m cron -a <span class="s2">&#34;name=&#39;time sync&#39; job=&#39;/usr/sbin/ntpdate ntp1.aliyun.com &gt;/dev/null 2&gt;&amp;1&#39; disabled=yes&#34;</span> <span class="c1">#注释定时任务</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="mount模块批量进行挂载操作">mount模块，批量进行挂载操作</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># src，需要挂载的存储设备或文件信息</span>
+<span class="c1"># path，指定目标挂载点目录</span>
+<span class="c1"># fstype，指定挂载时的文件系统类型</span>
+<span class="c1"># state（present，mounted，absent，unmounted）</span>
+<span class="c1"># present，不会实现立即挂载，修改fstab文件，实现开机自动挂载</span>
+<span class="c1"># mounted，会实现立即挂载，并会修改fstab文件，实现开机自动挂载</span>
+<span class="c1"># absent，会实现立即卸载，并且会删除fstab文件信息，禁止开机自动挂载</span>
+<span class="c1"># unmounted，会实现立即卸载，大不会删除fstab文件信息</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="user模块实现批量创建用户">user模块，实现批量创建用户</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ansible 172.16.1.31 -m user -a <span class="s2">&#34;name=oldboy01&#34;</span>
+ansible 172.16.1.31 -m user -a <span class="s2">&#34;name=oldboy02 uid=6666&#34;</span>
+ansible 172.16.1.31 -m user -a <span class="s2">&#34;name=oldboy03 group=oldboy02&#34;</span>
+ansible 172.16.1.31 -m user -a <span class="s2">&#34;name=oldboy03 groups=oldboy02&#34;</span>
+ansible 172.16.1.31 -m user -a <span class="s2">&#34;name=rsync create_home=no shell=/sbin/nologin&#34;</span>
+
+<span class="c1">#生成密文密码信息：</span>
+ansible all -i localhost, -m debug -a <span class="s2">&#34;msg={{&#39;密码信息123456&#39; | password_hash (&#39;sha512&#39;,&#39;oldboy&#39;)}}&#34;</span>
+yum install -y python-pip
+pip install passlib
+python -c <span class="s2">&#34;from passlib.hash import sha512_crypt; import getpass; print(sha512_crypt.using(rounds=5000).hash(getpass.getpass()))&#34;</span>
+<span class="c1">#创建用户密码：</span>
+ansible 172.16.1.31-m usr -a <span class="s1">&#39;name=oldboy06 password=密文密码&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="剧本编写规范pyyaml">剧本编写规范：pyyaml</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 合理的信息缩进，两个空格表示一个缩进，PS：在ansible中一定不能用tab进行缩进</span>
+<span class="c1"># 2. 使用冒号后面要有空格信息，以冒号结尾，冒号信息出现在注释说明中，后面不需要加上空格</span>
+<span class="c1"># 3. 横杠-列表功能</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 编写剧本：</span>
+mkdir /etc/ansible/ansible-playbook
+vim rsync_server.ymal
+- hosts: 172.16.1.41
+  tasks:
+    - name: 01-install rsync
+      yum: <span class="nv">name</span><span class="o">=</span>rsync <span class="nv">state</span><span class="o">=</span>installed
+    - name: 02-push config file
+      copy: <span class="nv">src</span><span class="o">=</span>/tmp/rsyncd.conf <span class="nv">dest</span><span class="o">=</span>/etc/
+
+<span class="c1"># 1. 检查剧本的语法格式</span>
+ansible-playbook --synctax-check rsync_server.yaml
+<span class="c1"># 2. 模拟执行剧本</span>
+ansible-playbook -C rsync_server.yaml
+<span class="c1"># 3. 直接执行剧本</span>
+ansible-playbook rsync_server.yaml
+
+<span class="c1"># 补充内容：</span>
+
+<span class="c1"># 安装libselinux-python让selinux开启状态也可以使用ansible程序</span>
+
+<span class="c1"># ansible-doc -l，列出模块使用简介</span>
+<span class="c1"># ansible-doc -s fetch，指定一个模块详细说明</span>
+<span class="c1"># ansible-doc fetch，查询模块在剧本中应用方法</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim rsync_server.yaml
+
+- hosts: 172.16.1.41
+  tasks:
+    - name: 01-install rsync
+      yum: <span class="nv">name</span><span class="o">=</span>rsync <span class="nv">state</span><span class="o">=</span>installed
+    - name: 02-push conf file
+      copy: <span class="nv">src</span><span class="o">=</span>/etc/ansible/server_file/rsync_server/rsyncd.conf <span class="nv">dest</span><span class="o">=</span>/etc/
+    - name: 03-create user
+      user: <span class="nv">name</span><span class="o">=</span>rsync <span class="nv">create_home</span><span class="o">=</span>no <span class="nv">shell</span><span class="o">=</span>/sbin/nologin
+    - name: 04-create backup dir
+      file: <span class="nv">path</span><span class="o">=</span>/backup <span class="nv">state</span><span class="o">=</span>directory <span class="nv">owner</span><span class="o">=</span>rsync <span class="nv">group</span><span class="o">=</span>rsync
+    - name: 05-create password file
+      copy: <span class="nv">content</span><span class="o">=</span>rsync_backup:oldboy123 <span class="nv">dest</span><span class="o">=</span>/etc/rsync.password <span class="nv">mode</span><span class="o">=</span><span class="m">600</span>
+    - name: 06-start rsync server
+      service: <span class="nv">name</span><span class="o">=</span>rsyncd <span class="nv">state</span><span class="o">=</span>started <span class="nv">enabled</span><span class="o">=</span>yes
+
+- hosts: 172.16.1.31,172.16.1.7
+  tasks:
+    - name: 01-install rsync
+      yum: <span class="nv">name</span><span class="o">=</span>rsync <span class="nv">state</span><span class="o">=</span>installed
+    - name: 02-create password file
+      copy: <span class="nv">content</span><span class="o">=</span>oldboy123 <span class="nv">dest</span><span class="o">=</span>/etc/rsync.password <span class="nv">mode</span><span class="o">=</span><span class="m">600</span>
+    - name: 03-create <span class="nb">test</span> file
+      file: <span class="nv">dest</span><span class="o">=</span>/tmp/test.txt <span class="nv">state</span><span class="o">=</span>touch
+    - name: 04-check <span class="nb">test</span>
+      shell: rsync -avz /tmp/test.txt rsync_backup@172.16.16.1.41::backup --password-file<span class="o">=</span>/etc/rsync.password
+
+<span class="c1"># 剧本编写常见错误：</span>
+<span class="c1"># 1. 剧本句法规范是否符合</span>
+<span class="c1"># 2. 剧本中模块使用是否正确</span>
+<span class="c1"># 3. 剧本中一个name标识下面只能写一个模块任务信息</span>
+<span class="c1"># 4. 剧本尽量不要大量使用shell</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="主机清单配置方式">主机清单配置方式：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 分组配置主机信息</span>
+<span class="o">[</span>web<span class="o">]</span>
+172.16.1.7
+172.16.1.8
+<span class="o">[</span>data<span class="o">]</span>
+172.16.1.31
+<span class="c1"># 2. 主机名符号匹配配置</span>
+<span class="o">[</span>web<span class="o">]</span>
+172.16.1.<span class="o">[</span>7:9<span class="o">]</span>
+<span class="c1"># 3. 跟上非标准端口</span>
+<span class="o">[</span>web<span class="o">]</span>
+web01:52113
+<span class="c1"># 4. 主机使用特殊变量</span>
+<span class="o">[</span>web<span class="o">]</span>
+web01 <span class="nv">ansible_ssh_host</span><span class="o">=</span>172.16.1.7 <span class="nv">ansible_ssh_port</span><span class="o">=</span><span class="m">52113</span> <span class="nv">ansible_ssh_user</span><span class="o">=</span>root <span class="nv">ansible_ssh_pass</span><span class="o">=</span><span class="m">123456</span>
+<span class="c1"># 5. 主机组嵌入配置</span>
+<span class="o">[</span>rsync:children<span class="o">]</span>
+rsync_server
+rsync_client
+<span class="o">[</span>rsync_server<span class="o">]</span>
+172.16.1.41
+<span class="o">[</span>rsync_client<span class="o">]</span>
+172.16.1.7
+
+<span class="o">[</span>web:vars<span class="o">]</span>
+<span class="nv">ansible_ssh_host</span><span class="o">=</span>172.16.1.7
+<span class="nv">ansible_ssh_port</span><span class="o">=</span><span class="m">52113</span>
+<span class="nv">ansible_ssh_user</span><span class="o">=</span>root
+<span class="nv">ansible_ssh_pass</span><span class="o">=</span><span class="m">123456</span>
+<span class="o">[</span>web<span class="o">]</span>
+web01
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="编写剧本的重要功能">编写剧本的重要功能：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 在剧本中设置变量信息</span>
+<span class="c1"># 1.1 在剧本中编写</span>
+vars:
+  oldboy01: data01
+  oldboy02: data02
+  <span class="c1">#{{ oldboy01 }}</span>
+<span class="c1"># 1.2 在命令行中进行指定</span>
+ansible-playbook -e <span class="nv">backupdir</span><span class="o">=</span>/data -e <span class="nv">passfile</span><span class="o">=</span>rsync-password rsync_server.yaml
+<span class="c1"># 1.3 在主机清单文件中编写</span>
+<span class="o">[</span>oldboy<span class="o">]</span>
+<span class="nv">oldboy01</span><span class="o">=</span>data01
+<span class="nv">oldboy02</span><span class="o">=</span>data02
+
+<span class="c1"># 优先级：</span>
+<span class="c1"># 1. 命令行中进行指定</span>
+<span class="c1"># 2. 剧本中变量设置</span>
+<span class="c1"># 3. 主机清单变量设置</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 2. 剧本设置注册功能，执行剧本时，可以显示输出命令结果信息</span>
+
+- hosts: oldboy
+  tasks:
+    - name: check server port
+      shell: netstat -lntup
+      register: get_server_port
+    - name: display port info
+      debug: <span class="nv">msg</span><span class="o">={{</span> get_server_port.stdout_lines <span class="o">}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 3. 剧本中设置判断信息</span>
+
+- name: 03-create <span class="nb">test</span> web file
+  file: <span class="nv">dest</span><span class="o">=</span>/tmp/test_web.txt <span class="nv">state</span><span class="o">=</span>touch
+  when: <span class="o">(</span><span class="nv">ansible_hostname</span> <span class="o">==</span> web01<span class="o">)</span>
+
+<span class="c1"># 获取内置变量方法：</span>
+ansible oldboy -m setup -a <span class="s2">&#34;filter=ansible_hostname&#34;</span>
+<span class="c1"># 获取子信息方法：</span>
+ansible_etho0<span class="o">[</span>ipv4<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#4. 设置循环</span>
+
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: Add Users
+      user: <span class="nv">name</span><span class="o">=</span> <span class="o">{{</span> item.name <span class="o">}}</span> <span class="nv">groups</span><span class="o">={{</span> item.groups <span class="o">}}</span> <span class="nv">state</span><span class="o">=</span>present
+      with_items:
+        - <span class="o">{</span> name: <span class="s1">&#39;testuser1&#39;</span>, groups: <span class="s1">&#39;bin&#39;</span> <span class="o">}</span>
+        - <span class="o">{</span> name: <span class="s1">&#39;testuser2&#39;</span>, groups: <span class="s1">&#39;root&#39;</span><span class="o">}</span>
+
+<span class="c1"># 剧本排错思路：</span>
+<span class="c1"># 1. 找到剧本中出现问题的关键点</span>
+<span class="c1"># 2. 剧本中操作转换成模块进行操作</span>
+<span class="c1"># 3. 讲模块的功能转换成模块进行操作</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 5. 设置错误</span>
+ignore_errors: yes
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 6. 设置标签</span>
+tags: t1
+
+ansible-playbook -t t1 rsync_server.yaml
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#7. 设置触发</span>
+      notify: restart rsync server
+  handlers:
+    - name: restart rsync server
+      servcie: <span class="nv">name</span><span class="o">=</span>rsyncd <span class="nv">state</span><span class="o">=</span>restarted
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#8. 将多个脚本进行整合</span>
+<span class="c1"># 1. include_tasks</span>
+- hosts: all
+  remote_user: root
+  tasks:
+    - include_tasks: f1.yml
+    - include_tasks: f2.yml
+<span class="c1"># 2. include</span>
+- include: f1.yml
+- include: f2.yml
+<span class="c1"># 3. import_playbook（最优）</span>
+- import_playbook: f1.yml
+- import_playbook: f2.yml
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 剧本编写问题：</span>
+<span class="c1"># 1. 目录结构不规范</span>
+<span class="c1"># 2. 编写的任务如何重复调用</span>
+<span class="c1"># 3. 服务端配置文件改动，客户端参数也自动变化</span>
+<span class="c1"># 4. 汇总剧本中没有显示主机角色信息</span>
+<span class="c1"># 5. 一个剧本内容信息过多，不容易进行阅读</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="角色方式编写剧本">角色方式编写剧本：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 规范目录结构</span>
+<span class="nb">cd</span> /etc/ansible/roles
+mkdir <span class="o">{</span>rsync,nfs<span class="o">}</span>
+mkdir <span class="o">{</span>nfs,rsync<span class="o">}</span>/<span class="o">{</span>vars,tasks,templates,handlers,files<span class="o">}</span>
+<span class="c1"># files，保存需要分发文件目录</span>
+<span class="c1"># handlers，保存触发器配置文件</span>
+<span class="c1"># tasks，保存要执行的动作信息文件</span>
+<span class="c1"># templates，保存需要分发模板文件</span>
+<span class="c1"># vars，保存变量信息文件</span>
+<span class="c1"># 2. 编写文件流程图：</span>
+<span class="c1"># 2.1 编写tasks中的main.yml文件</span>
+<span class="c1"># 2.2 编写vars目录中的main.yml文件</span>
+<span class="c1"># 2.3 编写files目录中的文件</span>
+<span class="c1"># 2.4 编写handlers目录中的main.yml文件</span>
+<span class="c1"># 3. 编写一个主剧本文件</span>
+vim site.yml
+- hosts: nfs_server
+  roles:
+    - nfs-server
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Charles Miao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-06-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/Linux-Admin-5/">
+            <span class="next-text nav-default">Linux基础 - Part5</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Charles Miao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
