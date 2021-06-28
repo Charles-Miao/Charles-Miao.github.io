@@ -15,8 +15,13 @@
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-7/</guid>
       <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;nginx服务部署安装&lt;/li&gt;
+&lt;li&gt;nginx目录结构&lt;/li&gt;
+&lt;li&gt;nginx服务的企业应用&lt;/li&gt;
+&lt;li&gt;nginx访问模块&lt;/li&gt;
+&lt;li&gt;网站的LNMP架构部署&lt;/li&gt;
+&lt;li&gt;负载均衡&lt;/li&gt;
+&lt;li&gt;高可用服务&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     
