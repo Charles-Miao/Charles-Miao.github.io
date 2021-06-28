@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux基础 - Part7 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容    " /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.83.1 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Linux-Admin-7/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:title" content="Linux基础 - Part7" />
+<meta property="og:description" content="主要内容
+
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-7/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-06-23T22:59:59&#43;08:00" />
+<meta property="article:modified_time" content="2021-06-23T22:59:59&#43;08:00" />
+
+<meta itemprop="name" content="Linux基础 - Part7">
+<meta itemprop="description" content="主要内容
+
+
+
+"><meta itemprop="datePublished" content="2021-06-23T22:59:59&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-23T22:59:59&#43;08:00" />
+<meta itemprop="wordCount" content="8307">
+<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux基础 - Part7"/>
+<meta name="twitter:description" content="主要内容
+
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux基础 - Part7</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-06-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
+            </div>
+          <span class="more-meta"> 约 8307 字 </span>
+          <span class="more-meta"> 预计阅读 17 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nginx服务部署安装">nginx服务部署安装</a>
+      <ul>
+        <li><a href="#编译安装">编译安装</a></li>
+        <li><a href="#yum官方源安装方式">yum官方源安装方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#软件目录结构">软件目录结构</a>
+      <ul>
+        <li><a href="#etclogrotated">/etc/logrotate.d</a></li>
+        <li><a href="#etcnginx配置文件">/etc/nginx，配置文件</a></li>
+        <li><a href="#varlognginx日志文件">/var/log/nginx，日志文件</a></li>
+        <li><a href="#usrbinnginx命令文件">/usr/bin/nginx，命令文件</a></li>
+        <li><a href="#usrsharenginxhtml站点目录">/usr/share/nginx/html，站点目录</a></li>
+        <li><a href="#etcnginxnginxconfnginx服务配置文件">/etc/nginx/nginx.conf，nginx服务配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx服务的企业应用">nginx服务的企业应用</a>
+      <ul>
+        <li><a href="#利用nginx服务搭建一个网站">利用nginx服务搭建一个网站</a></li>
+        <li><a href="#利用nginx服务搭建一个多网站www-bbs-blog">利用nginx服务搭建一个多网站（www bbs blog）</a></li>
+        <li><a href="#企业中虚拟主机访问方式">企业中虚拟主机访问方式</a></li>
+        <li><a href="#网站页面访问原理">网站页面访问原理：</a></li>
+      </ul>
+    </li>
+    <li><a href="#访问模块">访问模块</a>
+      <ul>
+        <li><a href="#nginx访问模块ngx_http_access_module">nginx访问模块：ngx_http_access_module</a></li>
+        <li><a href="#nginx认证模块ngx_http_auth_basic_module">nginx认证模块：ngx_http_auth_basic_module</a></li>
+        <li><a href="#nginx模块功能ngx_http_autoindex_module">nginx模块功能：ngx_http_autoindex_module</a></li>
+        <li><a href="#状态模块ngx_http_stub_status_module">状态模块：ngx_http_stub_status_module</a></li>
+        <li><a href="#ngx_http_log_module">ngx_http_log_module</a></li>
+        <li><a href="#ngx_http_core_module">ngx_http_core_module</a></li>
+        <li><a href="#http_rewrite_module">http_rewrite_module</a></li>
+      </ul>
+    </li>
+    <li><a href="#网站的lnmp架构部署">网站的LNMP架构部署</a>
+      <ul>
+        <li><a href="#lnmp架构的原理">LNMP架构的原理</a></li>
+        <li><a href="#实现lnmp之间建立关系">实现LNMP之间建立关系</a></li>
+        <li><a href="#部署搭建网站页面代码上线">部署搭建网站页面（代码上线）</a></li>
+        <li><a href="#上传wordpress主题报413错误如何解决">上传wordpress主题，报413错误，如何解决？</a></li>
+        <li><a href="#如何让lnmp架构和存储服务器建立关系">如何让LNMP架构和存储服务器建立关系</a></li>
+        <li><a href="#如何让lnmp架构和数据库服务器建立关系">如何让LNMP架构和数据库服务器建立关系？？？</a></li>
+      </ul>
+    </li>
+    <li><a href="#负载均衡">负载均衡</a>
+      <ul>
+        <li><a href="#负载均衡概念">负载均衡概念</a></li>
+        <li><a href="#负载均衡的环境">负载均衡的环境</a></li>
+        <li><a href="#负载均衡服务器部署">负载均衡服务器部署：</a></li>
+        <li><a href="#负载均衡配置模块详细说明">负载均衡配置模块详细说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#高可用服务">高可用服务</a>
+      <ul>
+        <li><a href="#高可用keepalived服务部署流程">高可用keepalived服务部署流程</a></li>
+        <li><a href="#高可用服务器企业应用">高可用服务器企业应用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="主要内容">主要内容</h1>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<blockquote>
+<p><a href="">详细笔记</a></p>
+</blockquote>
+<h2 id="nginx服务部署安装">nginx服务部署安装</h2>
+<h3 id="编译安装">编译安装</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wget http://nginx.org/download/nginx-1.16.0.tar.gz <span class="c1">#1</span>
+<span class="c1"># 2. 解压软件</span>
+<span class="c1"># 3. 配置操作</span>
+./confgure --prefix<span class="o">=</span> --user<span class="o">=</span>USER
+<span class="c1"># --prefix=PATH，指定安装路径</span>
+<span class="c1"># --user=USER，设置一个虚拟用户管理worker进程（安全）</span>
+<span class="c1"># --group=GROUP，设置一个虚拟用户组管理worker进程（安全）</span>
+<span class="c1"># 4. 进行软件的编译</span>
+make
+<span class="c1"># 5. 编译安装过程</span>
+make install
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="yum官方源安装方式">yum官方源安装方式</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">vim /etc/yum.repos.d/nginx.repo <span class="c1">#1</span>
+<span class="o">[</span>nginx-stable<span class="o">]</span>
+<span class="nv">name</span><span class="o">=</span>nginx stable repo
+<span class="nv">baseurl</span><span class="o">=</span>http://nginx.org/packages/centos/<span class="nv">$releasever</span>/<span class="nv">$basearch</span>/
+<span class="nv">gpgcheck</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">enabled</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">gpgkey</span><span class="o">=</span>https://nginx.org/keys/nginx_signing.key
+<span class="c1"># 2. yum安装nginx软件</span>
+yum install -y nginx
+<span class="c1"># 3. 启动nginx</span>
+systemctl start nginx
+systemctl <span class="nb">enable</span> nginx
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="软件目录结构">软件目录结构</h2>
+<h3 id="etclogrotated">/etc/logrotate.d</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. /etc/logrotate.d，实现nginx日志文件定时切割处理</span>
+<span class="c1"># 1.1 利用脚本切割</span>
+mv /var/log/nginx/access.log /var/log/nginx/access_<span class="k">$(</span>date +%F<span class="k">)</span>.log
+systemctl restart nginx
+<span class="c1"># 1.2 利用转悠文件切割程序--logrotate</span>
+vim /etc/logrotate.conf
+<span class="c1"># weekly，定义默认日志切割周期</span>
+<span class="c1"># rotate 4，定义只保留几个切割后的文件</span>
+<span class="c1"># create，创建出一个相同的源文件</span>
+<span class="c1"># dateext，定义角标（扩展名信息）</span>
+<span class="c1"># compress，是否对切割后的文件进行压缩处理</span>
+<span class="c1"># include /etc/logrotate.d，加载此目录文件配置文件</span>
+
+cat /etc/logrotated.d/nginx
+/var/log/nginx/*.log<span class="o">{</span>
+daily
+missingok
+rotate <span class="m">52</span>
+compress
+delaycompress
+notifempty
+create <span class="m">640</span> nginx adm
+sharedscripts
+postotate
+	<span class="k">if</span> <span class="o">[</span> -f /var/run/nginx.pid <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+		<span class="nb">kill</span> -USR1 <span class="sb">`</span>cat /var/run/nginx.pid<span class="sb">`</span>
+	<span class="k">fi</span>
+endscript
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="etcnginx配置文件">/etc/nginx，配置文件</h3>
+<h3 id="varlognginx日志文件">/var/log/nginx，日志文件</h3>
+<h3 id="usrbinnginx命令文件">/usr/bin/nginx，命令文件</h3>
+<h3 id="usrsharenginxhtml站点目录">/usr/share/nginx/html，站点目录</h3>
+<h3 id="etcnginxnginxconfnginx服务配置文件">/etc/nginx/nginx.conf，nginx服务配置文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/etc/nginx/nginx.conf <span class="c1">#主配置文件</span>
+<span class="c1"># 第一个部分：配置文件主区域配置</span>
+user www<span class="p">;</span>	定义worker进程管理的用户
+补充说明：
+master process	主进程，管理服务是否能够正常运行，boss
+worker process	工作进程，处理用户的访问请求，员工
+worker_processes 2<span class="p">;</span>	定义有几个worker进程，CPU核数/ 核数的2倍
+error_log /var/log/nginx/error.log warn<span class="p">;</span>	定义错误日志路径信息
+pid /var/run/nginx.pid<span class="p">;</span>	定义pid文件路径信息
+<span class="c1">#第二个部分：配置文件事件区域</span>
+events <span class="o">{</span>
+	worker_connections 1024<span class="p">;</span>	一个worker进程可以同时接受1024访问请求
+<span class="o">}</span>
+<span class="c1">#第三个部分：配置http区域</span>
+http <span class="o">{</span>
+	include	/etc/nginx/mime.types<span class="p">;</span>	加载一个配置文件
+	default_type	application/octet-stream<span class="p">;</span>	指定默认识别文件类型
+	log_format	oldboy	<span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34;&#39;</span>
+				<span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34;&#39;</span>
+				<span class="s1">&#39;&#34;http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>	定义日志格式
+	access_log	/var/log/nginx/access.log	oldboy<span class="p">;</span>	指定日志路径
+	sendfile		on<span class="p">;</span>	？？？
+	<span class="c1">#tcp_nopush	on;	？？？</span>
+	keepalive_timeout	65<span class="p">;</span>	超时时间
+	<span class="c1">#gzip	on;</span>
+	include /etc/nginx/conf.d/*.conf<span class="p">;</span>	加载一个配置文件
+<span class="o">}</span>
+
+/etc/nginx/nginx.d/default，扩展配置（虚拟主机配置文件）
+<span class="c1">#第四个部分：server区域信息（配置一个网站www、bbs、blog==一个虚拟主机）</span>
+server <span class="o">{</span>
+	listen	80<span class="p">;</span>			指定监听的端口
+	server_name	localhost<span class="p">;</span>		指定网站域名
+	location / <span class="o">{</span>
+		root /user/share/nginx/htm<span class="p">;</span>	定义站点目录位置
+		index index.html index.htm<span class="p">;</span>	定义首页文件
+	<span class="o">}</span>
+	error_page <span class="m">500</span> <span class="m">502</span> <span class="m">503</span> <span class="m">504</span> /50x.html<span class="p">;</span>
+	<span class="nv">location</span><span class="o">=</span>/50x.html <span class="o">{</span>
+		root /usr/share/nginx/html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="nginx服务的企业应用">nginx服务的企业应用</h2>
+<h3 id="利用nginx服务搭建一个网站">利用nginx服务搭建一个网站</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 利用nginx服务搭建一个网站</span>
+<span class="c1"># 1.1编写虚拟主机配置文件</span>
+vim www.conf
+server <span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/oldboy <span class="o">{</span>
+		root /user/share/nginx/html<span class="p">;</span>
+		index oldboy.html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="c1"># 1.2需要获取开发人员编写的网站代码</span>
+<span class="c1"># 1.3重启nginx服务</span>
+<span class="c1"># 两种方法：</span>
+systemctl reload nginx
+nginx -s reload
+<span class="c1"># nginx命令参数</span>
+<span class="c1"># -t，检查测试配置文件语法</span>
+<span class="c1"># -s，控制服务停止或者重新启动</span>
+<span class="c1"># 1.4编写DNS信息</span>
+<span class="c1"># 真实域名：在阿里云上进行DNS解析记录配置</span>
+<span class="c1"># 模拟域名：在windows主机的hosts文件中进行配置即可</span>
+c:<span class="se">\w</span>indows<span class="se">\s</span>ystem32<span class="se">\d</span>rivers<span class="se">\e</span>tc<span class="se">\h</span>osts
+<span class="c1"># 1.5进行测试访问</span>
+http://www.oldboy.com
+
+<span class="c1"># 部署搭建网站常见错误：</span>
+<span class="c1"># 1. 网站服务配置文件编写不正确</span>
+<span class="c1"># 404错误</span>
+<span class="c1"># 方法一：修改nginx配置文件---location</span>
+<span class="c1"># 方法二：在站点目录中创建相应目录或文件数据信息</span>
+<span class="c1"># 403错误</span>
+<span class="c1"># 方法一：不要禁止访问</span>
+<span class="c1"># 方法二：因为没有首页文件</span>
+<span class="c1"># 2. DNS信息配置不正确</span>
+<span class="c1"># 3. nginx配置文件修改一定要重启服务</span>
+<span class="c1"># 站点目录中代码文件信息调整，不需要重启服务</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="利用nginx服务搭建一个多网站www-bbs-blog">利用nginx服务搭建一个多网站（www bbs blog）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 创建多个虚拟主机配置文件</span>
+bbs.conf
+server <span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	bbs.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+	root	/html/bbs<span class="p">;</span>
+	index	index.html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+blog.conf
+server <span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	blog.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+	root	/html/blog<span class="p">;</span>
+	index	index.html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+www.conf
+server <span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+	root	/html/www<span class="p">;</span>
+	index	index.html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="c1"># 2. 创建站点目录和目录中首页文件</span>
+mkdir /html/<span class="o">{</span>www,bbs,blog<span class="o">}</span> -p
+<span class="k">for</span> name in <span class="o">{</span>www,bbs,blog<span class="o">}</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&#34;10.0.0.7 </span><span class="nv">$name</span><span class="s2">.oldboy.com&#34;</span> &gt; /html/<span class="nv">$name</span>/index.html<span class="p">;</span> <span class="k">done</span>
+<span class="k">for</span> name in <span class="o">{</span>www,bbs,blog<span class="o">}</span><span class="p">;</span> <span class="k">do</span> cat /html/<span class="nv">$name</span>/index.html<span class="p">;</span> <span class="k">done</span>
+<span class="c1"># 3. 编写hosts解析文件</span>
+10.0.0.7	www.oldboy.com bbs.oldboy.com blog.oldboy.com
+<span class="c1"># 4. 进行访问测试</span>
+<span class="c1"># 4.1 利用windows进行浏览器访问测试</span>
+<span class="c1"># 4.2 利用linux进行命令访问测试，curl www.oldboy.com</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="企业中虚拟主机访问方式">企业中虚拟主机访问方式</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 基于域名的方式进行访问</span>
+<span class="c1"># 2. 基于地址的方式进行访问：只能指定地址访问 --- 负载均衡+高可用服务</span>
+server <span class="o">{</span>
+	listen	10.0.0.7:80<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+	root	/html/www<span class="p">;</span>
+	index	index.html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="c1"># ps:服务配置文件中设计到地址修改，必须重启nginx服务，不能平滑重启</span>
+<span class="c1"># 3. 基于端口的方式进行访问：zabbix服务（apache：80）+web服务（nginx：80）</span>
+server <span class="o">{</span>
+	listen	8080<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+	root	/html/www<span class="p">;</span>
+	index	index.html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="网站页面访问原理">网站页面访问原理：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 将域名进行解析 www.oldboy.com --- 10.0.0.7</span>
+<span class="c1"># 2. 建立tcp的连接（四层协议）</span>
+<span class="c1">#     10.0.0.7 目标端口 80</span>
+<span class="c1"># 3. 根据应用层http协议发出请求</span>
+<span class="c1">#     请求报文：hosts：bbs.oldboy.com</span>
+<span class="c1"># 4. 没有相同域名的server主机，会找满足端口要求的第一个主机</span>
+<span class="c1">#     显示主机的网站页面</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="访问模块">访问模块</h2>
+<h3 id="nginx访问模块ngx_http_access_module">nginx访问模块：ngx_http_access_module</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 企业中网站的安全访问配置</span>
+<span class="c1"># 1. 根据用户访问的地址进行控制</span>
+<span class="c1"># 10.0.0.0/24 www.oldboy.com/AV/ 不能访问</span>
+<span class="c1"># 172.16.1.0/24 www.oldboy.com/AV/ 可以访问</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 举例配置：</span>
+location / <span class="o">{</span>
+	deny	192.168.1.1<span class="p">;</span>
+	allow	192.168.1.0/24<span class="p">;</span>
+	allow	10.1.1.0/16<span class="p">;</span>
+	allow	2001:0db8::/32<span class="p">;</span>
+	deny	all<span class="p">;</span>
+<span class="o">}</span>
+
+<span class="c1"># 1.1 编写配置文件</span>
+vim www.conf
+server <span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+	root	/html/www<span class="p">;</span>
+	index	index.html<span class="p">;</span>
+	<span class="o">}</span>
+	location	/AV	<span class="o">{</span>
+	deny	10.0.0.0/24<span class="p">;</span>
+	allow	172.16.1.0/24<span class="p">;</span>
+	root	/html/www<span class="p">;</span>
+	index	index.html<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="c1"># 补充：</span>
+<span class="c1"># location外面的信息，全局配置信息</span>
+<span class="c1"># location里面的信息，局部配置信息</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nginx认证模块ngx_http_auth_basic_module">nginx认证模块：ngx_http_auth_basic_module</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 2. 根据用户访问进行认证</span>
+<span class="c1"># 举例配置：</span>
+location / <span class="o">{</span>
+	auth_basic	<span class="s2">&#34;closed site&#34;</span><span class="p">;</span>	开启认证功能
+	auth_basic_user_file	conf/htpasswd<span class="p">;</span>	加载用户密码文
+<span class="o">}</span>
+<span class="c1"># 2.1 编写虚拟主机配置文件</span>
+server	<span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+		root	/html/www<span class="p">;</span>
+		index	index.html<span class="p">;</span>
+		auth_basic	<span class="s2">&#34;oldboy-sz-01&#34;</span><span class="p">;</span>
+		auth_basic_user_file	password/htpasswd<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="c1"># 2.2 创建密码文件</span>
+<span class="c1"># htpasswd参数说明：</span>
+<span class="c1"># -c，创建一个密码文件</span>
+<span class="c1"># -n，显示文件内容</span>
+<span class="c1"># -b，免交互方式输入用户密码信息</span>
+<span class="c1"># -m，md5加密算法</span>
+<span class="c1"># -B，使用bcrypt对密码进行加密</span>
+<span class="c1"># -C，使用bcrypt algorithm对密码进行加密</span>
+<span class="c1"># -d，密码加密方式</span>
+<span class="c1"># -s，加密方式</span>
+<span class="c1"># -p，不进行加密</span>
+<span class="c1"># -D，删除指定用户</span>
+
+<span class="c1"># 修改密码文件权限</span>
+<span class="c1"># chmod 600 ./htpasswd</span>
+<span class="c1"># chown www htpasswd</span>
+
+<span class="c1"># 500 Internal Server Error</span>
+<span class="c1"># 1. 内部程序代码编写有问题</span>
+<span class="c1"># 2. 程序服务中文件权限不正确</span>
+
+curl www.oldboy.com -u oldboy:123456
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="nginx模块功能ngx_http_autoindex_module">nginx模块功能：ngx_http_autoindex_module</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. 利用 nginx服务搭建网站文件共享服务器</span>
+<span class="c1"># 第一个步骤：编写配置文件（www.conf）</span>
+server	<span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+		root	/html/www<span class="p">;</span>
+		auth_basic	<span class="s2">&#34;oldboy-sz-01&#34;</span><span class="p">;</span>
+		auth_basic_user_file	password/htpasswd<span class="p">;</span>
+		autoindex	on<span class="p">;</span>	开启nginx站点目录索引功能（类似mirror.aliyun.com）
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="c1"># PS:	1. 需要将首页文件进行删除</span>
+<span class="c1"># 	2. mine.types媒体资源类型文件作用</span>
+<span class="c1"># 		文件中有的扩展名信息资源，进行访问时会直接看到数据信息</span>
+<span class="c1"># 		文件中没有的扩展名信息资源，进行访问时会直接下载资源</span>
+
+<span class="c1"># 网站页面目录数据，中文出现乱码，如何解决</span>
+location	/	<span class="o">{</span>
+	root	/html/www<span class="p">;</span>
+	...
+	charset	utf-8<span class="p">;</span>	修改目录结构中出现的中文乱码问题
+<span class="o">}</span>
+
+<span class="c1"># 2. 利用nginx服务搭配置文件别名功能</span>
+<span class="c1"># 2.1 编写配置文件</span>
+server_name	www.oldboy.com old.com<span class="p">;</span>
+<span class="c1"># 2.2 配置好解析信息（local测试：修改本地的host文件）</span>
+
+<span class="c1"># 作用：</span>
+<span class="c1"># a. 编写网站访问测试</span>
+<span class="c1"># b. 定位要访问的网站服务器（集群多台服务器时，可以用于定位特定服务器）</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="状态模块ngx_http_stub_status_module">状态模块：ngx_http_stub_status_module</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 3. 利用nginx状态模块功能对网站进行监控</span>
+<span class="c1"># 3.1 编写配置文件</span>
+vim state.conf
+server	<span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	state.oldboy.com
+	stub_status<span class="p">;</span>
+<span class="o">}</span>
+<span class="c1"># 3.2 重启nginx服务，并且编写解析文件</span>
+systemctl reload nginx
+10.0.0.7	state.oldboy.com
+
+<span class="c1"># Active connections：激活的连接数信息</span>
+<span class="c1"># accepts：接收的连接数汇总 TCP</span>
+<span class="c1"># handled：处理的连接数汇总 TCP</span>
+<span class="c1"># requests：总计的请求数量 HTTP协议请求</span>
+<span class="c1"># Reading：nginx服务读取请求报文数量	100人点餐</span>
+<span class="c1"># Writing：nginx服务响应报文信息数量	100人响应</span>
+<span class="c1"># Waiting：nginx队列机制，要处理（读取或响应保存进行保存）	监控</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ngx_http_log_module">ngx_http_log_module</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 4. nginx日志功能配置</span>
+<span class="c1"># 访问日志：/var/log/nginx/access.log	ngx_http_log_module</span>
+log_format	main	<span class="s1">&#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34;&#39;</span>
+			<span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34;&#39;</span>
+			<span class="s1">&#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;</span><span class="p">;</span>	定义日志格式
+access_log	/var/log/nginx/access.log	main<span class="p">;</span>			调用日志格式
+<span class="nv">$remote_addr</span>		显示用户访问源IP地址信息
+<span class="nv">$remote_user</span>		显示认证用户名信息
+<span class="o">[</span><span class="nv">$time_local</span><span class="o">]</span>		显示访问网站时间
+<span class="nv">$request</span>			请求报文的请求信息
+<span class="nv">$status</span>			状态码信息
+<span class="nv">$body_bytes_sent</span>		响应数据尺寸信息
+<span class="nv">$http_referer</span>		记录调用网站资源的连接地址信息（推广<span class="p">&amp;</span>防止用户盗链）
+<span class="nv">$http_user_agent</span>		记录用户使用什么客户端软件进行访问页面的（chrome，firefox，IE，Android，IOS）
+<span class="nv">$http_x_forwarded_for</span>	？？？负载均衡
+
+<span class="c1"># 错误日志：/var/log/nginx/error.log	Core functionality</span>
+<span class="c1"># error_log	/var/log/nginx/error.log warn;	指定错误日志路径以及错误日志记录的级别</span>
+<span class="c1"># 错误级别：</span>
+<span class="c1"># debug	调试级别，服务运行的状态信息和错误信息详细显示，信息越多</span>
+<span class="c1"># info	信息级别，只显示重要的运行信息和错误信息</span>
+<span class="c1"># notice	通知级别，更加重要的信息进行通知说明</span>
+<span class="c1"># warn	警告级别，可能出现了一些错误信息，但不影响服务运行</span>
+<span class="c1"># error	错误级别，服务运行已经出现了错误，需要 进行纠正，推荐选择</span>
+<span class="c1"># crit	严重级别，必须进行修正调整</span>
+<span class="c1"># alert	严重警告级别，即警告，而且必须进行错误修改</span>
+<span class="c1"># emerg	灾难级别，服务已经不能正常运行，信息越少</span>
+
+<span class="c1"># PS：日志要做切割</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ngx_http_core_module">ngx_http_core_module</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 5. nginx服务location作用</span>
+<span class="c1"># 模块说明：ngx_http_core_module</span>
+<span class="c1"># location进行匹配uri</span>
+<span class="c1"># 错误页面优雅显示</span>
+location	/oldboy	<span class="o">{</span>
+	root	/html/www<span class="p">;</span>
+	error_page	404	/oldboy.jpg<span class="p">;</span>
+<span class="o">}</span>
+location	/oldgirl	<span class="o">{</span>
+	root	/html/www<span class="p">;</span>
+	error_page	404	/oldgirl.jpg<span class="p">;</span>
+<span class="o">}</span>
+
+location详细配置
+<span class="nv">location</span> <span class="o">=</span> / <span class="o">{</span>	精确匹配，优先级01，最高
+<span class="o">}</span>
+location / <span class="o">{</span>	默认匹配，优先级04，最低
+<span class="o">}</span>
+location /documents/ <span class="o">{</span>	按照目录进行匹配，优先级03
+<span class="o">}</span>
+location ^~ /images/ <span class="o">{</span>	优先匹配、不识别uri信息中符号信息，优先级02
+<span class="o">}</span>
+location ~* <span class="se">\.</span> <span class="o">(</span>gif<span class="p">|</span>jpg<span class="p">|</span>jpeg<span class="o">)</span> $ <span class="o">{</span>	不区分大小写进行匹配，优先级03
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="http_rewrite_module">http_rewrite_module</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 6. 利用nginx实现页面跳转功能</span>
+<span class="c1"># 利用rewrite模块是跳转功能，http_rewrite_module</span>
+<span class="c1"># rewrite ^/(.*) http://www.oldboy.com/$1 permanent;	重写规则配置</span>
+<span class="c1"># 跳转方式：</span>
+<span class="c1"># 永久跳转，permanent，301，会将跳转信息进项缓存</span>
+<span class="c1"># 临时跳转，redirect，302，不会缓存跳转信息</span>
+<span class="c1"># 出现无限跳转如何解决：</span>
+<span class="c1"># 一：利用不同server区块配置打破循环</span>
+server <span class="o">{</span>
+	server_name oldboy.com<span class="p">;</span>
+	rewrite ^/<span class="o">(</span>.*<span class="o">)</span> http://www.oldboy.com/<span class="nv">$1</span> permanent<span class="p">;</span>
+<span class="o">}</span>
+<span class="c1"># 二：利用if判断实现打破循环</span>
+<span class="k">if</span> <span class="o">(</span><span class="nv">$host</span> ~* <span class="s2">&#34;^oldboy.com</span>$<span class="s2">&#34;</span><span class="o">)</span> <span class="o">{</span>
+	rewrite ^/<span class="o">(</span>.*<span class="o">)</span> http://www.oldboy.com/<span class="nv">$1</span> permanent<span class="p">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="网站的lnmp架构部署">网站的LNMP架构部署</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1.1 mysql部署：</span>
+<span class="c1"># 1.1.1 安装</span>
+yum install mariadb-server mariadb -y
+<span class="c1"># 补充：数据库初始化过程 mysql_install_db</span>
+<span class="c1"># --basedir=path，指定mysql程序目录</span>
+<span class="c1"># --datadir=path，指定数据信息保存目录</span>
+<span class="c1"># --user=mysql，让mysql管理数据目录 700</span>
+<span class="c1"># 1.1.2 启动</span>
+systemctl start mariadb.service
+systemctl <span class="nb">enable</span> mariadb.service
+<span class="c1"># 1.1.3 设置密码</span>
+mysqladmin -u root password  <span class="s1">&#39;oldboy123&#39;</span>，设置密码
+myssql -u root -poldboy123
+
+<span class="c1"># 1.2 PHP部署</span>
+<span class="c1"># 1.2.1 更新yum源、卸载系统自带的PHP软件</span>
+yum remove php-mysql php php-fpm php-common
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+<span class="c1"># 1.2.2 安装php软件</span>
+yum install -y php71w php71w-cli php71w-common php71w-devel php71w-embedded php71w-gd php71w-mcrypt php71w-mbstring php71w-pdo php71w-xml php71w-fpm php71w-mysqlnd php71w-opcache php71w-pecl-memcached php71w-pecl-redis php71w-pecl-mongodb
+<span class="c1"># 1.2.3 编写配置文件</span>
+vim /etc/php-fpm.d/www.conf
+<span class="nv">user</span><span class="o">=</span>nginx
+<span class="nv">group</span><span class="o">=</span>nginx
+<span class="c1"># PS：保证nginx进程的管理用户和php服务进程的管理用户保持一致</span>
+<span class="c1"># 1.2.4 启动php服务</span>
+systemctl start php-fpm
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="lnmp架构的原理">LNMP架构的原理</h3>
+<p>用户访问网站&ndash;&gt;nginx（fastcgi_pass）&ndash;FastCGI &ndash;&gt;（php-fpm &ndash; wrapper） php（php解析器）&ndash;&gt; mysql（读取或写入）</p>
+<h3 id="实现lnmp之间建立关系">实现LNMP之间建立关系</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 3.1 实现nginx+php建立关系</span>
+<span class="c1"># 3.1.1 编写nginx文件 </span>
+location ~<span class="se">\.</span>php$ <span class="o">{</span>
+	root /www<span class="p">;</span>
+	fastcgi_index index.php<span class="p">;</span>
+	fastcgi_param SCRIPT_FILENAME <span class="nv">$document_root$fastcgi_script_name</span><span class="p">;</span>
+	fastcgi_pass 127.0.0.1:9000<span class="p">;</span>
+	include fastcgi_params<span class="p">;</span>	变量配置文件
+<span class="o">}</span>
+<span class="c1"># 重启nginx服务</span>
+<span class="c1"># 3.1.2 编写动态资源文件</span>
+vim /html/blog/test_php.php
+&lt;?php
+phpinfo<span class="o">()</span><span class="p">;</span>
+?&gt;
+<span class="c1"># 3.1.3 进行访问测试</span>
+blog.oldboy.com/test_php.php
+
+<span class="c1"># 3.2 实现php+mysql建立关系</span>
+<span class="c1"># 3.2.1 编写php代码文件</span>
+vim test_mysql.php
+&lt;?php
+	<span class="nv">$servername</span><span class="o">=</span><span class="s2">&#34;localhost&#34;</span><span class="p">;</span>
+	<span class="nv">$username</span><span class="o">=</span><span class="s2">&#34;root&#34;</span><span class="p">;</span>
+	<span class="nv">$password</span><span class="o">=</span><span class="s2">&#34;oldboy123&#34;</span><span class="p">;</span>
+	<span class="nv">$conn</span><span class="o">=</span>mysqli_connect<span class="o">(</span><span class="nv">$servername</span>,<span class="nv">$username</span>,<span class="nv">$password</span><span class="o">)</span><span class="p">;</span>
+	<span class="k">if</span> <span class="o">(</span><span class="nv">$conn</span><span class="o">){</span>
+		<span class="nb">echo</span> <span class="s2">&#34;mysql successful by root !\n&#34;</span><span class="p">;</span>
+	<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+		die<span class="o">(</span><span class="s2">&#34;conection failed:&#34;</span>.mysqli_connect_error<span class="o">())</span><span class="p">;</span>
+	<span class="o">}</span>
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="部署搭建网站页面代码上线">部署搭建网站页面（代码上线）</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 4.1 获取代码信息（git），使用开源网站代码</span>
+<span class="c1"># www网站页面：http://www.dedecms.com</span>
+<span class="c1"># bbs网站页面：http://www.discuz.net/forum.php</span>
+<span class="c1"># blog网站页面：https://cn.wordpress.org/</span>
+<span class="c1"># wecenter网站页面：http://www.wecenter.com/?copyright</span>
+<span class="c1"># 4.2 将代码解压，将解压后信息放入到站点目录中</span>
+tar xf wordpress-5.2.1.tar.gz
+mv ..
+<span class="c1"># 4.3 修改站点目录权限</span>
+chown -R www.www blog
+<span class="c1"># 4.4 进行网站页面初始化操作</span>
+<span class="c1"># 4.5 对数据库服务进行配置</span>
+<span class="c1"># 创建数据库：create databases wordpress;</span>
+<span class="c1"># 检查：show databases;</span>
+<span class="c1"># 创建数据库管理用户：grant all on wordpress.* to &#39;wordpress&#39;@&#39;localhost&#39; identified by &#39;oldboy123&#39;;</span>
+<span class="c1"># 检查：select user,host from mysql.user</span>
+<span class="c1"># 4.6 利用网站发布博文</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="上传wordpress主题报413错误如何解决">上传wordpress主题，报413错误，如何解决？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 1. </span>
+<span class="c1"># 1.1 修改nginx配置文件</span>
+vim blog.conf
+server <span class="o">{</span>
+	client_max_body_size 50m<span class="p">;</span>	指定用户上传数据的大小限制（默认1m）
+<span class="o">}</span>
+<span class="c1"># 1.2 修改php.ini配置文件</span>
+<span class="nv">upload_max_filesize</span><span class="o">=</span>50M	使用php接收用户上传的更大的数据（默认2M）
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="如何让lnmp架构和存储服务器建立关系">如何让LNMP架构和存储服务器建立关系</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 2.1 查找图片存储位置</span>
+<span class="c1"># 2.1.1 根据图片链接地址获取图片存储位置</span>
+<span class="c1"># 2.1.2 使用命令在站点目录中查找</span>
+find /html/blog -type f -mmin -5
+inotifywait -mrq /html/blog
+<span class="c1"># 2.2 使web服务器和存储服务器建立关系</span>
+<span class="c1"># 检查 存储服务是否正常</span>
+<span class="c1"># 编写存储服务配置文件</span>
+showmount -e 172.16.1.31
+/data/bbs 172.16.1.0/24
+/data/www 172.16.1.0/24
+/data/blog 172.16.1.0/24
+mkdir /data/<span class="o">{</span>bbs,blog,www<span class="o">}</span>
+<span class="c1"># 将web服务器blog存储的数据进行迁移，迁移到存储服务器的映射目录</span>
+mv /tmp/2019/ /html/blog/wp-content/uploads/
+
+<span class="c1"># 默认存储服务器无法存储数据：</span>
+<span class="c1"># 管理用户无法存储：root_squash --- nfsnobody</span>
+<span class="c1"># 不同用户无法存储：no_all_squash</span>
+<span class="c1"># 解决：</span>
+<span class="c1"># 第一个历程：修改nfs配置文件，定义映射用户为www</span>
+useradd www -u <span class="m">1002</span>
+chown -R www /data
+<span class="c1"># 第二个历程：使用root用户可以上传数据</span>
+sed -ri.bak <span class="s1">&#39;s#(sync)#\1,anonuid=1002,anongid=1002#g&#39;</span> /etc/exports
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="如何让lnmp架构和数据库服务器建立关系">如何让LNMP架构和数据库服务器建立关系？？？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 3.1 将web服务器本地数据库数据进行备份</span>
+mysqldump -uroot -poldboy123 --all-datebase &gt; /tmp/web_back.sql
+<span class="c1"># 3.2 将备份数据进行迁移</span>
+scp -rp /tmp/web_back.sql 172.16.1.51:/tmp
+<span class="c1"># 3.3 恢复数据信息</span>
+yum install -y mariadb-server mariadb
+<span class="c1"># 3.4 修改数据库服务器中数据库用户信息</span>
+&gt; <span class="k">select</span> user,host from mysql.user<span class="p">;</span>
+<span class="c1"># 优化：删除无用的用户信息</span>
+delete from mysql.user where <span class="nv">user</span><span class="o">=</span><span class="s2">&#34;&#34;</span> and <span class="nv">host</span><span class="o">=</span><span class="s2">&#34;localhost&#34;</span><span class="p">;</span>
+delete from mysql.user where <span class="nv">user</span><span class="o">=</span><span class="s2">&#34;&#34;</span> and <span class="nv">host</span><span class="o">=</span><span class="s2">&#34;web01&#34;</span><span class="p">;</span>
+<span class="c1"># 添加：添加新的用户信息</span>
+grant all on wordpress.* to <span class="s1">&#39;wordpress&#39;</span>@<span class="s1">&#39;172.16.1.%&#39;</span> identified by <span class="s1">&#39;oldboy123&#39;</span><span class="p">;</span>
+<span class="c1"># 3.5 修改web服务器代码文件信息</span>
+vim wp-config.php
+define <span class="o">(</span><span class="s1">&#39;DB_HOST&#39;</span>,<span class="s1">&#39;172.16.1.51&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="c1"># 3.6 停止web服务器上数据库服务</span>
+
+<span class="c1"># 补充：web01代码信息迁移到web02服务器，并且修改了网站域名无法正确访问</span>
+<span class="c1"># 访问新域名会自动跳转到老的域名</span>
+<span class="c1"># 方法一：</span>
+<span class="c1"># 修改wordpress后台设置信息，将后台中老的域名改为新的域名</span>
+<span class="c1"># 方法二：</span>
+<span class="c1"># 修改数据库中的一个表，在表中修改一个和域名有管的条目信息</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="负载均衡">负载均衡</h2>
+<h3 id="负载均衡概念">负载均衡概念</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 反向代理：外网--&gt;代理服务器--&gt;公司网站服务器web</span>
+<span class="c1"># 正向代理：内网--&gt;代理服务器--&gt;互联网--&gt;web服务器（日本），翻墙</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="负载均衡的环境">负载均衡的环境</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 集群服务器部署：</span>
+<span class="c1"># PS：集群中每天服务器的配置一模一样</span>
+<span class="c1"># 企业中：</span>
+<span class="c1"># 01，现部署好一台LNMP服务器，上传代码信息</span>
+<span class="c1"># 02，进行访问测试</span>
+<span class="c1"># 03，批量部署多台web服务器</span>
+<span class="c1"># 04，将nginx配置文件进行分发</span>
+<span class="c1"># 05，将站点目录分发给所有主机</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="负载均衡服务器部署">负载均衡服务器部署：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 6.1 安装部署nginx软件</span>
+<span class="c1"># 6.2 编写nginx负载服务配置文件</span>
+ngx_http_upstream_module，upstream，负载均衡
+ngx_http_proxy_module，proxy_pass，方向代理
+
+upstream oldboy <span class="o">{</span>
+	server 10.0.0.7:80<span class="p">;</span>
+	server 10.0.0.8:80<span class="p">;</span>
+	server 10.0.0.9:80<span class="p">;</span>
+<span class="o">}</span>
+server <span class="o">{</span>
+	listen	80<span class="p">;</span>
+	server_name	www.oldboy.com<span class="p">;</span>
+	location	/	<span class="o">{</span>
+		proxy_pass http://oldboy<span class="p">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1"># 6.3 实现负载功能测试</span>
+<span class="c1"># 搭建集群测试环境：</span>
+<span class="k">for</span> name in www bbs blog<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2"> 10.0.0.7&#34;</span> &gt; /html/<span class="nv">$name</span>/wenwen.html<span class="p">;</span> <span class="k">done</span>
+<span class="k">for</span> name in www bbs blog<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2"> 10.0.0.8&#34;</span> &gt; /html/<span class="nv">$name</span>/wenwen.html<span class="p">;</span> <span class="k">done</span>
+<span class="k">for</span> name in www bbs blog<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2"> 10.0.0.9&#34;</span> &gt; /html/<span class="nv">$name</span>/wenwen.html<span class="p">;</span> <span class="k">done</span>
+<span class="c1"># 修改windows解析文件</span>
+10.0.0.5	www.oldboy.com	blog.oldboy.com	bbs.oldboy.com
+
+<span class="c1"># 负载均衡访问网站异常排错思路：</span>
+<span class="c1"># 01，负载均衡 测试后端web节点服务器是否能够正常访问</span>
+<span class="c1"># 02，负载均衡，利用curl命令访问负载均衡服务器</span>
+<span class="c1"># 03，打开xshell连接 ping www.oldboy.com</span>
+<span class="c1"># 04，配置文件编写不正确</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="负载均衡配置模块详细说明">负载均衡配置模块详细说明</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ngx_http_upstream_module，upstream
+<span class="c1"># 实现不同调度功能</span>
+<span class="c1"># 01，轮询分配请求（平均）</span>
+<span class="c1"># 02，权重分配请求（能力越强责任越重）</span>
+upstream oldboy <span class="o">{</span>
+	server 10.0.0.7:80 <span class="nv">weight</span><span class="o">=</span>3<span class="p">;</span>
+	server 10.0.0.8:80 <span class="nv">weight</span><span class="o">=</span>2<span class="p">;</span>
+	server 10.0.0.9:80 <span class="nv">weight</span><span class="o">=</span>1<span class="p">;</span>
+<span class="o">}</span>
+<span class="c1"># 03，实现热备份功能（备胎功能）</span>
+upstream olbboy <span class="o">{</span>
+	server 10.0.0.7:80<span class="p">;</span>
+	server 10.0.0.8:80<span class="p">;</span>
+	server 10.0.0.9:80 backup<span class="p">;</span>
+<span class="o">}</span>
+<span class="c1"># 04，定义最大失败次数，健康检查参数</span>
+<span class="nv">max_fails</span><span class="o">=</span><span class="m">5</span>
+<span class="c1"># 05，定义失败之后重发的间隔时间，健康检查参数</span>
+<span class="nv">fail_timeout</span><span class="o">=</span>10s，会给失败的服务器一次机会
+
+<span class="c1"># 实现不同调度算法</span>
+<span class="c1"># 01，rr，轮询调度算法</span>
+<span class="c1"># 02，wrr，权重调度算法</span>
+<span class="c1"># 03，ip_hash，出现反复登录的时候，可以配置上，但是这个方法没有配置缓存的方式好</span>
+<span class="c1"># 04，least_conn，根据服务器连接数分配资源</span>
+
+ngx_http_proxy_module，proxy_pass
+<span class="c1"># 01，访问不同网站地址，不能显示不同的网站页面</span>
+proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>	把真实需求访问的地址发给后端服务器
+<span class="c1"># 02，访问网站用户地址信息无法进行分析统计</span>
+proxy_set_header X-Forwarded-For <span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="c1"># 03，访问负载均衡会出现错误页面，影响用户体验</span>
+proxy_next_upstream error timeout http_404 http_502 http_403<span class="p">;</span>
+
+<span class="c1"># 1. 负载均衡企业实践应用</span>
+<span class="c1"># 1.1 根据用户访问的uri信息进行负载均衡</span>
+<span class="c1"># 1.2 根据用户访问的终端信息显示不同的页面</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="高可用服务">高可用服务</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 3. 如何实现部署高可用服务</span>
+<span class="c1"># 利用keepalived软件实现</span>
+<span class="c1"># 作用：</span>
+<span class="c1"># 3.1 为LVS服务而诞生出来的 k8s+容器技术docker</span>
+<span class="c1">#                                          keepalived+LVS负载均衡软件（4层）</span>
+<span class="c1"># 3.2 实现高可用服务功能</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="高可用keepalived服务部署流程">高可用keepalived服务部署流程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 4.1 准备高可用服务架构</span>
+<span class="c1"># 4.2 安装部署keepalived软件（lb01 lb02）</span>
+yum install -y keepalived
+<span class="c1"># 4.3 编写keepalived配置文件</span>
+vim /etc/keepalived/keepalived.conf
+GLOBAL CONFIGURATION，全局配置部分
+VRRPD CONFIGURATION，VRRP协议配置部分
+LVS CONFIGURATION，LVS服务管理配置部分
+
+vim /etc/keepalived/keepalived.conf
+
+global_defs <span class="o">{</span>		全局配置部分
+	notification_email <span class="o">{</span>	设置发送邮件信息
+		XXX
+	<span class="o">}</span>
+	notification_email_from	XXX
+	smtp_server		XXX
+	smtp_connect_timeout	<span class="m">30</span>
+	router_id			lb01	高可用集群主机身份标识（集群中主机身份标识名称不能重复）
+<span class="o">}</span>
+
+vrrp_instance oldboy <span class="o">{</span>	Vrrp协议家族
+	state MASTER	标识所有家族中的身份（MASTER/BACKUP）
+	interface eth0	指定虚拟IP地址出现在什么网卡上
+	virtual_router_id 51	标识家族身份信息，多台高可用服务配置要一致
+	priority 100	设定优先级，优先级越高，就越有可能成为主
+	advert_int 1	？
+	authentication <span class="o">{</span>	实现通讯需要有认证过程
+		auth_type PASS
+		auth_pass <span class="m">1111</span>
+	<span class="o">}</span>
+	virtual_ipaddress <span class="o">{</span>	配置虚拟IP地址信息
+		192.168.200.16/24
+	<span class="o">}</span>
+<span class="o">}</span>
+<span class="c1"># 4.4 启动keppalived服务</span>
+<span class="c1"># 。。。</span>
+<span class="c1"># 4.5 修改域名和IP地址解析</span>
+<span class="c1"># 。。。</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="高可用服务器企业应用">高可用服务器企业应用</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 5.1 高可用服务常见异常问题，脑裂问题</span>
+<span class="c1"># 出现原因，高可用服务器接收不到主服务器发送的组播包，备服务器上会自动生成VIP地址</span>
+<span class="c1"># 物理原因，高可用集群之间通讯线路出现故障</span>
+<span class="c1"># 逻辑原因，安全策略阻止</span>
+<span class="c1"># 如何解决：</span>
+<span class="c1"># 01，进行监控，并发出告警</span>
+<span class="c1"># 备服务器出现VIP地址的原因：</span>
+<span class="c1"># a，主服务器出现故障</span>
+<span class="c1"># b，出现脑裂问题</span>
+<span class="c1"># 02，直接关闭一台服务器的keepalived服务</span>
+
+<span class="c1"># 5.2 如何实现keepalived服务自动释放vip地址资源</span>
+<span class="c1"># nginx+keepalived：nginx服务停止，keepalived也必须停止</span>
+<span class="c1"># 5.2.1 编写监控nginx服务器状态监控</span>
+<span class="c1">#!/bin/bash</span>
+<span class="nv">num</span><span class="o">=</span><span class="sb">`</span>ps -ef <span class="p">|</span> grep -c nginx<span class="sb">`</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$num</span> -lt <span class="m">3</span> <span class="o">]</span>
+<span class="k">then</span>
+    systemctl stop keepalived
+<span class="k">fi</span>
+<span class="c1"># 5.2.2 测试监控脚本</span>
+<span class="c1"># 5.2.3 实时监控nginx服务状态---keepalived配置文件</span>
+vrrp_script check_web <span class="o">{</span>
+	script <span class="s2">&#34;/server/scripts/check_web.sh&#34;</span>	定义需要监控脚本（脚本是执行权限）
+	interval 2				执行脚本的间隔时间（秒）
+	weight 2				？？？
+<span class="o">}</span>
+
+track_script <span class="o">{</span>
+	check_web			调用执行你的脚本信息
+<span class="o">}</span>
+
+<span class="c1"># 5.3 如何设定双主配置</span>
+lb01：
+vrrp_instance oldboy <span class="o">{</span>
+	state MASTER
+	...
+	virtual_router_id <span class="m">51</span>
+	priority <span class="m">150</span>
+	...
+	virtual_ipaddress <span class="o">{</span>
+		10.0.0.3/24
+	<span class="o">}</span>
+<span class="o">}</span>
+vrrp_instance oldgirl <span class="o">{</span>
+	state BACKUP
+	...
+	virtual_router_id <span class="m">52</span>
+	priority <span class="m">100</span>
+	...
+	virtual_ipaddress <span class="o">{</span>
+		10.0.0.4/24
+	<span class="o">}</span>
+<span class="o">}</span>
+lb02：
+vrrp_instance oldboy <span class="o">{</span>
+	state BACKUP
+	...
+	virtual_router_id <span class="m">51</span>
+	priority <span class="m">100</span>
+	...
+	virtual_ipaddress <span class="o">{</span>
+		10.0.0.3/24
+	<span class="o">}</span>
+<span class="o">}</span>
+vrrp_instance oldgirl <span class="o">{</span>
+	state MASTER
+	...
+	virtual_router_id <span class="m">52</span>
+	priority <span class="m">150</span>
+	...
+	virtual_ipaddress <span class="o">{</span>
+		10.0.0.4/24
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1"># 5.4 高可用服务安全访问配置（负载均衡服务）</span>
+<span class="c1"># 5.4.1 修改nginx负载均衡文件</span>
+upstream oldboy <span class="o">{</span>
+	server 10.0.0.7:80<span class="p">;</span>
+	server 10.0.0.8:80<span class="p">;</span>
+	server 10.0.0.9:80<span class="p">;</span>
+<span class="o">}</span>
+...
+
+<span class="c1"># 5.4.2 修改内核文件</span>
+<span class="nb">echo</span> <span class="s1">&#39;net.ipv4.ip_nonlocal_bind=1&#39;</span> &gt;&gt; /etc/sysctl.conf
+sysctl -p
+
+<span class="c1"># 5.4.3 重启nginx负载均衡服务</span>
+systemctl restart nginx
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Charles Miao</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-06-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/Linux-Admin-6/">
+            <span class="next-text nav-default">Linux基础 - Part6</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Charles Miao</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
