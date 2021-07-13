@@ -6,7 +6,43 @@
     <description>Recent content in Tags on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 28 Jun 2021 23:19:54 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jul 2021 22:58:21 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NAS</title>
+      <link>https://Charles-Miao.github.io/tags/NAS/</link>
+      <pubDate>Tue, 13 Jul 2021 22:58:21 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/tags/NAS/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://Charles-Miao.github.io/tags/Python/</link>
+      <pubDate>Tue, 13 Jul 2021 22:58:21 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/tags/Python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rsync</title>
+      <link>https://Charles-Miao.github.io/tags/rsync/</link>
+      <pubDate>Tue, 13 Jul 2021 22:58:21 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/tags/rsync/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>https://Charles-Miao.github.io/tags/Windows/</link>
+      <pubDate>Tue, 13 Jul 2021 22:58:21 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/tags/Windows/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Linux</title>
       <link>https://Charles-Miao.github.io/tags/Linux/</link>
@@ -22,15 +58,6 @@
       <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/tags/apacucli/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://Charles-Miao.github.io/tags/Python/</link>
-      <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
-      
-      <guid>https://Charles-Miao.github.io/tags/Python/</guid>
       <description></description>
     </item>
     
@@ -85,15 +112,6 @@
       <pubDate>Tue, 11 Aug 2020 22:03:23 +0800</pubDate>
       
       <guid>https://Charles-Miao.github.io/tags/PC/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Windows</title>
-      <link>https://Charles-Miao.github.io/tags/Windows/</link>
-      <pubDate>Tue, 11 Aug 2020 22:03:23 +0800</pubDate>
-      
-      <guid>https://Charles-Miao.github.io/tags/Windows/</guid>
       <description></description>
     </item>
     

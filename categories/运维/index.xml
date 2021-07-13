@@ -6,7 +6,21 @@
     <description>Recent content in 运维 on Charles&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 28 Jun 2021 23:19:54 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jul 2021 22:58:21 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/categories/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows实时同步文件至NAS</title>
+      <link>https://Charles-Miao.github.io/post/windows-rsync-realtime/</link>
+      <pubDate>Tue, 13 Jul 2021 22:58:21 +0800</pubDate>
+      
+      <guid>https://Charles-Miao.github.io/post/windows-rsync-realtime/</guid>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;问题说明&lt;/li&gt;
+&lt;li&gt;环境部署&lt;/li&gt;
+&lt;li&gt;脚本实现&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
     <item>
       <title>Linux基础 - Part8</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-8/</link>
