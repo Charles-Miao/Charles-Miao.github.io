@@ -6,7 +6,7 @@
     <description>Recent content on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 13 Mar 2026 20:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2026 21:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
@@ -14,6 +14,13 @@
       <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/about/</guid>
       <description>&lt;h2 id=&#34;-关于我&#34;&gt;👋 关于我&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Charles Miao&lt;/strong&gt; - DevOps / 硬件测试开发&lt;/p&gt;&#xA;&lt;p&gt;📧 邮箱：fengkuang33@gmail.com&lt;br&gt;&#xA;🔗 GitHub：&lt;a href=&#34;https://github.com/Charles-Miao&#34;&gt;@Charles-Miao&lt;/a&gt;&lt;br&gt;&#xA;🌐 博客：&lt;a href=&#34;https://charles-miao.github.io/&#34;&gt;charles-miao.github.io&lt;/a&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;-职业&#34;&gt;💼 职业&lt;/h2&gt;&#xA;&lt;p&gt;目前在工厂从事&lt;strong&gt;测试工作&lt;/strong&gt;，专注于：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>英语学习初探：一个 DevOps 工程师的自学之路</title>
+      <link>https://Charles-Miao.github.io/post/english-learning-journey/</link>
+      <pubDate>Fri, 13 Mar 2026 21:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/english-learning-journey/</guid>
+      <description></description>
     </item>
     <item>
       <title>自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制</title>
