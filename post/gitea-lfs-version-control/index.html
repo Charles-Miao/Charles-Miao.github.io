@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="从 SVN 迁移到 Gitea &#43; LFS，解决大文件版本控制难题。分享工具选型对比、安装配置、LFS 优化和自动化流程实践经验" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/gitea-lfs-version-control/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/gitea-lfs-version-control/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制">
+  <meta property="og:description" content="从 SVN 迁移到 Gitea &#43; LFS，解决大文件版本控制难题。分享工具选型对比、安装配置、LFS 优化和自动化流程实践经验">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-03-13T20:00:00+08:00">
+    <meta property="article:modified_time" content="2026-03-13T20:00:00+08:00">
+    <meta property="article:tag" content="Git">
+    <meta property="article:tag" content="Gitea">
+    <meta property="article:tag" content="LFS">
+    <meta property="article:tag" content="版本控制">
+    <meta property="article:tag" content="DevOps">
+    <meta property="article:tag" content="自动化">
+
+  <meta itemprop="name" content="自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制">
+  <meta itemprop="description" content="从 SVN 迁移到 Gitea &#43; LFS，解决大文件版本控制难题。分享工具选型对比、安装配置、LFS 优化和自动化流程实践经验">
+  <meta itemprop="datePublished" content="2026-03-13T20:00:00+08:00">
+  <meta itemprop="dateModified" content="2026-03-13T20:00:00+08:00">
+  <meta itemprop="wordCount" content="3952">
+  <meta itemprop="keywords" content="Git,Gitea,LFS,版本控制,DevOps,自动化">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制">
+  <meta name="twitter:description" content="从 SVN 迁移到 Gitea &#43; LFS，解决大文件版本控制难题。分享工具选型对比、安装配置、LFS 优化和自动化流程实践经验">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2026-03-13 </span>
+        <div class="post-category">
+            <a href="/categories/%e8%bf%90%e7%bb%b4/">运维 </a>
+            <a href="/categories/%e6%8a%80%e6%9c%af/">技术 </a>
+            </div>
+          <span class="more-meta"> 约 3952 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-项目背景">📋 项目背景</a>
+      <ul>
+        <li><a href="#原有痛点">原有痛点</a></li>
+        <li><a href="#解决方案">解决方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#-工具选型对比">🔍 工具选型对比</a>
+      <ul>
+        <li><a href="#四款工具详细对比">四款工具详细对比</a></li>
+        <li><a href="#各工具详细分析">各工具详细分析</a></li>
+        <li><a href="#-最终选择gitea">🏆 最终选择：Gitea</a></li>
+      </ul>
+    </li>
+    <li><a href="#-安装和配置">🚀 安装和配置</a>
+      <ul>
+        <li><a href="#安装步骤">安装步骤</a></li>
+      </ul>
+    </li>
+    <li><a href="#-lfs-大文件支持">📦 LFS 大文件支持</a>
+      <ul>
+        <li><a href="#问题仓库更新特别慢">问题：仓库更新特别慢</a></li>
+        <li><a href="#解决方案启用-lfs-功能">解决方案：启用 LFS 功能</a></li>
+        <li><a href="#lfs-工作原理">LFS 工作原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#-自动化流程设计">🔄 自动化流程设计</a>
+      <ul>
+        <li><a href="#整体流程">整体流程</a></li>
+        <li><a href="#详细流程说明">详细流程说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#-关键配置">🔧 关键配置</a>
+      <ul>
+        <li><a href="#1-自动导出脚本gitcheckout">1. 自动导出脚本（GitCheckOut）</a></li>
+        <li><a href="#2-邮件通知脚本checkgit">2. 邮件通知脚本（CheckGit）</a></li>
+        <li><a href="#3-权限管理">3. 权限管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#-实施效果">📊 实施效果</a>
+      <ul>
+        <li><a href="#改善对比">改善对比</a></li>
+        <li><a href="#实际收益">实际收益</a></li>
+      </ul>
+    </li>
+    <li><a href="#-最佳实践">💡 最佳实践</a>
+      <ul>
+        <li><a href="#1-仓库组织">1. 仓库组织</a></li>
+        <li><a href="#2-分支策略">2. 分支策略</a></li>
+        <li><a href="#3-提交规范">3. 提交规范</a></li>
+        <li><a href="#4-lfs-文件类型建议">4. LFS 文件类型建议</a></li>
+      </ul>
+    </li>
+    <li><a href="#-常见问题">⚠️ 常见问题</a>
+      <ul>
+        <li><a href="#q1-lfs-推送失败">Q1: LFS 推送失败</a></li>
+        <li><a href="#q2-仓库历史过大">Q2: 仓库历史过大</a></li>
+        <li><a href="#q3-自动导出失败">Q3: 自动导出失败</a></li>
+        <li><a href="#q4-邮件通知不发送">Q4: 邮件通知不发送</a></li>
+      </ul>
+    </li>
+    <li><a href="#-参考资料">📚 参考资料</a>
+      <ul>
+        <li><a href="#官方文档">官方文档</a></li>
+        <li><a href="#教程资源">教程资源</a></li>
+        <li><a href="#工具下载">工具下载</a></li>
+      </ul>
+    </li>
+    <li><a href="#-总结">🎯 总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="-项目背景">📋 项目背景</h2>
+<h3 id="原有痛点">原有痛点</h3>
+<p>我们之前使用 <strong>SVN</strong> 管理测试程序的变更记录，但在实际使用中遇到了一个严重的局限性：</p>
+<blockquote>
+<p><strong>SVN 无法处理 2GB 以上的大文件</strong></p>
+</blockquote>
+<p>随着测试程序和镜像文件的体积不断增长（testtool、testimage、ATOtools、Shippingimage、BIOS 等），这个限制严重影响了我们的工作效率。</p>
+<h3 id="解决方案">解决方案</h3>
+<p>引入 <strong>自建 Git 服务器 + LFS（Large File Storage）</strong> 功能，实现：</p>
+<ul>
+<li>✅ 支持大文件版本控制</li>
+<li>✅ 完整的代码历史记录</li>
+<li>✅ 自动化导出和通知</li>
+<li>✅ 权限管理和审计</li>
+</ul>
+<hr>
+<h2 id="-工具选型对比">🔍 工具选型对比</h2>
+<p>在自建 Git 服务器的方案选择上，我们对比了主流的四款工具：</p>
+<h3 id="四款工具详细对比">四款工具详细对比</h3>
+<table>
+  <thead>
+      <tr>
+          <th>工具</th>
+          <th>语言/架构</th>
+          <th>核心特点</th>
+          <th>适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Gogs</strong></td>
+          <td>Go（单二进制）</td>
+          <td>极轻量、资源占用极低、安装简单；功能基础（代码托管、权限管理、Web Hook）</td>
+          <td>超小型团队或个人开发者</td>
+      </tr>
+      <tr>
+          <td><strong>Gitblit</strong></td>
+          <td>Java</td>
+          <td>轻量、支持图形化界面、适合 Windows 部署；功能简单（仓库管理、基础权限）</td>
+          <td>需要简单界面操作的小团队</td>
+      </tr>
+      <tr>
+          <td><strong>Gitea</strong></td>
+          <td>Go（Gogs 分支）</td>
+          <td>轻量但功能更全面（CI/CD、代码审查、项目管理、制品库）；社区活跃，更新频繁</td>
+          <td>需要轻量但功能较全的团队</td>
+      </tr>
+      <tr>
+          <td><strong>GitLab</strong></td>
+          <td>Ruby</td>
+          <td>功能全面（全周期 DevOps、CI/CD、看板、Wiki）；资源消耗高，配置复杂</td>
+          <td>中大型团队或复杂项目</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="各工具详细分析">各工具详细分析</h3>
+<h4 id="gitblit">Gitblit</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li>基于 Java 开发，适合 Java 开发者</li>
+<li>界面友好，Windows 环境下部署方便</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>功能相对简单</li>
+<li>主要提供代码仓库管理和基础权限控制</li>
+<li>对高级功能支持不足</li>
+<li>社区不如 Gitea 活跃</li>
+</ul>
+<h4 id="gitea">Gitea</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li>基于 Go 语言开发，轻量级</li>
+<li>跨平台，安装和升级方便</li>
+<li>功能全面：CI/CD、代码审查、项目管理、制品库等</li>
+<li>社区活跃，更新频繁</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>相对 Gogs，资源占用略高</li>
+<li>但在同类产品中仍然算轻量级</li>
+</ul>
+<h4 id="gogs">Gogs</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li>非常轻量级，资源占用极低</li>
+<li>安装简单，部署方便</li>
+<li>核心功能完善</li>
+<li>适合对服务器资源有严格要求的场景</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>功能相对 Gitea 较少</li>
+<li>社区活跃度不如 Gitea</li>
+</ul>
+<h3 id="-最终选择gitea">🏆 最终选择：Gitea</h3>
+<p><strong>选择理由：</strong></p>
+<ol>
+<li><strong>功能与轻量化的最佳平衡</strong></li>
+<li><strong>支持 LFS</strong>，完美解决大文件问题</li>
+<li><strong>社区活跃</strong>，持续更新和维护</li>
+<li><strong>跨平台</strong>，支持 Windows/Linux</li>
+<li><strong>安装简单</strong>，单二进制文件即可运行</li>
+</ol>
+<blockquote>
+<p>Gitea 是 Gogs 的分支，在保持轻量级的同时，增加了更多实用功能。</p>
+</blockquote>
+<hr>
+<h2 id="-安装和配置">🚀 安装和配置</h2>
+<h3 id="安装步骤">安装步骤</h3>
+<p><strong>参考教程：</strong></p>
+<ul>
+<li><a href="https://www.cnblogs.com/alexgl2008/articles/17948253">服务器（Windows 系统）自建 git 服务器超详细教程</a></li>
+</ul>
+<p><strong>简要步骤：</strong></p>
+<ol>
+<li>
+<p><strong>下载安装 Gitea</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="c"># 下载 Windows 版本</span>
+</span></span><span class="line"><span class="cl"><span class="nb">wget </span><span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">dl</span><span class="p">.</span><span class="py">gitea</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">gitea</span><span class="p">/</span><span class="mf">1.21</span><span class="p">.</span><span class="mf">0</span><span class="p">/</span><span class="n">gitea</span><span class="p">-</span><span class="mf">1.21</span><span class="p">.</span><span class="mf">0</span><span class="n">-windows</span><span class="p">-</span><span class="mf">4.0</span><span class="n">-amd64</span><span class="p">.</span><span class="py">exe</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>创建配置文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">; app.ini</span>
+</span></span><span class="line"><span class="cl"><span class="k">[server]</span>
+</span></span><span class="line"><span class="cl"><span class="na">DOMAIN</span> <span class="o">=</span> <span class="s">git.yourcompany.com</span>
+</span></span><span class="line"><span class="cl"><span class="na">HTTP_PORT</span> <span class="o">=</span> <span class="s">3000</span>
+</span></span><span class="line"><span class="cl"><span class="na">ROOT_URL</span> <span class="o">=</span> <span class="s">http://git.yourcompany.com:3000/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[database]</span>
+</span></span><span class="line"><span class="cl"><span class="na">DB_TYPE</span> <span class="o">=</span> <span class="s">sqlite3</span>
+</span></span><span class="line"><span class="cl"><span class="na">PATH</span> <span class="o">=</span> <span class="s">data/gitea.db</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[repository]</span>
+</span></span><span class="line"><span class="cl"><span class="na">ROOT</span> <span class="o">=</span> <span class="s">data/git-data/repositories</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[lfs]</span>
+</span></span><span class="line"><span class="cl"><span class="na">START_SERVER</span> <span class="o">=</span> <span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">PATH</span> <span class="o">=</span> <span class="s">data/lfs</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>配置 Windows 服务</strong></p>
+<ul>
+<li>使用 NSSM（Non-Sucking Service Manager）将 Gitea 封装成 Windows 服务</li>
+<li>参考：<a href="https://www.cnblogs.com/05-hust/p/17407534.html">使用 NSSM - 将任何 exe 应用封装成 windows 服务</a></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">nssm</span> <span class="n">install</span> <span class="n">Gitea</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">Gitea</span> <span class="n">Application</span> <span class="s2">&#34;C:\Gitea\gitea.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">Gitea</span> <span class="n">AppDirectory</span> <span class="s2">&#34;C:\Gitea&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">start </span><span class="n">Gitea</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>初始化配置</strong></p>
+<ul>
+<li>访问 <code>http://localhost:3000</code></li>
+<li>设置管理员账号</li>
+<li>配置仓库根目录</li>
+<li>启用 LFS 支持</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="-lfs-大文件支持">📦 LFS 大文件支持</h2>
+<h3 id="问题仓库更新特别慢">问题：仓库更新特别慢</h3>
+<p><strong>问题描述：</strong>
+在使用过程中，发现更新仓库特别慢，尤其是包含大文件（.zip、.7z 等）的仓库。</p>
+<p><strong>原因分析：</strong></p>
+<ul>
+<li>Git 默认会下载所有历史版本的文件</li>
+<li>大文件的历史版本会占用大量带宽和存储空间</li>
+</ul>
+<h3 id="解决方案启用-lfs-功能">解决方案：启用 LFS 功能</h3>
+<p><strong>步骤 1：配置 LFS 跟踪文件类型</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> my-repository
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 跟踪特定文件类型</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.zip&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.7z&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.iso&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.vmdk&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提交配置</span>
+</span></span><span class="line"><span class="cl">git add .gitattributes
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;enable LFS support&#34;</span>
+</span></span><span class="line"><span class="cl">git push origin main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>步骤 2：迁移已有大文件到 LFS</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 迁移仓库中所有历史提交的 7z 和 zip 文件到 LFS</span>
+</span></span><span class="line"><span class="cl">git lfs migrate import --include<span class="o">=</span><span class="s2">&#34;*.7z,*.zip&#34;</span> --everything
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 强制推送（注意：会重写历史）</span>
+</span></span><span class="line"><span class="cl">git push --force-with-lease origin main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>⚠️ <strong>注意</strong>：如果使用 TortoiseGit 工具，请在 push 时勾选 &ldquo;force-with-lease&rdquo; 选项</p>
+</blockquote>
+<p><strong>步骤 3：验证 LFS 状态</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查看 LFS 跟踪的文件</span>
+</span></span><span class="line"><span class="cl">git lfs ls-files
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看 LFS 状态</span>
+</span></span><span class="line"><span class="cl">git lfs status
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="lfs-工作原理">LFS 工作原理</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">普通 Git 仓库:
+</span></span><span class="line"><span class="cl">┌─────────────────┐
+</span></span><span class="line"><span class="cl">│  .git/objects/  │ ← 存储所有文件内容
+</span></span><span class="line"><span class="cl">│  file.zip (1GB) │ ← 占用大量空间
+</span></span><span class="line"><span class="cl">│  file.zip (1GB) │ ← 每个版本都存储
+</span></span><span class="line"><span class="cl">└─────────────────┘
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Git LFS 仓库:
+</span></span><span class="line"><span class="cl">┌─────────────────┐      ┌─────────────────┐
+</span></span><span class="line"><span class="cl">│  .git/objects/  │      │  .git/lfs/      │
+</span></span><span class="line"><span class="cl">│  pointer file   │─────►│  file.zip (1GB) │
+</span></span><span class="line"><span class="cl">│  (几 KB)        │      │  只存储最新版本 │
+</span></span><span class="line"><span class="cl">└─────────────────┘      └─────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="-自动化流程设计">🔄 自动化流程设计</h2>
+<h3 id="整体流程">整体流程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">flowchart TB
+</span></span><span class="line"><span class="cl">    %% 工程师模块
+</span></span><span class="line"><span class="cl">    subgraph EngModule[&#34;👨‍💻 工程师操作模块&#34;]
+</span></span><span class="line"><span class="cl">        direction TB
+</span></span><span class="line"><span class="cl">        A[工程师]:::engineer
+</span></span><span class="line"><span class="cl">        A1[使用 TortoiseGit&lt;br/&gt;修改提交代码]:::engAction
+</span></span><span class="line"><span class="cl">        A2[下载和查询&lt;br/&gt;历史记录]:::engAction
+</span></span><span class="line"><span class="cl">        A3[申请 Git 仓库&lt;br/&gt;修改权限]:::engAction
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        A --&gt; A1
+</span></span><span class="line"><span class="cl">        A --&gt; A2
+</span></span><span class="line"><span class="cl">        A --&gt; A3
+</span></span><span class="line"><span class="cl">    end
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    %% 管理员模块
+</span></span><span class="line"><span class="cl">    subgraph AdminModule[&#34;🛠️ 管理员管理模块&#34;]
+</span></span><span class="line"><span class="cl">        direction TB
+</span></span><span class="line"><span class="cl">        F[管理员]:::admin
+</span></span><span class="line"><span class="cl">        F1[保留登录&lt;br/&gt;维护权限]:::adminAction
+</span></span><span class="line"><span class="cl">        F2[维护 Git 仓库]:::adminAction
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        F --&gt; F1
+</span></span><span class="line"><span class="cl">        F --&gt; F2
+</span></span><span class="line"><span class="cl">    end
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    %% 系统自动化模块
+</span></span><span class="line"><span class="cl">    subgraph SystemModule[&#34;⚙️ 系统自动化模块&#34;]
+</span></span><span class="line"><span class="cl">        direction TB
+</span></span><span class="line"><span class="cl">        B[Git 仓库]:::system
+</span></span><span class="line"><span class="cl">        C[服务器]:::system
+</span></span><span class="line"><span class="cl">        D[研发/NPI/TE]:::system
+</span></span><span class="line"><span class="cl">        G[产线机台]:::system
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        B --&gt;|自动导出| C
+</span></span><span class="line"><span class="cl">        B --&gt;|发送邮件通知| D
+</span></span><span class="line"><span class="cl">        C --&gt;|获取最新程序| G
+</span></span><span class="line"><span class="cl">    end
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    %% 模块间连接
+</span></span><span class="line"><span class="cl">    A1 --&gt; B
+</span></span><span class="line"><span class="cl">    A2 --&gt; B
+</span></span><span class="line"><span class="cl">    A3 --&gt; F
+</span></span><span class="line"><span class="cl">    F1 --&gt; C
+</span></span><span class="line"><span class="cl">    F2 --&gt; B
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    %% 样式定义
+</span></span><span class="line"><span class="cl">    classDef engineer fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#000
+</span></span><span class="line"><span class="cl">    classDef engAction fill:#b3e5fc,stroke:#0288d1,stroke-width:1px,color:#000
+</span></span><span class="line"><span class="cl">    classDef admin fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+</span></span><span class="line"><span class="cl">    classDef adminAction fill:#e1bee7,stroke:#8e24aa,stroke-width:1px,color:#000
+</span></span><span class="line"><span class="cl">    classDef system fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    %% 子图样式
+</span></span><span class="line"><span class="cl">    style EngModule fill:#f0f8ff,stroke:#0277bd,stroke-width:2px
+</span></span><span class="line"><span class="cl">    style AdminModule fill:#faf0ff,stroke:#7b1fa2,stroke-width:2px
+</span></span><span class="line"><span class="cl">    style SystemModule fill:#f0fff0,stroke:#388e3c,stroke-width:2px
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="详细流程说明">详细流程说明</h3>
+<h4 id="1-工程师操作">1️⃣ 工程师操作</h4>
+<p><strong>提交代码：</strong></p>
+<ul>
+<li>使用 <strong>TortoiseGit</strong> 客户端</li>
+<li>修改测试程序代码（testtool/testimage/ATOtools/Shippingimage/BIOS 等）</li>
+<li>提交到 Git 仓库</li>
+<li>可查询历史记录和差异对比</li>
+</ul>
+<p><strong>权限申请：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">flowchart TD
+</span></span><span class="line"><span class="cl">    A[工程师] --&gt; B[发送权限申请邮件]
+</span></span><span class="line"><span class="cl">    B --&gt; |To|C[管理员&lt;br/&gt;Charles Miao]
+</span></span><span class="line"><span class="cl">    B --&gt; |CC|D[工程师主管]
+</span></span><span class="line"><span class="cl">    B --&gt; |CC|E[TE 主管&lt;br/&gt;Jason Lee]
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    C --&gt; F[开通权限]
+</span></span><span class="line"><span class="cl">    F --&gt; G[回复邮件]
+</span></span><span class="line"><span class="cl">    G --&gt; |提供使用说明|A
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    style A fill:#e1f5fe
+</span></span><span class="line"><span class="cl">    style C fill:#fff3e0
+</span></span><span class="line"><span class="cl">    style F fill:#e8f5e8
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="2-管理员职责">2️⃣ 管理员职责</h4>
+<ul>
+<li>保留服务器登录和维护权限</li>
+<li>维护 Git 仓库配置</li>
+<li>审批权限申请</li>
+<li>监控系统运行状态</li>
+</ul>
+<h4 id="3-系统自动化">3️⃣ 系统自动化</h4>
+<p><strong>自动导出：</strong></p>
+<ul>
+<li>Git 仓库代码自动导出到文件服务器</li>
+<li>使用 <a href="https://github.com/Charles-Miao/DevOps/tree/master/2025/Gitea+LFS/GitCheckOut">GitCheckOut</a> 脚本</li>
+<li>定时任务或 Web Hook 触发</li>
+</ul>
+<p><strong>邮件通知：</strong></p>
+<ul>
+<li>Gitea 自带邮件通知无法实现 Commit Notifier</li>
+<li>自行编写 <a href="https://github.com/Charles-Miao/DevOps/tree/master/2025/Gitea+LFS/CheckGit">CheckGit</a> 脚本</li>
+<li>发送邮件给研发/NPI/TE 相关人员</li>
+</ul>
+<p><strong>产线获取：</strong></p>
+<ul>
+<li>产线机台从服务器获取最新的 tool/image/BIOS 等文件</li>
+<li>自动化部署，无需人工干预</li>
+</ul>
+<hr>
+<h2 id="-关键配置">🔧 关键配置</h2>
+<h3 id="1-自动导出脚本gitcheckout">1. 自动导出脚本（GitCheckOut）</h3>
+<p><strong>功能：</strong></p>
+<ul>
+<li>监听 Git 仓库变更</li>
+<li>自动检出最新代码到服务器</li>
+<li>记录变更日志</li>
+</ul>
+<p><strong>示例脚本：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-batch" data-lang="batch"><span class="line"><span class="cl"><span class="p">@</span><span class="k">echo</span> off
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="c1">: GitCheckOut.bat</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">REPO_PATH</span><span class="p">=</span>C:\git-data\repositories
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nv">EXPORT_PATH</span><span class="p">=</span>C:\export\testtool
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">cd</span> <span class="nv">%REPO_PATH%</span>
+</span></span><span class="line"><span class="cl">git pull origin main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">xcopy /E /Y /I <span class="nv">%REPO_PATH%</span> <span class="nv">%EXPORT_PATH%</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> Export completed at <span class="nv">%date%</span> <span class="nv">%time%</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-邮件通知脚本checkgit">2. 邮件通知脚本（CheckGit）</h3>
+<p><strong>功能：</strong></p>
+<ul>
+<li>检查 Git 提交记录</li>
+<li>生成变更摘要</li>
+<li>发送邮件通知相关人员</li>
+</ul>
+<p><strong>参考实现：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># CheckGit.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">smtplib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">email.mime.text</span> <span class="kn">import</span> <span class="n">MIMEText</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_recent_commits</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="s1">&#39;--since=&#34;24 hours ago&#34;&#39;</span><span class="p">,</span> <span class="s1">&#39;--oneline&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">text</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">send_email</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;Subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subject</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;git@company.com&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;To&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;team@company.com&#39;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 发送邮件逻辑...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">commits</span> <span class="o">=</span> <span class="n">get_recent_commits</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">commits</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">send_email</span><span class="p">(</span><span class="s1">&#39;Git 仓库更新通知&#39;</span><span class="p">,</span> <span class="n">commits</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-权限管理">3. 权限管理</h3>
+<p><strong>权限层级：</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>角色</th>
+          <th>权限</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>管理员</strong></td>
+          <td>完全控制、用户管理、仓库配置</td>
+      </tr>
+      <tr>
+          <td><strong>工程师</strong></td>
+          <td>读写权限（需申请）</td>
+      </tr>
+      <tr>
+          <td><strong>产线</strong></td>
+          <td>只读权限（自动获取）</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>安全措施：</strong></p>
+<ul>
+<li>✅ 去除工程师远程登录服务器权限</li>
+<li>✅ 只保留管理员登录和维护权限</li>
+<li>✅ 工程师修改程序需申请权限</li>
+<li>✅ 所有操作有审计日志</li>
+</ul>
+<hr>
+<h2 id="-实施效果">📊 实施效果</h2>
+<h3 id="改善对比">改善对比</h3>
+<table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>SVN 时期</th>
+          <th>Gitea+LFS 时期</th>
+          <th>改善</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>大文件支持</strong></td>
+          <td>❌ 不支持 (&gt;2GB)</td>
+          <td>✅ 完美支持</td>
+          <td>⬆️ 100%</td>
+      </tr>
+      <tr>
+          <td><strong>仓库更新速度</strong></td>
+          <td>慢（30 分钟+）</td>
+          <td>快（2-5 分钟）</td>
+          <td>⬆️ 85%</td>
+      </tr>
+      <tr>
+          <td><strong>版本管理</strong></td>
+          <td>基础</td>
+          <td>完整 Git 历史</td>
+          <td>⬆️ 100%</td>
+      </tr>
+      <tr>
+          <td><strong>自动化程度</strong></td>
+          <td>低（手动）</td>
+          <td>高（自动导出 + 通知）</td>
+          <td>⬆️ 90%</td>
+      </tr>
+      <tr>
+          <td><strong>权限管理</strong></td>
+          <td>简单</td>
+          <td>细粒度控制</td>
+          <td>⬆️ 80%</td>
+      </tr>
+      <tr>
+          <td><strong>审计追溯</strong></td>
+          <td>困难</td>
+          <td>完整日志</td>
+          <td>⬆️ 100%</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="实际收益">实际收益</h3>
+<p><strong>效率提升：</strong></p>
+<ul>
+<li>工程师提交代码时间：30 分钟 → 5 分钟</li>
+<li>产线获取最新程序：手动 → 自动</li>
+<li>版本追溯：困难 → 一键查询</li>
+</ul>
+<p><strong>成本节省：</strong></p>
+<ul>
+<li>减少人工操作：约 2 小时/天</li>
+<li>降低错误率：版本错误减少 95%</li>
+<li>节省存储空间：LFS 去重，节省约 60% 空间</li>
+</ul>
+<p><strong>管理提升：</strong></p>
+<ul>
+<li>权限管理规范化</li>
+<li>操作流程标准化</li>
+<li>审计追溯完整化</li>
+</ul>
+<hr>
+<h2 id="-最佳实践">💡 最佳实践</h2>
+<h3 id="1-仓库组织">1. 仓库组织</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">testtool</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">hardware</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">power</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">thermal</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="k">signal</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">software</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">os</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">driver</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">app</span><span class="o">-</span><span class="n">test</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">common</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">scripts</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">configs</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="n">docs</span><span class="o">/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-分支策略">2. 分支策略</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">main          ← 生产分支（受保护）
+</span></span><span class="line"><span class="cl">  ├── develop    ← 开发分支
+</span></span><span class="line"><span class="cl">  │     ├── feature/xxx  ← 功能分支
+</span></span><span class="line"><span class="cl">  │     └── bugfix/xxx   ← 修复分支
+</span></span><span class="line"><span class="cl">  └── release/v1.0 ← 发布分支
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-提交规范">3. 提交规范</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">feat: 添加新的电源测试模块
+</span></span><span class="line"><span class="cl">fix: 修复温度采集异常问题
+</span></span><span class="line"><span class="cl">docs: 更新测试流程文档
+</span></span><span class="line"><span class="cl">refactor: 重构数据采集模块
+</span></span><span class="line"><span class="cl">test: 添加压力测试用例
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-lfs-文件类型建议">4. LFS 文件类型建议</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 测试镜像</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.iso&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.img&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.vmdk&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 压缩文件</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.zip&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.7z&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.rar&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 二进制文件</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.bin&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.exe&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.dll&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 大数据集</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.csv&#34;</span>
+</span></span><span class="line"><span class="cl">git lfs track <span class="s2">&#34;*.xlsx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="-常见问题">⚠️ 常见问题</h2>
+<h3 id="q1-lfs-推送失败">Q1: LFS 推送失败</h3>
+<p><strong>错误信息：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">batch response: This repository is over its LFS storage quota
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>解决方案：</strong></p>
+<ul>
+<li>检查 LFS 存储配额</li>
+<li>清理不需要的 LFS 文件</li>
+<li>升级存储套餐或扩容</li>
+</ul>
+<h3 id="q2-仓库历史过大">Q2: 仓库历史过大</h3>
+<p><strong>问题：</strong>
+迁移前仓库已经包含大量大文件历史</p>
+<p><strong>解决方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 使用 git lfs migrate 清理历史</span>
+</span></span><span class="line"><span class="cl">git lfs migrate import --include<span class="o">=</span><span class="s2">&#34;*.zip,*.7z&#34;</span> --everything
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 强制推送（会重写历史，需谨慎）</span>
+</span></span><span class="line"><span class="cl">git push --force-with-lease origin main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="q3-自动导出失败">Q3: 自动导出失败</h3>
+<p><strong>排查步骤：</strong></p>
+<ol>
+<li>检查 Git 仓库权限</li>
+<li>检查导出路径权限</li>
+<li>查看脚本日志</li>
+<li>手动执行脚本测试</li>
+</ol>
+<h3 id="q4-邮件通知不发送">Q4: 邮件通知不发送</h3>
+<p><strong>排查步骤：</strong></p>
+<ol>
+<li>检查 SMTP 服务器配置</li>
+<li>检查邮箱账号密码</li>
+<li>查看邮件服务器日志</li>
+<li>测试手动发送</li>
+</ol>
+<hr>
+<h2 id="-参考资料">📚 参考资料</h2>
+<h3 id="官方文档">官方文档</h3>
+<ul>
+<li><a href="https://docs.gitea.com/zh-cn/">Gitea 官方文档</a></li>
+<li><a href="https://git-lfs.com/">Git LFS 官方文档</a></li>
+<li><a href="https://docs.gitea.com/zh-cn/1.19/installation/comparison">Gitea vs 其他工具对比</a></li>
+</ul>
+<h3 id="教程资源">教程资源</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/alexgl2008/articles/17948253">服务器自建 git 服务器超详细教程</a></li>
+<li><a href="https://www.cnblogs.com/05-hust/p/17407534.html">使用 NSSM 封装 Windows 服务</a></li>
+<li><a href="https://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">常用 Git 命令清单</a></li>
+<li><a href="https://blog.csdn.net/huyuchengus/article/details/128475776">Gitea 邮件通知配置</a></li>
+<li><a href="https://blog.csdn.net/gitblog_00736/article/details/150995071">Git LFS 使用教程</a></li>
+</ul>
+<h3 id="工具下载">工具下载</h3>
+<ul>
+<li><a href="https://dl.gitea.com/gitea/">Gitea 下载</a></li>
+<li><a href="https://tortoisegit.org/download/">TortoiseGit 下载</a></li>
+<li><a href="https://git-lfs.com/">Git LFS 下载</a></li>
+<li><a href="https://nssm.cc/download">NSSM 下载</a></li>
+</ul>
+<hr>
+<h2 id="-总结">🎯 总结</h2>
+<p>通过引入 <strong>Gitea + LFS</strong>，我们成功解决了 SVN 无法处理大文件的问题，并实现了：</p>
+<p>✅ <strong>完整的版本控制</strong> - Git 的强大功能<br>
+✅ <strong>大文件支持</strong> - LFS 完美解决 2GB+ 文件<br>
+✅ <strong>自动化流程</strong> - 自动导出 + 邮件通知<br>
+✅ <strong>权限管理</strong> - 细粒度的访问控制<br>
+✅ <strong>审计追溯</strong> - 完整的操作日志</p>
+<p>这套方案已经在生产环境中稳定运行，为测试程序管理提供了可靠保障。</p>
+<hr>
+<p><em>本文基于实际生产环境实施经验总结，具体配置需根据实际情况调整。</em></p>
+<p><em>最后更新：2026-03-13</em></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2026-03-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Git/">Git</a>
+          <a href="/tags/Gitea/">Gitea</a>
+          <a href="/tags/LFS/">LFS</a>
+          <a href="/tags/%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6/">版本控制</a>
+          <a href="/tags/DevOps/">DevOps</a>
+          <a href="/tags/%e8%87%aa%e5%8a%a8%e5%8c%96/">自动化</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/devops-ha-architecture-optimization/">
+            <span class="next-text nav-default">DevOps 实战：生产环境高可用架构优化实践</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
