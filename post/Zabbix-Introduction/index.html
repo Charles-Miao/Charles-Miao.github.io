@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等
+<meta name="author" content="" /><meta name="description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等
 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
 
 
 <link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-Introduction/" />
@@ -36,25 +36,31 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="Zabbix Intro &amp; Demo" />
-<meta property="og:description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-Introduction/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2019-11-14T18:26:47&#43;08:00" />
-<meta property="article:modified_time" content="2019-11-14T18:26:47&#43;08:00" />
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-Introduction/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Zabbix Intro & Demo">
+  <meta property="og:description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2019-11-14T18:26:47+08:00">
+    <meta property="article:modified_time" content="2019-11-14T18:26:47+08:00">
+    <meta property="article:tag" content="Zabbix">
 
-<meta itemprop="name" content="Zabbix Intro &amp; Demo">
-<meta itemprop="description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等"><meta itemprop="datePublished" content="2019-11-14T18:26:47&#43;08:00" />
-<meta itemprop="dateModified" content="2019-11-14T18:26:47&#43;08:00" />
-<meta itemprop="wordCount" content="1401">
-<meta itemprop="keywords" content="Zabbix," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Zabbix Intro &amp; Demo"/>
-<meta name="twitter:description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等"/>
+  <meta itemprop="name" content="Zabbix Intro & Demo">
+  <meta itemprop="description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等">
+  <meta itemprop="datePublished" content="2019-11-14T18:26:47+08:00">
+  <meta itemprop="dateModified" content="2019-11-14T18:26:47+08:00">
+  <meta itemprop="wordCount" content="1401">
+  <meta itemprop="keywords" content="Zabbix">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Zabbix Intro & Demo">
+  <meta name="twitter:description" content="主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -91,12 +97,21 @@
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">Charles&#39;s Blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -113,6 +128,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -152,7 +168,7 @@
   </div>
 </div>
   <div class="post-outdated">
-    <div class="hint">
+    <div class="warn">
       <p>【注意】最后更新于 <span class="timeago" datetime="2019-11-14T18:26:47" title="November 14, 2019">November 14, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
     </div>
   </div>
@@ -263,7 +279,7 @@
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">Charles Miao</span>
+    <span class="item-content"></span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -306,7 +322,7 @@
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
-  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">
@@ -328,13 +344,10 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Charles Miao</span>
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -347,7 +360,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
-  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+  <script>
     var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
@@ -355,7 +368,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

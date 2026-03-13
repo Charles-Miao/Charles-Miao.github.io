@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  Grafana&#43;Zabbix 文件同步监控实战（Grafana&#43;MySQL） MySQL配置 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="" /><meta name="description" content="主要内容 Grafana&#43;Zabbix 文件同步监控实战（Grafana&#43;MySQL） MySQL配置 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
 
 
 <link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-in-Action-3/" />
@@ -35,40 +35,32 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="Zabbix in Action - Grafana" />
-<meta property="og:description" content="主要内容
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-3/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Zabbix in Action - Grafana">
+  <meta property="og:description" content="主要内容 Grafana&#43;Zabbix 文件同步监控实战（Grafana&#43;MySQL） MySQL配置">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-07-07T22:25:58+08:00">
+    <meta property="article:modified_time" content="2020-07-07T22:25:58+08:00">
+    <meta property="article:tag" content="Zabbix">
+    <meta property="article:tag" content="Grafana">
 
-Grafana&#43;Zabbix
-文件同步监控实战（Grafana&#43;MySQL）
-MySQL配置
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-3/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2020-07-07T22:25:58&#43;08:00" />
-<meta property="article:modified_time" content="2020-07-07T22:25:58&#43;08:00" />
-
-<meta itemprop="name" content="Zabbix in Action - Grafana">
-<meta itemprop="description" content="主要内容
-
-Grafana&#43;Zabbix
-文件同步监控实战（Grafana&#43;MySQL）
-MySQL配置
-"><meta itemprop="datePublished" content="2020-07-07T22:25:58&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-07T22:25:58&#43;08:00" />
-<meta itemprop="wordCount" content="722">
-<meta itemprop="keywords" content="Zabbix,Grafana," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Zabbix in Action - Grafana"/>
-<meta name="twitter:description" content="主要内容
-
-Grafana&#43;Zabbix
-文件同步监控实战（Grafana&#43;MySQL）
-MySQL配置
-"/>
+  <meta itemprop="name" content="Zabbix in Action - Grafana">
+  <meta itemprop="description" content="主要内容 Grafana&#43;Zabbix 文件同步监控实战（Grafana&#43;MySQL） MySQL配置">
+  <meta itemprop="datePublished" content="2020-07-07T22:25:58+08:00">
+  <meta itemprop="dateModified" content="2020-07-07T22:25:58+08:00">
+  <meta itemprop="wordCount" content="723">
+  <meta itemprop="keywords" content="Zabbix,Grafana">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Zabbix in Action - Grafana">
+  <meta name="twitter:description" content="主要内容 Grafana&#43;Zabbix 文件同步监控实战（Grafana&#43;MySQL） MySQL配置">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -105,12 +97,21 @@ MySQL配置
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">Charles&#39;s Blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -127,6 +128,7 @@ MySQL配置
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -142,7 +144,7 @@ MySQL配置
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 722 字 </span>
+          <span class="more-meta"> 约 723 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -162,7 +164,7 @@ MySQL配置
   </div>
 </div>
   <div class="post-outdated">
-    <div class="hint">
+    <div class="warn">
       <p>【注意】最后更新于 <span class="timeago" datetime="2020-07-07T22:25:58" title="July 7, 2020">July 7, 2020</span>，文中内容可能已过时，请谨慎使用。</p>
     </div>
   </div>
@@ -186,7 +188,7 @@ MySQL配置
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -266,85 +268,85 @@ MySQL配置
 </span><span class="lnt">78
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#脚本功能：</span>
-<span class="c1">#1. 实现自定义key</span>
-<span class="c1">#2. 将文件同步检查结果insert into MySQL数据库</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">pymysql</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">configparser</span>
-
-
-<span class="k">def</span> <span class="nf">check_sync</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">string</span><span class="p">):</span>
-	<span class="n">check_sync_result</span><span class="o">=</span><span class="mi">0</span>
-	<span class="n">read_log</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-	<span class="n">conent</span><span class="o">=</span><span class="n">read_log</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">conent</span><span class="p">)):</span>
-		<span class="k">if</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
-			<span class="n">check_sync_result</span><span class="o">=</span><span class="mi">1</span>
-	<span class="n">read_log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-	<span class="k">return</span><span class="p">(</span><span class="n">check_sync_result</span><span class="p">)</span>
-	
-<span class="k">def</span> <span class="nf">get_sync_date</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-	<span class="n">info</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-	<span class="n">time_local</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">st_mtime</span><span class="p">)</span>
-	<span class="n">file_change_date</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">time_local</span><span class="p">)</span>
-	<span class="k">return</span><span class="p">(</span><span class="n">file_change_date</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">check_sync_result</span><span class="p">():</span>
-	<span class="n">config</span><span class="o">=</span><span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
-	<span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;C:\Zabbix\windows\server_info.ini&#34;</span><span class="p">)</span>
-	<span class="n">items</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s2">&#34;Sync_Path&#34;</span><span class="p">)</span>
-	
-	<span class="n">sync</span><span class="o">=</span><span class="p">[]</span>
-	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
-		<span class="n">path_list</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[,]&#39;</span><span class="p">,</span><span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-		<span class="c1">#skip empty path</span>
-		<span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">==</span><span class="s2">&#34;&#34;</span><span class="p">:</span>
-			<span class="k">pass</span>
-		<span class="c1">#if not exist sync result log, sync result is 0</span>
-		<span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span><span class="o">==</span><span class="bp">False</span><span class="p">:</span>
-			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-		<span class="c1">#if sync log is not today, sync result is 0</span>
-		<span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_sync_date</span><span class="p">(</span><span class="n">path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span><span class="o">!=</span><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()):</span>
-			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-		<span class="c1">#if sync log not contains pass result, sync result is 0</span>
-		<span class="k">elif</span> <span class="n">check_sync</span><span class="p">(</span><span class="n">path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span><span class="n">path_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-	<span class="k">return</span><span class="p">(</span><span class="n">sync</span><span class="p">)</span>
-	
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-	<span class="c1">#check sync result</span>
-	<span class="n">sync</span><span class="o">=</span><span class="n">check_sync_result</span><span class="p">()</span>
-	<span class="n">sync_total</span><span class="o">=</span><span class="mi">0</span>
-	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sync</span><span class="p">)):</span>
-		<span class="n">sync_total</span><span class="o">=</span><span class="n">sync_total</span><span class="o">+</span><span class="n">sync</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-	<span class="k">if</span> <span class="n">sync_total</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">sync</span><span class="p">):</span>
-		<span class="n">sync_result</span><span class="o">=</span><span class="mi">0</span>
-	<span class="k">else</span><span class="p">:</span>
-		<span class="n">sync_result</span><span class="o">=</span><span class="mi">1</span>
-	<span class="c1">#get now time</span>
-	<span class="n">now_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&#34;</span><span class="p">),</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span>
-	<span class="n">now_time_string</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">now_time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span>
-	<span class="c1">#get server ip</span>
-	<span class="n">config</span><span class="o">=</span><span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
-	<span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;C:\Zabbix\windows\server_info.ini&#34;</span><span class="p">)</span>
-	<span class="n">IP</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;Server_Info&#34;</span><span class="p">,</span><span class="s2">&#34;Back_IP&#34;</span><span class="p">)</span>
-	<span class="n">IP_string</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">IP</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span>
-	<span class="c1">#insert into db</span>
-	<span class="n">sql</span><span class="o">=</span><span class="s2">&#34;INSERT INTO SYNCTABLE (IP, TIME, SYNC_STATUS) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">IP_string</span><span class="p">,</span><span class="n">now_time_string</span><span class="p">,</span><span class="n">sync_result</span><span class="p">)</span>
-	<span class="n">db</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;192.168.123.211&#34;</span><span class="p">,</span><span class="s2">&#34;root&#34;</span><span class="p">,</span><span class="s2">&#34;password&#34;</span><span class="p">,</span><span class="s2">&#34;SYNCFILES&#34;</span><span class="p">)</span>
-	<span class="n">cursor</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-	<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
-	<span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-	<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-	<span class="c1">#print sync result</span>
-	<span class="k">print</span><span class="p">(</span><span class="n">sync_result</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#脚本功能：</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#1. 实现自定义key</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#2. 将文件同步检查结果insert into MySQL数据库</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pymysql</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">datetime</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">configparser</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">check_sync</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">string</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">check_sync_result</span><span class="o">=</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="n">read_log</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">conent</span><span class="o">=</span><span class="n">read_log</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">conent</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">check_sync_result</span><span class="o">=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="n">read_log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span><span class="p">(</span><span class="n">check_sync_result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_sync_date</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">info</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">time_local</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">st_mtime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">file_change_date</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">time_local</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span><span class="p">(</span><span class="n">file_change_date</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">check_sync_result</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">	<span class="n">config</span><span class="o">=</span><span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;C:\Zabbix\windows\server_info.ini&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">items</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="s2">&#34;Sync_Path&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="n">sync</span><span class="o">=</span><span class="p">[]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">path_list</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[,]&#39;</span><span class="p">,</span><span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">#skip empty path</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">==</span><span class="s2">&#34;&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">pass</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">#if not exist sync result log, sync result is 0</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">#if sync log is not today, sync result is 0</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_sync_date</span><span class="p">(</span><span class="n">path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()))</span><span class="o">!=</span><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()):</span>
+</span></span><span class="line"><span class="cl">			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">#if sync log not contains pass result, sync result is 0</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">check_sync</span><span class="p">(</span><span class="n">path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span><span class="n">path_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">sync</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span><span class="p">(</span><span class="n">sync</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">#check sync result</span>
+</span></span><span class="line"><span class="cl">	<span class="n">sync</span><span class="o">=</span><span class="n">check_sync_result</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">sync_total</span><span class="o">=</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sync</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">sync_total</span><span class="o">=</span><span class="n">sync_total</span><span class="o">+</span><span class="n">sync</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="n">sync_total</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">sync</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">sync_result</span><span class="o">=</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">sync_result</span><span class="o">=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">#get now time</span>
+</span></span><span class="line"><span class="cl">	<span class="n">now_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&#34;</span><span class="p">),</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">now_time_string</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">now_time</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">#get server ip</span>
+</span></span><span class="line"><span class="cl">	<span class="n">config</span><span class="o">=</span><span class="n">configparser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;C:\Zabbix\windows\server_info.ini&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">IP</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;Server_Info&#34;</span><span class="p">,</span><span class="s2">&#34;Back_IP&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">IP_string</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">IP</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;</span><span class="se">\&#39;</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">#insert into db</span>
+</span></span><span class="line"><span class="cl">	<span class="n">sql</span><span class="o">=</span><span class="s2">&#34;INSERT INTO SYNCTABLE (IP, TIME, SYNC_STATUS) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">IP_string</span><span class="p">,</span><span class="n">now_time_string</span><span class="p">,</span><span class="n">sync_result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">db</span><span class="o">=</span><span class="n">pymysql</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;192.168.123.211&#34;</span><span class="p">,</span><span class="s2">&#34;root&#34;</span><span class="p">,</span><span class="s2">&#34;password&#34;</span><span class="p">,</span><span class="s2">&#34;SYNCFILES&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cursor</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">#print sync result</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">print</span><span class="p">(</span><span class="n">sync_result</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="mysql配置">MySQL配置</h2>
 <ul>
@@ -352,33 +354,33 @@ MySQL配置
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#安装指令</span>
-python setup.py install
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#安装指令</span>
+</span></span><span class="line"><span class="cl">python setup.py install
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>命令行登录MySQL数据库</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mysql -h localhost -u root -p
-password
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mysql -h localhost -u root -p
+</span></span><span class="line"><span class="cl">password
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>配置MySQL，以便agent能够远程操作数据库</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -391,18 +393,18 @@ password
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#配置mysql配置档，注释掉如下内容</span>
-sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
-<span class="c1"># bind-address = 127.0.0.1</span>
-
-<span class="c1">#关闭防火墙</span>
-sudo ufw disable
-
-<span class="c1">#赋给用户远端权限</span>
-GRANT ALL PRIVILEGES ON *.* TO <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;%&#39;</span> IDENTIFIED BY <span class="s1">&#39;password&#39;</span> WITH GRANT OPTION<span class="p">;</span>
-
-FLUSH PRIVILEGES<span class="p">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#配置mysql配置档，注释掉如下内容</span>
+</span></span><span class="line"><span class="cl">sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+</span></span><span class="line"><span class="cl"><span class="c1"># bind-address = 127.0.0.1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#关闭防火墙</span>
+</span></span><span class="line"><span class="cl">sudo ufw disable
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#赋给用户远端权限</span>
+</span></span><span class="line"><span class="cl">GRANT ALL PRIVILEGES ON *.* TO <span class="s1">&#39;root&#39;</span>@<span class="s1">&#39;%&#39;</span> IDENTIFIED BY <span class="s1">&#39;password&#39;</span> WITH GRANT OPTION<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">FLUSH PRIVILEGES<span class="p">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -410,7 +412,7 @@ FLUSH PRIVILEGES<span class="p">;</span>
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">Charles Miao</span>
+    <span class="item-content"></span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -458,7 +460,7 @@ FLUSH PRIVILEGES<span class="p">;</span>
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
-  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">
@@ -480,13 +482,10 @@ FLUSH PRIVILEGES<span class="p">;</span>
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Charles Miao</span>
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -499,7 +498,7 @@ FLUSH PRIVILEGES<span class="p">;</span>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
-  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+  <script>
     var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
@@ -507,7 +506,7 @@ FLUSH PRIVILEGES<span class="p">;</span>
 
 
 
-<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

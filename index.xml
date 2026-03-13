@@ -4,294 +4,156 @@
     <title>Charles&#39;s Blog</title>
     <link>https://Charles-Miao.github.io/</link>
     <description>Recent content on Charles&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 13 Jul 2021 22:58:21 +0800</lastBuildDate><atom:link href="https://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Mar 2026 18:13:28 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://Charles-Miao.github.io/about/</link>
       <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/about/</guid>
-      <description>GTD深度用户 伪极客，平时喜欢瞎折腾 有空喜欢看看书，听听播客 喜欢非主流音乐，轻音乐，电音，人声，古典乐 目前在代工厂从事运维工作</description>
+      <description>&lt;p&gt;GTD深度用户&lt;/p&gt;&#xA;&lt;p&gt;伪极客，平时喜欢瞎折腾&lt;/p&gt;&#xA;&lt;p&gt;有空喜欢看看书，听听播客&lt;/p&gt;&#xA;&lt;p&gt;喜欢非主流音乐，轻音乐，电音，人声，古典乐&lt;/p&gt;&#xA;&lt;p&gt;目前在代工厂从事运维工作&lt;/p&gt;</description>
     </item>
-    
+    <item>
+      <title>Hello Hugo - 本地部署测试</title>
+      <link>https://Charles-Miao.github.io/post/hello-hugo/</link>
+      <pubDate>Fri, 13 Mar 2026 18:13:28 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/hello-hugo/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Windows实时同步文件至NAS</title>
       <link>https://Charles-Miao.github.io/post/windows-rsync-realtime/</link>
       <pubDate>Tue, 13 Jul 2021 22:58:21 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/windows-rsync-realtime/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;问题说明&lt;/li&gt;
-&lt;li&gt;环境部署&lt;/li&gt;
-&lt;li&gt;脚本实现&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;问题说明&lt;/li&gt;&#xA;&lt;li&gt;环境部署&lt;/li&gt;&#xA;&lt;li&gt;脚本实现&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part8</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-8/</link>
       <pubDate>Mon, 28 Jun 2021 23:19:54 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-8/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;监控内容&lt;/li&gt;
-&lt;li&gt;系统监控指令&lt;/li&gt;
-&lt;li&gt;报警媒介&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;监控内容&lt;/li&gt;&#xA;&lt;li&gt;系统监控指令&lt;/li&gt;&#xA;&lt;li&gt;报警媒介&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part7</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-7/</link>
       <pubDate>Wed, 23 Jun 2021 22:59:59 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-7/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;nginx服务部署安装&lt;/li&gt;
-&lt;li&gt;nginx目录结构&lt;/li&gt;
-&lt;li&gt;nginx服务的企业应用&lt;/li&gt;
-&lt;li&gt;nginx访问模块&lt;/li&gt;
-&lt;li&gt;网站的LNMP架构部署&lt;/li&gt;
-&lt;li&gt;负载均衡&lt;/li&gt;
-&lt;li&gt;高可用服务&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;nginx服务部署安装&lt;/li&gt;&#xA;&lt;li&gt;nginx目录结构&lt;/li&gt;&#xA;&lt;li&gt;nginx服务的企业应用&lt;/li&gt;&#xA;&lt;li&gt;nginx访问模块&lt;/li&gt;&#xA;&lt;li&gt;网站的LNMP架构部署&lt;/li&gt;&#xA;&lt;li&gt;负载均衡&lt;/li&gt;&#xA;&lt;li&gt;高可用服务&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part6</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-6/</link>
       <pubDate>Mon, 14 Jun 2021 10:16:52 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-6/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;ssh&lt;/li&gt;
-&lt;li&gt;ansible&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;ssh&lt;/li&gt;&#xA;&lt;li&gt;ansible&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part5</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-5/</link>
       <pubDate>Mon, 07 Jun 2021 23:19:19 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-5/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;备份服务器&lt;/li&gt;
-&lt;li&gt;存储服务器&lt;/li&gt;
-&lt;li&gt;实时同步服务&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;备份服务器&lt;/li&gt;&#xA;&lt;li&gt;存储服务器&lt;/li&gt;&#xA;&lt;li&gt;实时同步服务&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part4</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-4/</link>
       <pubDate>Sat, 05 Jun 2021 21:55:22 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-4/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;交换机和路由器&lt;/li&gt;
-&lt;li&gt;网络层次模型&lt;/li&gt;
-&lt;li&gt;TCP三次握手和四次挥手&lt;/li&gt;
-&lt;li&gt;相关服务和协议&lt;/li&gt;
-&lt;li&gt;子网和路由&lt;/li&gt;
-&lt;li&gt;网络服务&lt;/li&gt;
-&lt;li&gt;其他知识&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;交换机和路由器&lt;/li&gt;&#xA;&lt;li&gt;网络层次模型&lt;/li&gt;&#xA;&lt;li&gt;TCP三次握手和四次挥手&lt;/li&gt;&#xA;&lt;li&gt;相关服务和协议&lt;/li&gt;&#xA;&lt;li&gt;子网和路由&lt;/li&gt;&#xA;&lt;li&gt;网络服务&lt;/li&gt;&#xA;&lt;li&gt;其他知识&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part3</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-3/</link>
       <pubDate>Wed, 26 May 2021 22:34:12 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-3/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;系统启动流程&lt;/li&gt;
-&lt;li&gt;权限配置&lt;/li&gt;
-&lt;li&gt;用户相关文件和指令&lt;/li&gt;
-&lt;li&gt;定时服务&lt;/li&gt;
-&lt;li&gt;磁盘管理&lt;/li&gt;
-&lt;li&gt;其他知识&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;系统启动流程&lt;/li&gt;&#xA;&lt;li&gt;权限配置&lt;/li&gt;&#xA;&lt;li&gt;用户相关文件和指令&lt;/li&gt;&#xA;&lt;li&gt;定时服务&lt;/li&gt;&#xA;&lt;li&gt;磁盘管理&lt;/li&gt;&#xA;&lt;li&gt;其他知识&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part2</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-2/</link>
       <pubDate>Tue, 25 May 2021 21:56:36 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-2/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;grep&lt;/li&gt;
-&lt;li&gt;系统文件属性&lt;/li&gt;
-&lt;li&gt;find&lt;/li&gt;
-&lt;li&gt;系统符号&lt;/li&gt;
-&lt;li&gt;正则符号&lt;/li&gt;
-&lt;li&gt;sed&lt;/li&gt;
-&lt;li&gt;awk&lt;/li&gt;
-&lt;li&gt;其他知识&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;grep&lt;/li&gt;&#xA;&lt;li&gt;系统文件属性&lt;/li&gt;&#xA;&lt;li&gt;find&lt;/li&gt;&#xA;&lt;li&gt;系统符号&lt;/li&gt;&#xA;&lt;li&gt;正则符号&lt;/li&gt;&#xA;&lt;li&gt;sed&lt;/li&gt;&#xA;&lt;li&gt;awk&lt;/li&gt;&#xA;&lt;li&gt;其他知识&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Linux基础 - Part1</title>
       <link>https://Charles-Miao.github.io/post/Linux-Admin-1/</link>
       <pubDate>Sun, 23 May 2021 21:39:49 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Linux-Admin-1/</guid>
-      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;硬件系统&lt;/li&gt;
-&lt;li&gt;系统管理命令&lt;/li&gt;
-&lt;li&gt;快捷键&lt;/li&gt;
-&lt;li&gt;系统目录结构&lt;/li&gt;
-&lt;li&gt;重要文件&lt;/li&gt;
-&lt;li&gt;vim快捷键&lt;/li&gt;
-&lt;li&gt;系统优化&lt;/li&gt;
-&lt;li&gt;其他指令&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;硬件系统&lt;/li&gt;&#xA;&lt;li&gt;系统管理命令&lt;/li&gt;&#xA;&lt;li&gt;快捷键&lt;/li&gt;&#xA;&lt;li&gt;系统目录结构&lt;/li&gt;&#xA;&lt;li&gt;重要文件&lt;/li&gt;&#xA;&lt;li&gt;vim快捷键&lt;/li&gt;&#xA;&lt;li&gt;系统优化&lt;/li&gt;&#xA;&lt;li&gt;其他指令&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Zabbix自定义Key读值为空</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</link>
       <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;问题说明&lt;/li&gt;
-&lt;li&gt;分析思路&lt;/li&gt;
-&lt;li&gt;解决方案&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;问题说明&lt;/li&gt;&#xA;&lt;li&gt;分析思路&lt;/li&gt;&#xA;&lt;li&gt;解决方案&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Zabbix in Action - DL160 G6</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-4/</link>
       <pubDate>Tue, 18 May 2021 22:22:27 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-4/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;背景说明&lt;/li&gt;
-&lt;li&gt;升级Windows Server 2012探索&lt;/li&gt;
-&lt;li&gt;升级CentOS 7探索&lt;/li&gt;
-&lt;li&gt;解决方案&lt;/li&gt;
-&lt;li&gt;其他说明&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;背景说明&lt;/li&gt;&#xA;&lt;li&gt;升级Windows Server 2012探索&lt;/li&gt;&#xA;&lt;li&gt;升级CentOS 7探索&lt;/li&gt;&#xA;&lt;li&gt;解决方案&lt;/li&gt;&#xA;&lt;li&gt;其他说明&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>设备电脑监控 - 有趣的数据分析</title>
       <link>https://Charles-Miao.github.io/post/Host-PC-Monitoring-3/</link>
       <pubDate>Wed, 09 Sep 2020 22:02:30 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Host-PC-Monitoring-3/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容：&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;提出问题&lt;/li&gt;
-&lt;li&gt;清洗数据&lt;/li&gt;
-&lt;li&gt;相关性验证&lt;/li&gt;
-&lt;li&gt;一些结论&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容：&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;提出问题&lt;/li&gt;&#xA;&lt;li&gt;清洗数据&lt;/li&gt;&#xA;&lt;li&gt;相关性验证&lt;/li&gt;&#xA;&lt;li&gt;一些结论&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>设备电脑监控 - 原型设计</title>
       <link>https://Charles-Miao.github.io/post/Host-PC-Monitoring-2/</link>
       <pubDate>Tue, 01 Sep 2020 22:49:33 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Host-PC-Monitoring-2/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;监控项目&lt;/li&gt;
-&lt;li&gt;web界面设计&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;监控项目&lt;/li&gt;&#xA;&lt;li&gt;web界面设计&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>设备电脑监控 - 蓝图篇</title>
       <link>https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/</link>
       <pubDate>Tue, 11 Aug 2020 22:03:23 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;专案背景&lt;/li&gt;
-&lt;li&gt;蓝图和构思&lt;/li&gt;
-&lt;li&gt;实战工具和方法&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;专案背景&lt;/li&gt;&#xA;&lt;li&gt;蓝图和构思&lt;/li&gt;&#xA;&lt;li&gt;实战工具和方法&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Zabbix in Action - Grafana</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</link>
       <pubDate>Tue, 07 Jul 2020 22:25:58 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Grafana+Zabbix&lt;/li&gt;
-&lt;li&gt;文件同步监控实战（Grafana+MySQL）&lt;/li&gt;
-&lt;li&gt;MySQL配置&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Grafana+Zabbix&lt;/li&gt;&#xA;&lt;li&gt;文件同步监控实战（Grafana+MySQL）&lt;/li&gt;&#xA;&lt;li&gt;MySQL配置&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Zabbix in Action - Linux</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</link>
       <pubDate>Sun, 28 Jun 2020 11:53:17 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;RHEL 5如何安装和配置agent &amp;amp; snmp协议&lt;/li&gt;
-&lt;li&gt;RHEL 5如何实现HP DL160 G6的硬件监控&lt;/li&gt;
-&lt;li&gt;Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;RHEL 5如何安装和配置agent &amp;amp; snmp协议&lt;/li&gt;&#xA;&lt;li&gt;RHEL 5如何实现HP DL160 G6的硬件监控&lt;/li&gt;&#xA;&lt;li&gt;Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>About The Blog</title>
       <link>https://Charles-Miao.github.io/post/about-the-blog/</link>
       <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/about-the-blog/</guid>
       <description>&lt;p&gt;主要讲博客因何而起，以及一路怎么实现的博客，顺便还介绍了一些笔记类工具&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Zabbix in Action - Windows</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</link>
       <pubDate>Thu, 21 Nov 2019 10:38:09 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</guid>
-      <description>&lt;h2 id=&#34;软硬件环境&#34;&gt;软硬件环境&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Server端：Ubuntu 16.04虚拟机&lt;/li&gt;
-&lt;li&gt;Agent端：Windows Server，主要硬件有DL380 G7、DL380 G9、DL380 G10、DL160 G6、DELL2900、DELL2950、supermicro等&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;h2 id=&#34;软硬件环境&#34;&gt;软硬件环境&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Server端：Ubuntu 16.04虚拟机&lt;/li&gt;&#xA;&lt;li&gt;Agent端：Windows Server，主要硬件有DL380 G7、DL380 G9、DL380 G10、DL160 G6、DELL2900、DELL2950、supermicro等&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>Zabbix Intro &amp; Demo</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-Introduction/</link>
       <pubDate>Thu, 14 Nov 2019 18:26:47 +0800</pubDate>
-      
       <guid>https://Charles-Miao.github.io/post/Zabbix-Introduction/</guid>
       <description>&lt;p&gt;主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

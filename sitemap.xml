@@ -10,27 +10,69 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/categories/</loc>
-    <lastmod>2021-07-13T22:58:21+08:00</lastmod>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://Charles-Miao.github.io/</loc>
-    <lastmod>2021-07-13T22:58:21+08:00</lastmod>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/tags/NAS/</loc>
-    <lastmod>2021-07-13T22:58:21+08:00</lastmod>
+    <loc>https://Charles-Miao.github.io/post/hello-hugo/</loc>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Hugo/</loc>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://Charles-Miao.github.io/post/</loc>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/</loc>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-03-13T18:13:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/NAS/</loc>
     <lastmod>2021-07-13T22:58:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -45,13 +87,6 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/tags/rsync/</loc>
-    <lastmod>2021-07-13T22:58:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/tags/</loc>
     <lastmod>2021-07-13T22:58:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -184,6 +219,13 @@
   </url>
   
   <url>
+    <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-3/</loc>
+    <lastmod>2020-09-09T22:02:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://Charles-Miao.github.io/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</loc>
     <lastmod>2020-09-09T22:02:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -198,13 +240,6 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-3/</loc>
-    <lastmod>2020-09-09T22:02:30+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://Charles-Miao.github.io/tags/WEB/</loc>
     <lastmod>2020-09-01T22:49:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -212,14 +247,14 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/categories/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-2/</loc>
     <lastmod>2020-09-01T22:49:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-2/</loc>
+    <loc>https://Charles-Miao.github.io/categories/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2020-09-01T22:49:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

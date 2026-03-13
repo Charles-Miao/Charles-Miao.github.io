@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  问题说明 分析思路 解决方案 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="" /><meta name="description" content="主要内容 问题说明 分析思路 解决方案 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
 
 
 <link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-in-Action-5/" />
@@ -35,40 +35,34 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="Zabbix自定义Key读值为空" />
-<meta property="og:description" content="主要内容
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-5/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Zabbix自定义Key读值为空">
+  <meta property="og:description" content="主要内容 问题说明 分析思路 解决方案">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-05-19T22:15:08+08:00">
+    <meta property="article:modified_time" content="2021-05-19T22:15:08+08:00">
+    <meta property="article:tag" content="Zabbix">
+    <meta property="article:tag" content="Apacucli">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Linux">
 
-问题说明
-分析思路
-解决方案
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-5/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-05-19T22:15:08&#43;08:00" />
-<meta property="article:modified_time" content="2021-05-19T22:15:08&#43;08:00" />
-
-<meta itemprop="name" content="Zabbix自定义Key读值为空">
-<meta itemprop="description" content="主要内容
-
-问题说明
-分析思路
-解决方案
-"><meta itemprop="datePublished" content="2021-05-19T22:15:08&#43;08:00" />
-<meta itemprop="dateModified" content="2021-05-19T22:15:08&#43;08:00" />
-<meta itemprop="wordCount" content="536">
-<meta itemprop="keywords" content="Zabbix,apacucli,Python,Linux," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Zabbix自定义Key读值为空"/>
-<meta name="twitter:description" content="主要内容
-
-问题说明
-分析思路
-解决方案
-"/>
+  <meta itemprop="name" content="Zabbix自定义Key读值为空">
+  <meta itemprop="description" content="主要内容 问题说明 分析思路 解决方案">
+  <meta itemprop="datePublished" content="2021-05-19T22:15:08+08:00">
+  <meta itemprop="dateModified" content="2021-05-19T22:15:08+08:00">
+  <meta itemprop="wordCount" content="536">
+  <meta itemprop="keywords" content="Zabbix,Apacucli,Python,Linux">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Zabbix自定义Key读值为空">
+  <meta name="twitter:description" content="主要内容 问题说明 分析思路 解决方案">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -105,12 +99,21 @@
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">Charles&#39;s Blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -127,6 +130,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -161,6 +165,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2021-05-19T22:15:08" title="May 19, 2021">May 19, 2021</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <h2 id="主要内容">主要内容</h2>
 <ul>
@@ -179,7 +188,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -190,16 +199,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-text" data-lang="text">  4752:20210519:153212.560 Requested [hp.pdisk_discovery]
-  4752:20210519:153212.560 In zbx_popen() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39;
-  4752:20210519:153212.561 End of zbx_popen():7
-  4841:20210519:153212.561 zbx_popen(): executing script
-  4752:20210519:153212.666 In zbx_waitpid()
-  4752:20210519:153212.667 zbx_waitpid() exited, status:0
-  4752:20210519:153212.667 End of zbx_waitpid():4841
-  4752:20210519:153212.667 EXECUTE_STR() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39; len:12 cmd_result:&#39;{&#34;data&#34;: []}&#39;
-  4752:20210519:153212.667 Sending back [{&#34;data&#34;: []}]
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  4752:20210519:153212.560 Requested [hp.pdisk_discovery]
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.560 In zbx_popen() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39;
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.561 End of zbx_popen():7
+</span></span><span class="line"><span class="cl">  4841:20210519:153212.561 zbx_popen(): executing script
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.666 In zbx_waitpid()
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 zbx_waitpid() exited, status:0
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 End of zbx_waitpid():4841
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 EXECUTE_STR() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39; len:12 cmd_result:&#39;{&#34;data&#34;: []}&#39;
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 Sending back [{&#34;data&#34;: []}]
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>调试python脚本，发现使用zabbix账号调用hpacucli指令时，此指令未正常运行，无任何报错</li>
@@ -208,13 +217,13 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">visudo <span class="c1">#赋予admin权限，可执行所有指令，并无需输入password</span>
-admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">visudo <span class="c1">#赋予admin权限，可执行所有指令，并无需输入password</span>
+</span></span><span class="line"><span class="cl">admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="解决方案">解决方案</h2>
 <ul>
@@ -222,11 +231,11 @@ admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)<
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">zabbix <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">zabbix <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>使用<strong>sudo hpacucli</strong>指令运行</li>
@@ -236,7 +245,7 @@ admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)<
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">Charles Miao</span>
+    <span class="item-content"></span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -286,7 +295,7 @@ admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)<
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
-  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">
@@ -308,13 +317,10 @@ admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)<
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Charles Miao</span>
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -327,7 +333,7 @@ admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)<
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
-  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+  <script>
     var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
@@ -335,7 +341,7 @@ admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)<
 
 
 
-<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  硬件系统 系统管理命令 快捷键 系统目录结构 重要文件 vim快捷键 系统优化 其他指令 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="" /><meta name="description" content="主要内容 硬件系统 系统管理命令 快捷键 系统目录结构 重要文件 vim快捷键 系统优化 其他指令 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
 
 
 <link rel="canonical" href="https://Charles-Miao.github.io/post/Linux-Admin-1/" />
@@ -35,55 +35,31 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="Linux基础 - Part1" />
-<meta property="og:description" content="主要内容
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-1/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Linux基础 - Part1">
+  <meta property="og:description" content="主要内容 硬件系统 系统管理命令 快捷键 系统目录结构 重要文件 vim快捷键 系统优化 其他指令">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-05-23T21:39:49+08:00">
+    <meta property="article:modified_time" content="2021-05-23T21:39:49+08:00">
+    <meta property="article:tag" content="Linux">
 
-硬件系统
-系统管理命令
-快捷键
-系统目录结构
-重要文件
-vim快捷键
-系统优化
-其他指令
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-1/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-05-23T21:39:49&#43;08:00" />
-<meta property="article:modified_time" content="2021-05-23T21:39:49&#43;08:00" />
-
-<meta itemprop="name" content="Linux基础 - Part1">
-<meta itemprop="description" content="主要内容
-
-硬件系统
-系统管理命令
-快捷键
-系统目录结构
-重要文件
-vim快捷键
-系统优化
-其他指令
-"><meta itemprop="datePublished" content="2021-05-23T21:39:49&#43;08:00" />
-<meta itemprop="dateModified" content="2021-05-23T21:39:49&#43;08:00" />
-<meta itemprop="wordCount" content="1551">
-<meta itemprop="keywords" content="Linux," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux基础 - Part1"/>
-<meta name="twitter:description" content="主要内容
-
-硬件系统
-系统管理命令
-快捷键
-系统目录结构
-重要文件
-vim快捷键
-系统优化
-其他指令
-"/>
+  <meta itemprop="name" content="Linux基础 - Part1">
+  <meta itemprop="description" content="主要内容 硬件系统 系统管理命令 快捷键 系统目录结构 重要文件 vim快捷键 系统优化 其他指令">
+  <meta itemprop="datePublished" content="2021-05-23T21:39:49+08:00">
+  <meta itemprop="dateModified" content="2021-05-23T21:39:49+08:00">
+  <meta itemprop="wordCount" content="1550">
+  <meta itemprop="keywords" content="Linux">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux基础 - Part1">
+  <meta name="twitter:description" content="主要内容 硬件系统 系统管理命令 快捷键 系统目录结构 重要文件 vim快捷键 系统优化 其他指令">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -120,12 +96,21 @@ vim快捷键
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">Charles&#39;s Blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -142,6 +127,7 @@ vim快捷键
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -157,7 +143,7 @@ vim快捷键
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 1551 字 </span>
+          <span class="more-meta"> 约 1550 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -180,6 +166,11 @@ vim快捷键
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2021-05-23T21:39:49" title="May 23, 2021">May 23, 2021</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <h1 id="主要内容">主要内容</h1>
 <ul>
@@ -207,7 +198,7 @@ vim快捷键
 <h2 id="系统管理命令">系统管理命令</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -232,35 +223,35 @@ vim快捷键
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">shutdown -h
-shutdown -r
-shutdown -c
-
-ls
-ls -d
-<span class="nv">ll</span> <span class="o">==</span> ls -l
-
-mkdir -p
-<span class="nb">cd</span>
-<span class="nb">pwd</span>
-
-man
-
-touch
-vim
-cat
-
-cp -r
-<span class="se">\c</span>p
-rm -rf
-<span class="se">\r</span>m
-mv
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">shutdown -h
+</span></span><span class="line"><span class="cl">shutdown -r
+</span></span><span class="line"><span class="cl">shutdown -c
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls
+</span></span><span class="line"><span class="cl">ls -d
+</span></span><span class="line"><span class="cl"><span class="nv">ll</span> <span class="o">==</span> ls -l
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir -p
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span>
+</span></span><span class="line"><span class="cl"><span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">man
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">touch
+</span></span><span class="line"><span class="cl">vim
+</span></span><span class="line"><span class="cl">cat
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cp -r
+</span></span><span class="line"><span class="cl"><span class="se">\c</span>p
+</span></span><span class="line"><span class="cl">rm -rf
+</span></span><span class="line"><span class="cl"><span class="se">\r</span>m
+</span></span><span class="line"><span class="cl">mv
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="快捷键">快捷键</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -272,22 +263,22 @@ mv
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># ctrl+l,清屏指令</span>
-<span class="c1"># ctrl+d,注销</span>
-<span class="c1"># ctrl+a,行首</span>
-<span class="c1"># ctrl+e,行尾</span>
-<span class="c1"># ctrl+左右方向键,单个词组移动</span>
-<span class="c1"># ctrl+w,字符剪切</span>
-<span class="c1"># ctrl+u,行首到光标剪切</span>
-<span class="c1"># ctrl+k,光标到行尾剪切</span>
-<span class="c1"># ctrl+y,黏贴</span>
-<span class="c1"># esc+.,上一行指令的最后一个参数</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># ctrl+l,清屏指令</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+d,注销</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+a,行首</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+e,行尾</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+左右方向键,单个词组移动</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+w,字符剪切</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+u,行首到光标剪切</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+k,光标到行尾剪切</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ctrl+y,黏贴</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># esc+.,上一行指令的最后一个参数</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="系统目录结构">系统目录结构</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -304,27 +295,27 @@ mv
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># bin, sbin</span>
-<span class="c1"># boot</span>
-<span class="c1"># dev</span>
-<span class="c1"># etc</span>
-<span class="c1"># home, root</span>
-<span class="c1"># lib, lib64</span>
-<span class="c1"># lost+found</span>
-<span class="c1"># mnt</span>
-<span class="c1"># opt</span>
-<span class="c1"># proc</span>
-<span class="c1"># /etc/selinux</span>
-<span class="c1"># sys</span>
-<span class="c1"># tmp</span>
-<span class="c1"># usr</span>
-<span class="c1"># var</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># bin, sbin</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># boot</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># dev</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># etc</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># home, root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># lib, lib64</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># lost+found</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># mnt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># opt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># proc</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /etc/selinux</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># sys</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># tmp</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># usr</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># var</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="重要文件">重要文件</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -387,73 +378,73 @@ mv
 </span><span class="lnt">61
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#网卡配置</span>
-vim /etc/sysconfig/network-scripts/ifcfg-eth0
-systemctl restart network
-
-<span class="c1">#DNS解析配置</span>
-vim /etc/sysconfig/network-scripts/ifcfg-eth0
-
-<span class="c1">#主机名</span>
-vim /etc/hostname
-hostnamectl set-hostname newname
-
-<span class="c1">#解析映射文件</span>
-vim /etc/hosts
-
-<span class="c1">#磁盘挂载文件（df，查看磁盘挂载状况）</span>
-vim /etc/fstab
-
-<span class="c1">#开机自启动</span>
-vim /etc/rc.local
-
-<span class="c1">#cetnos6系统运行级别(0/1/2/3/4/5/6)</span>
-vim /etc/inittab
-
-<span class="c1">#centos7系统运行级别(poweroff.target/ rescue.target/ multi-user.target/ graphical.target/ reboot.target)</span>
-systemctl get-default
-systemctl set-default rescue.target
-ls –l /usr/lib/system/system/runlevel*target
-
-<span class="c1">#变量加载文件</span>
-vim /etc/profile<span class="o">==</span>/etc/bashrc
-vim ~/.bashrc<span class="o">==</span>~/.bash_profile
-<span class="nb">source</span> /etc/profile
-which
-<span class="nb">export</span>
-
-<span class="c1">#系统别名</span>
-<span class="nb">alias</span>
-
-<span class="c1">#登陆之后提示信息</span>
-vim /etc/motd
-
-<span class="c1">#登陆之前提示信息</span>
-vim /etc/issue
-
-<span class="c1">#硬件信息</span>
-cat /proc/cpuinfo
-cat /proc/loadavg
-w
-cat /proc/meminfo
-free –h
-cat /proc/mounts
-df –h
-
-<span class="c1">#系统版本</span>
-cat /etc/redhat-release
-uname –a
-
-<span class="c1">#优化命令提示符颜色</span>
-vim /etc/profile
-<span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\[\e[32;1m\][\u@\h \W]\$ \[\e[0m\]&#39;</span>
-<span class="nb">source</span> /etc/profile
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#网卡配置</span>
+</span></span><span class="line"><span class="cl">vim /etc/sysconfig/network-scripts/ifcfg-eth0
+</span></span><span class="line"><span class="cl">systemctl restart network
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#DNS解析配置</span>
+</span></span><span class="line"><span class="cl">vim /etc/sysconfig/network-scripts/ifcfg-eth0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#主机名</span>
+</span></span><span class="line"><span class="cl">vim /etc/hostname
+</span></span><span class="line"><span class="cl">hostnamectl set-hostname newname
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#解析映射文件</span>
+</span></span><span class="line"><span class="cl">vim /etc/hosts
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#磁盘挂载文件（df，查看磁盘挂载状况）</span>
+</span></span><span class="line"><span class="cl">vim /etc/fstab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#开机自启动</span>
+</span></span><span class="line"><span class="cl">vim /etc/rc.local
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#cetnos6系统运行级别(0/1/2/3/4/5/6)</span>
+</span></span><span class="line"><span class="cl">vim /etc/inittab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#centos7系统运行级别(poweroff.target/ rescue.target/ multi-user.target/ graphical.target/ reboot.target)</span>
+</span></span><span class="line"><span class="cl">systemctl get-default
+</span></span><span class="line"><span class="cl">systemctl set-default rescue.target
+</span></span><span class="line"><span class="cl">ls –l /usr/lib/system/system/runlevel*target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#变量加载文件</span>
+</span></span><span class="line"><span class="cl">vim /etc/profile<span class="o">==</span>/etc/bashrc
+</span></span><span class="line"><span class="cl">vim ~/.bashrc<span class="o">==</span>~/.bash_profile
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span><span class="line"><span class="cl">which
+</span></span><span class="line"><span class="cl"><span class="nb">export</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#系统别名</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#登陆之后提示信息</span>
+</span></span><span class="line"><span class="cl">vim /etc/motd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#登陆之前提示信息</span>
+</span></span><span class="line"><span class="cl">vim /etc/issue
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#硬件信息</span>
+</span></span><span class="line"><span class="cl">cat /proc/cpuinfo
+</span></span><span class="line"><span class="cl">cat /proc/loadavg
+</span></span><span class="line"><span class="cl">w
+</span></span><span class="line"><span class="cl">cat /proc/meminfo
+</span></span><span class="line"><span class="cl">free –h
+</span></span><span class="line"><span class="cl">cat /proc/mounts
+</span></span><span class="line"><span class="cl">df –h
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#系统版本</span>
+</span></span><span class="line"><span class="cl">cat /etc/redhat-release
+</span></span><span class="line"><span class="cl">uname –a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#优化命令提示符颜色</span>
+</span></span><span class="line"><span class="cl">vim /etc/profile
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\[\e[32;1m\][\u@\h \W]\$ \[\e[0m\]&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/profile
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="vi快捷键">vi快捷键</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -510,67 +501,67 @@ vim /etc/profile
 </span><span class="lnt">55
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">I <span class="c1">#将光标移至行首，再进入编辑状态</span>
-o <span class="c1">#在光标所在行下面，新起一行进行编辑（重点）</span>
-O <span class="c1">#在光标所在行上面，新起一行进行编辑</span>
-a <span class="c1">#将光标移动到右边下一个字符，进行编辑</span>
-A <span class="c1">#将光标移动到行尾，并进行编辑（重点）</span>
-C <span class="c1">#将光标到行尾进行剪切，并进入编辑（重点）</span>
-cc <span class="c1">#将整行进行删除，并进入编辑</span>
-
-G <span class="c1">#将光标移至尾部</span>
-gg <span class="c1">#将光标移至首部</span>
-ngg <span class="c1">#n表示移到第几行</span>
-$ <span class="c1">#将光标移至一行的结尾</span>
-0或^ <span class="c1">#移到一行的行首</span>
-
-/ <span class="c1">#底行模式搜索，向下搜索</span>
-? <span class="c1">#底行模式搜索，向上搜索</span>
-
-p <span class="c1">#将内容进行粘贴</span>
-np <span class="c1">#多行粘贴</span>
-yy <span class="c1">#复制</span>
-nyy <span class="c1">#多行复制</span>
-
-dd, u <span class="c1">#删除和恢复</span>
-
-<span class="c1">#查看文件时显示行号和不显示行号</span>
-:set nu
-:set nonu
-
-ctrl+r <span class="c1">#redo和undo相反</span>
-dG <span class="c1">#将光标位置删除到文章底部</span>
-
-:set ic <span class="c1">#忽略大小写查找</span>
-:set noic <span class="c1">#不忽略大小查找</span>
-/search-text<span class="se">\c</span> <span class="c1">#忽略大小写查找</span>
-
-<span class="c1">#vim高级功能</span>
-/#搜索文件中没有的信息，取消高亮
-:2,4move9 <span class="c1">#将第2行~4行的内容移到第9行</span>
-:2,4copy9 <span class="c1">#将第2行~4行的内容拷贝到第9行</span>
-:%s#oldboy#oldgirl#g <span class="c1">#将文件中指定内容全部替换</span>
-<span class="c1">#s substitute 替换</span>
-<span class="c1">#g global 全局</span>
-:2,4s#oldboy#oldgirl#g <span class="c1">#替换部分内容第2~4行</span>
-:12,<span class="nv">$s</span><span class="c1">#oldboy#oldgirl#g #替换部分内容第12行~结尾</span>
-
-<span class="c1">#批量添加信息</span>
-ctrl+v <span class="c1">#进入视图模式</span>
-<span class="c1">#方向键选择</span>
-shift+i <span class="c1">#进行单行编辑</span>
-esc <span class="c1">#实现批量修改</span>
-
-<span class="c1">#批量删除信息</span>
-ctrl+v <span class="c1">#进入视图模式</span>
-<span class="c1">#方向键选择</span>
-d or x <span class="c1">#删除</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">I <span class="c1">#将光标移至行首，再进入编辑状态</span>
+</span></span><span class="line"><span class="cl">o <span class="c1">#在光标所在行下面，新起一行进行编辑（重点）</span>
+</span></span><span class="line"><span class="cl">O <span class="c1">#在光标所在行上面，新起一行进行编辑</span>
+</span></span><span class="line"><span class="cl">a <span class="c1">#将光标移动到右边下一个字符，进行编辑</span>
+</span></span><span class="line"><span class="cl">A <span class="c1">#将光标移动到行尾，并进行编辑（重点）</span>
+</span></span><span class="line"><span class="cl">C <span class="c1">#将光标到行尾进行剪切，并进入编辑（重点）</span>
+</span></span><span class="line"><span class="cl">cc <span class="c1">#将整行进行删除，并进入编辑</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">G <span class="c1">#将光标移至尾部</span>
+</span></span><span class="line"><span class="cl">gg <span class="c1">#将光标移至首部</span>
+</span></span><span class="line"><span class="cl">ngg <span class="c1">#n表示移到第几行</span>
+</span></span><span class="line"><span class="cl">$ <span class="c1">#将光标移至一行的结尾</span>
+</span></span><span class="line"><span class="cl">0或^ <span class="c1">#移到一行的行首</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/ <span class="c1">#底行模式搜索，向下搜索</span>
+</span></span><span class="line"><span class="cl">? <span class="c1">#底行模式搜索，向上搜索</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">p <span class="c1">#将内容进行粘贴</span>
+</span></span><span class="line"><span class="cl">np <span class="c1">#多行粘贴</span>
+</span></span><span class="line"><span class="cl">yy <span class="c1">#复制</span>
+</span></span><span class="line"><span class="cl">nyy <span class="c1">#多行复制</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dd, u <span class="c1">#删除和恢复</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看文件时显示行号和不显示行号</span>
+</span></span><span class="line"><span class="cl">:set nu
+</span></span><span class="line"><span class="cl">:set nonu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ctrl+r <span class="c1">#redo和undo相反</span>
+</span></span><span class="line"><span class="cl">dG <span class="c1">#将光标位置删除到文章底部</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:set ic <span class="c1">#忽略大小写查找</span>
+</span></span><span class="line"><span class="cl">:set noic <span class="c1">#不忽略大小查找</span>
+</span></span><span class="line"><span class="cl">/search-text<span class="se">\c</span> <span class="c1">#忽略大小写查找</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#vim高级功能</span>
+</span></span><span class="line"><span class="cl">/#搜索文件中没有的信息，取消高亮
+</span></span><span class="line"><span class="cl">:2,4move9 <span class="c1">#将第2行~4行的内容移到第9行</span>
+</span></span><span class="line"><span class="cl">:2,4copy9 <span class="c1">#将第2行~4行的内容拷贝到第9行</span>
+</span></span><span class="line"><span class="cl">:%s#oldboy#oldgirl#g <span class="c1">#将文件中指定内容全部替换</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#s substitute 替换</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#g global 全局</span>
+</span></span><span class="line"><span class="cl">:2,4s#oldboy#oldgirl#g <span class="c1">#替换部分内容第2~4行</span>
+</span></span><span class="line"><span class="cl">:12,<span class="nv">$s</span><span class="c1">#oldboy#oldgirl#g #替换部分内容第12行~结尾</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#批量添加信息</span>
+</span></span><span class="line"><span class="cl">ctrl+v <span class="c1">#进入视图模式</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#方向键选择</span>
+</span></span><span class="line"><span class="cl">shift+i <span class="c1">#进行单行编辑</span>
+</span></span><span class="line"><span class="cl">esc <span class="c1">#实现批量修改</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#批量删除信息</span>
+</span></span><span class="line"><span class="cl">ctrl+v <span class="c1">#进入视图模式</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#方向键选择</span>
+</span></span><span class="line"><span class="cl">d or x <span class="c1">#删除</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="系统优化">系统优化</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -581,21 +572,21 @@ d or x <span class="c1">#删除</span>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#	yum源优化</span>
-<span class="c1">#	防火墙优化</span>
-<span class="c1">#	selinux优化</span>
-vim /etc/selinux/config
-<span class="c1">#	字符编码优化</span>
-vim /etc/locale.conf
-<span class="c1">#	优化远程连接速度</span>
-vim /etc/ssh/sshd_config
-vim /etc/hosts
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#	yum源优化</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#	防火墙优化</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#	selinux优化</span>
+</span></span><span class="line"><span class="cl">vim /etc/selinux/config
+</span></span><span class="line"><span class="cl"><span class="c1">#	字符编码优化</span>
+</span></span><span class="line"><span class="cl">vim /etc/locale.conf
+</span></span><span class="line"><span class="cl"><span class="c1">#	优化远程连接速度</span>
+</span></span><span class="line"><span class="cl">vim /etc/ssh/sshd_config
+</span></span><span class="line"><span class="cl">vim /etc/hosts
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="其他指令">其他指令</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -636,52 +627,50 @@ vim /etc/hosts
 </span><span class="lnt">39
 </span><span class="lnt">40
 </span><span class="lnt">41
-</span><span class="lnt">42
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">tail -6
-head -5
-tail –f
-
-<span class="c1">#创建用户</span>
-useradd charles
-passwd charles
-
-<span class="c1">#rpm指令</span>
-rpm -qa sl <span class="c1">#query查询软件安装版本</span>
-rpm -ql sl <span class="c1">#查询并list出所有安装的数据</span>
-rpm -qf ssh <span class="c1">#查看命令属于哪个软件包</span>
-rpm -qf <span class="sb">`</span>which ssh<span class="sb">`</span>
-
-<span class="c1">#ss==netstat（yum install -y net-tools）</span>
-ss -lntup
-<span class="c1">#-l list</span>
-<span class="c1">#-n number</span>
-<span class="c1">#-t tcp协议</span>
-<span class="c1">#-u udp协议</span>
-<span class="c1">#-p process进程信息</span>
-
-<span class="c1">#按照时间排序</span>
-ls -ltr /etc/
-<span class="c1">#t，按时间排序</span>
-<span class="c1">#r，逆向排序</span>
-
-cat -n /oldboy/oldboy.txt <span class="c1">#查看文件，并显示行号</span>
-
-less /etc/service <span class="c1">#查看文件</span>
-<span class="c1">#回车，向下逐行</span>
-<span class="c1">#空格，向下逐页</span>
-<span class="c1">#方向键上，向上逐行</span>
-<span class="c1">#b，向上逐页</span>
-
-<span class="c1">#多行添加文件</span>
-cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
-</span><span class="s">&gt; oldboy01
-</span><span class="s">&gt; oldboy02
-</span><span class="s">&gt; oldboy03
-</span><span class="s">&gt; EOF</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">tail -6
+</span></span><span class="line"><span class="cl">head -5
+</span></span><span class="line"><span class="cl">tail –f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建用户</span>
+</span></span><span class="line"><span class="cl">useradd charles
+</span></span><span class="line"><span class="cl">passwd charles
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#rpm指令</span>
+</span></span><span class="line"><span class="cl">rpm -qa sl <span class="c1">#query查询软件安装版本</span>
+</span></span><span class="line"><span class="cl">rpm -ql sl <span class="c1">#查询并list出所有安装的数据</span>
+</span></span><span class="line"><span class="cl">rpm -qf ssh <span class="c1">#查看命令属于哪个软件包</span>
+</span></span><span class="line"><span class="cl">rpm -qf <span class="sb">`</span>which ssh<span class="sb">`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#ss==netstat（yum install -y net-tools）</span>
+</span></span><span class="line"><span class="cl">ss -lntup
+</span></span><span class="line"><span class="cl"><span class="c1">#-l list</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-n number</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-t tcp协议</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-u udp协议</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-p process进程信息</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#按照时间排序</span>
+</span></span><span class="line"><span class="cl">ls -ltr /etc/
+</span></span><span class="line"><span class="cl"><span class="c1">#t，按时间排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#r，逆向排序</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat -n /oldboy/oldboy.txt <span class="c1">#查看文件，并显示行号</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">less /etc/service <span class="c1">#查看文件</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#回车，向下逐行</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#空格，向下逐页</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#方向键上，向上逐行</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#b，向上逐页</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#多行添加文件</span>
+</span></span><span class="line"><span class="cl">cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt; oldboy01
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt; oldboy02
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt; oldboy03
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt; EOF</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -689,7 +678,7 @@ cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">Charles Miao</span>
+    <span class="item-content"></span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -736,7 +725,7 @@ cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
-  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">
@@ -758,13 +747,10 @@ cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Charles Miao</span>
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -777,7 +763,7 @@ cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
-  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+  <script>
     var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
@@ -785,7 +771,7 @@ cat &gt;&gt; /oldboy/oldboy.txt <span class="s">&lt;&lt;EOF
 
 
 
-<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

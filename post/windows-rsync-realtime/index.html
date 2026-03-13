@@ -16,14 +16,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Charles Miao" /><meta name="description" content="主要内容  问题说明 环境部署 脚本实现 " /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="" /><meta name="description" content="主要内容 问题说明 环境部署 脚本实现 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.83.1 with theme even" />
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
 
 
 <link rel="canonical" href="https://Charles-Miao.github.io/post/windows-rsync-realtime/" />
@@ -35,40 +35,34 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css" rel="stylesheet">
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset-even.css">
 
 
-<meta property="og:title" content="Windows实时同步文件至NAS" />
-<meta property="og:description" content="主要内容
+<meta property="og:url" content="https://Charles-Miao.github.io/post/windows-rsync-realtime/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Windows实时同步文件至NAS">
+  <meta property="og:description" content="主要内容 问题说明 环境部署 脚本实现">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-07-13T22:58:21+08:00">
+    <meta property="article:modified_time" content="2021-07-13T22:58:21+08:00">
+    <meta property="article:tag" content="Windows">
+    <meta property="article:tag" content="NAS">
+    <meta property="article:tag" content="Rsync">
+    <meta property="article:tag" content="Python">
 
-问题说明
-环境部署
-脚本实现
-" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://Charles-Miao.github.io/post/windows-rsync-realtime/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-07-13T22:58:21&#43;08:00" />
-<meta property="article:modified_time" content="2021-07-13T22:58:21&#43;08:00" />
-
-<meta itemprop="name" content="Windows实时同步文件至NAS">
-<meta itemprop="description" content="主要内容
-
-问题说明
-环境部署
-脚本实现
-"><meta itemprop="datePublished" content="2021-07-13T22:58:21&#43;08:00" />
-<meta itemprop="dateModified" content="2021-07-13T22:58:21&#43;08:00" />
-<meta itemprop="wordCount" content="1810">
-<meta itemprop="keywords" content="Windows,NAS,rsync,Python," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Windows实时同步文件至NAS"/>
-<meta name="twitter:description" content="主要内容
-
-问题说明
-环境部署
-脚本实现
-"/>
+  <meta itemprop="name" content="Windows实时同步文件至NAS">
+  <meta itemprop="description" content="主要内容 问题说明 环境部署 脚本实现">
+  <meta itemprop="datePublished" content="2021-07-13T22:58:21+08:00">
+  <meta itemprop="dateModified" content="2021-07-13T22:58:21+08:00">
+  <meta itemprop="wordCount" content="1811">
+  <meta itemprop="keywords" content="Windows,NAS,Rsync,Python">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Windows实时同步文件至NAS">
+  <meta name="twitter:description" content="主要内容 问题说明 环境部署 脚本实现">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -105,12 +99,21 @@
         <li class="mobile-menu-item">About</li>
       </a>
   </ul>
+
+  
+
+
 </nav>
+
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
   <a href="/" class="logo">Charles&#39;s Blog</a>
 </div>
+
+
+
+
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
@@ -127,6 +130,7 @@
       </li>
   </ul>
 </nav>
+
     </header>
 
     <main id="main" class="main">
@@ -142,7 +146,7 @@
         <div class="post-category">
             <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 1810 字 </span>
+          <span class="more-meta"> 约 1811 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -166,6 +170,11 @@
 </nav>
   </div>
 </div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2021-07-13T22:58:21" title="July 13, 2021">July 13, 2021</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <h1 id="主要内容">主要内容</h1>
 <ul>
@@ -198,7 +207,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -257,64 +266,64 @@
 </span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#-*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">re</span>
-
-<span class="n">rsyncSrc</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;D:\Debug_Log&#39;</span>
-<span class="n">rsyncDes</span><span class="o">=</span><span class="s1">&#39;rsync_backup@192.168.123.42::realtime&#39;</span>
-<span class="c1">#中间以@间隔，方便后面提取文件名，若以空格间隔，会导致包含空格的文件名提取异常</span>
-<span class="n">listen</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;inotifywait -mrq --format &#34;</span><span class="si">%%</span><span class="s1">e@</span><span class="si">%%</span><span class="s1">w\</span><span class="si">%%</span><span class="s1">f&#34; &#34;D:\Debug_Log&#34;&#39;</span>
-<span class="n">popen</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">listen</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">line</span><span class="o">=</span><span class="n">popen</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="n">lineArr</span><span class="o">=</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
-    <span class="c1">#获取监控的事件</span>
-    <span class="n">oper</span><span class="o">=</span><span class="n">lineArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1">#获取变动路径</span>
-    <span class="nb">file</span><span class="o">=</span><span class="n">lineArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">touched</span><span class="o">=</span><span class="bp">False</span>
-    <span class="n">delete</span><span class="o">=</span><span class="bp">False</span>
-    <span class="k">if</span> <span class="nb">file</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;DELETE&#39;</span><span class="p">)</span> <span class="ow">or</span>  <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;MOVED_FROM&#39;</span><span class="p">):</span>
-            <span class="c1">#转换路径</span>
-            <span class="n">_cureent_file</span><span class="o">=</span><span class="nb">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
-            <span class="n">cureent_file</span><span class="o">=</span><span class="n">_cureent_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-            <span class="c1">#透过ssh免密的方式删除NAS Server上的内容</span>
-            <span class="n">delete_cmd</span><span class="o">=</span><span class="s1">&#39;ssh administrator@192.168.123.42 </span><span class="se">\&#39;</span><span class="s1">rm -rf </span><span class="se">\&#34;</span><span class="s1">/volume1/Real-time&#39;</span><span class="o">+</span><span class="n">cureent_file</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\&#34;\&#39;</span><span class="s1">&#39;</span>
-            <span class="c1">#获取文件修改时间</span>
-            <span class="c1">#modify_time_cmd=&#39;ssh administrator@192.168.123.42 \&#39;stat \&#34;/volume1/Real-time&#39;+cureent_file+&#39;\&#34;\&#39;&#39;</span>
-            <span class="n">delete</span><span class="o">=</span><span class="bp">True</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;MOVED_TO&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;CREATE&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;MODIFY&#39;</span><span class="p">):</span>
-            <span class="c1">#转换路径</span>
-            <span class="n">_cureent_file</span><span class="o">=</span><span class="nb">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
-            <span class="n">cureent_file</span><span class="o">=</span><span class="n">_cureent_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-            <span class="c1">#透过rsync将文件同步至NAS Server，密码存在pass.txt文件中</span>
-            <span class="n">rsync_cmd</span><span class="o">=</span><span class="s1">&#39;rsync -avz -R -d --port=873 --delete --progress &#34;&#39;</span><span class="o">+</span><span class="n">cureent_file</span><span class="o">+</span><span class="s1">&#39;&#34; &#39;</span><span class="o">+</span><span class="n">rsyncDes</span><span class="o">+</span><span class="s1">&#39; --password-file=&#34;/cygdrive/d/ServerCheck/rsync/pass.txt&#34;&#39;</span>
-            <span class="n">touched</span><span class="o">=</span><span class="bp">True</span>
-    <span class="k">if</span> <span class="n">delete</span><span class="p">:</span>
-        <span class="c1">#当天的文件被删除则同步删除NAS Server中文件，若是昨天之前的文件则不删除</span>
-        <span class="c1">#conent=os.popen(modify_time_cmd).readlines()</span>
-        <span class="c1">#modify_date=&#34;&#34;</span>
-        <span class="c1">#for index in range(len(conent)):</span>
-        <span class="c1">#    if &#34;Modify&#34; in conent[index]:</span>
-        <span class="c1">#        modify_date=re.split(r&#39;[: ]&#39;,conent[index])[2].strip()		</span>
-        <span class="c1">#if modify_date==time.strftime(&#34;%Y-%m-%d&#34;, time.localtime()):</span>
-        <span class="c1">#    os.popen(delete_cmd)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">delete_cmd</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">touched</span><span class="p">:</span>
-        <span class="n">rsyncAction</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">rsync_cmd</span><span class="p">)</span>
-        <span class="n">rsyncStat</span><span class="o">=</span><span class="n">rsyncAction</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&#34;speedup is&#34;</span> <span class="ow">in</span> <span class="n">rsyncStat</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="o">+</span><span class="s1">&#39; rsynced!&#39;</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">rsyncStat</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="nb">file</span><span class="o">+</span><span class="s1">&#39; rsync failed!&#39;</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">rsyncStat</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#-*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rsyncSrc</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;D:\Debug_Log&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">rsyncDes</span><span class="o">=</span><span class="s1">&#39;rsync_backup@192.168.123.42::realtime&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#中间以@间隔，方便后面提取文件名，若以空格间隔，会导致包含空格的文件名提取异常</span>
+</span></span><span class="line"><span class="cl"><span class="n">listen</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;inotifywait -mrq --format &#34;</span><span class="si">%%</span><span class="s1">e@</span><span class="si">%%</span><span class="s1">w\</span><span class="si">%%</span><span class="s1">f&#34; &#34;D:\Debug_Log&#34;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">popen</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">listen</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">line</span><span class="o">=</span><span class="n">popen</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lineArr</span><span class="o">=</span><span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#获取监控的事件</span>
+</span></span><span class="line"><span class="cl">    <span class="n">oper</span><span class="o">=</span><span class="n">lineArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#获取变动路径</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span><span class="o">=</span><span class="n">lineArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">touched</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">delete</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;DELETE&#39;</span><span class="p">)</span> <span class="ow">or</span>  <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;MOVED_FROM&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#转换路径</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_cureent_file</span><span class="o">=</span><span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cureent_file</span><span class="o">=</span><span class="n">_cureent_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#透过ssh免密的方式删除NAS Server上的内容</span>
+</span></span><span class="line"><span class="cl">            <span class="n">delete_cmd</span><span class="o">=</span><span class="s1">&#39;ssh administrator@192.168.123.42 </span><span class="se">\&#39;</span><span class="s1">rm -rf </span><span class="se">\&#34;</span><span class="s1">/volume1/Real-time&#39;</span><span class="o">+</span><span class="n">cureent_file</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\&#34;\&#39;</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#获取文件修改时间</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#modify_time_cmd=&#39;ssh administrator@192.168.123.42 \&#39;stat \&#34;/volume1/Real-time&#39;+cureent_file+&#39;\&#34;\&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">delete</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;MOVED_TO&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;CREATE&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">oper</span><span class="o">==</span><span class="s1">&#39;MODIFY&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#转换路径</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_cureent_file</span><span class="o">=</span><span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cureent_file</span><span class="o">=</span><span class="n">_cureent_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#透过rsync将文件同步至NAS Server，密码存在pass.txt文件中</span>
+</span></span><span class="line"><span class="cl">            <span class="n">rsync_cmd</span><span class="o">=</span><span class="s1">&#39;rsync -avz -R -d --port=873 --delete --progress &#34;&#39;</span><span class="o">+</span><span class="n">cureent_file</span><span class="o">+</span><span class="s1">&#39;&#34; &#39;</span><span class="o">+</span><span class="n">rsyncDes</span><span class="o">+</span><span class="s1">&#39; --password-file=&#34;/cygdrive/d/ServerCheck/rsync/pass.txt&#34;&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">touched</span><span class="o">=</span><span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">delete</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#当天的文件被删除则同步删除NAS Server中文件，若是昨天之前的文件则不删除</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#conent=os.popen(modify_time_cmd).readlines()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#modify_date=&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#for index in range(len(conent)):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#    if &#34;Modify&#34; in conent[index]:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#        modify_date=re.split(r&#39;[: ]&#39;,conent[index])[2].strip()		</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#if modify_date==time.strftime(&#34;%Y-%m-%d&#34;, time.localtime()):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#    os.popen(delete_cmd)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">delete_cmd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">touched</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rsyncAction</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">rsync_cmd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rsyncStat</span><span class="o">=</span><span class="n">rsyncAction</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="s2">&#34;speedup is&#34;</span> <span class="ow">in</span> <span class="n">rsyncStat</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">+</span><span class="s1">&#39; rsynced!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">rsyncStat</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">+</span><span class="s1">&#39; rsync failed!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">rsyncStat</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="多进程实现">多进程实现</h3>
 <ul>
@@ -322,7 +331,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -421,104 +430,104 @@
 </span><span class="lnt">97
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">queue</span>
-<span class="kn">import</span> <span class="nn">threading</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">watchdog.observers</span> <span class="kn">as</span> <span class="nn">observers</span>
-<span class="kn">import</span> <span class="nn">watchdog.events</span> <span class="kn">as</span> <span class="nn">events</span>
-<span class="kn">import</span> <span class="nn">paramiko</span>
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-<span class="n">SENTINEL</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="c1">#获取CPU核数，以便设定进程池大小</span>
-<span class="k">def</span> <span class="nf">get_CPU_NumberOfCores</span><span class="p">():</span>
-	<span class="n">conent</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&#34;wmic cpu get NumberOfCores&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-	<span class="n">CPU_NumberOfCores</span><span class="o">=</span><span class="mi">0</span>
-	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">conent</span><span class="p">)):</span>
-		<span class="k">if</span> <span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s2">&#34;&#34;</span><span class="p">:</span>
-			<span class="k">continue</span>
-		<span class="k">elif</span> <span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s2">&#34;NumberOfCores&#34;</span><span class="p">:</span>
-			<span class="k">continue</span>
-		<span class="k">else</span><span class="p">:</span>
-			<span class="n">CPU_NumberOfCores</span><span class="o">=</span><span class="n">CPU_NumberOfCores</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-	<span class="k">return</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CPU_NumberOfCores</span><span class="p">))</span>        
-<span class="c1">#将事件加入列表</span>
-<span class="k">class</span> <span class="nc">MyEventHandler</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">FileSystemEventHandler</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">on_any_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MyEventHandler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">on_any_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-        <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span>
-<span class="c1">#根据不同的事件对文件做相应处理</span>
-<span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">queue</span><span class="p">):</span>
-    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">event</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-        <span class="n">_current_file</span><span class="o">=</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
-        <span class="n">current_file</span><span class="o">=</span><span class="n">_current_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-        <span class="c1">#创建或修改文件，则进行同步</span>
-        <span class="k">if</span> <span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;created&#34;</span> <span class="ow">or</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;modified&#34;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-            <span class="n">rsync_cmd</span><span class="o">=</span><span class="s1">&#39;rsync -avz -R -d --port=873 --delete --progress &#34;&#39;</span><span class="o">+</span><span class="n">current_file</span><span class="o">+</span><span class="s1">&#39;&#34; &#39;</span><span class="o">+</span><span class="n">rsyncDes</span><span class="o">+</span><span class="s1">&#39; --password-file=&#34;/cygdrive/d/ServerCheck/rsync/pass.txt&#34;&#39;</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">rsync_cmd</span><span class="p">)</span>	
-        <span class="c1">#若删除本地文件，则删除NAS服务器中的相应文件		</span>
-        <span class="k">elif</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;deleted&#34;</span><span class="p">:</span>
-            <span class="c1">#使用paramiko模块进行处理</span>
-            <span class="n">client</span> <span class="o">=</span> <span class="n">paramiko</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">paramiko</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;192.168.123.42&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;administrator&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;XXX&#39;</span><span class="p">)</span>
-            <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;rm -rf &#34;/volume1/Real-time&#39;</span><span class="o">+</span><span class="n">current_file</span><span class="o">+</span><span class="s1">&#39;&#34;&#39;</span><span class="p">)</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="c1">#若修改文件名，则删除旧文件，同步新文件</span>
-        <span class="k">elif</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;moved&#34;</span><span class="p">:</span>
-            <span class="c1">#删除旧文件</span>
-            <span class="n">client</span> <span class="o">=</span> <span class="n">paramiko</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">paramiko</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;192.168.123.42&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;administrator&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;Z900TE@Quality!!#&#39;</span><span class="p">)</span>
-            <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;rm -rf &#34;/volume1/Real-time&#39;</span><span class="o">+</span><span class="n">current_file</span><span class="o">+</span><span class="s1">&#39;&#34;&#39;</span><span class="p">)</span>
-            <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="c1">#获取新文件名，并进行同步</span>
-            <span class="n">_new_file</span><span class="o">=</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
-            <span class="n">new_file</span><span class="o">=</span><span class="n">_new_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
-            <span class="n">rsync_cmd</span><span class="o">=</span><span class="s1">&#39;rsync -avz -R -d --port=873 --delete --progress &#34;&#39;</span><span class="o">+</span><span class="n">new_file</span><span class="o">+</span><span class="s1">&#39;&#34; &#39;</span><span class="o">+</span><span class="n">rsyncDes</span><span class="o">+</span><span class="s1">&#39; --password-file=&#34;/cygdrive/d/ServerCheck/rsync/pass.txt&#34;&#39;</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">rsync_cmd</span><span class="p">)</span>	
-        <span class="c1">#时间间隔7sec，防止内存和cpu过高</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="n">rsyncSrc</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;D:\Debug_Log&#39;</span>
-    <span class="n">rsyncDes</span><span class="o">=</span><span class="s1">&#39;rsync_backup@192.168.123.42::realtime&#39;</span>
-    <span class="c1">#记录日志</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
-                        <span class="n">format</span><span class="o">=</span><span class="s1">&#39;[</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(threadName)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
-                        <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
-    <span class="c1">#列表</span>
-    <span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
-    <span class="c1">#获取cpu核数，用于定义进程池大小</span>
-    <span class="n">num_workers</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_CPU_NumberOfCores</span><span class="p">())</span>
-    <span class="c1">#将列表中的事件取出，逐一进行处理</span>
-    <span class="n">pool</span> <span class="o">=</span> <span class="p">[</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">process</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">queue</span><span class="p">,))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_workers</span><span class="p">)]</span>
-    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">pool</span><span class="p">:</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-    <span class="c1">#将文件变更的事件记录到列表中</span>
-    <span class="n">event_handler</span> <span class="o">=</span> <span class="n">MyEventHandler</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
-    <span class="n">observer</span> <span class="o">=</span> <span class="n">observers</span><span class="o">.</span><span class="n">Observer</span><span class="p">()</span>
-    <span class="n">observer</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span>
-        <span class="n">event_handler</span><span class="p">,</span>
-        <span class="n">path</span><span class="o">=</span><span class="n">rsyncSrc</span><span class="p">,</span>
-        <span class="n">recursive</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">observer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="n">observer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-    <span class="n">observer</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">logging</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">queue</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">threading</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">watchdog.observers</span> <span class="k">as</span> <span class="nn">observers</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">watchdog.events</span> <span class="k">as</span> <span class="nn">events</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">paramiko</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">SENTINEL</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#获取CPU核数，以便设定进程池大小</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_CPU_NumberOfCores</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">	<span class="n">conent</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&#34;wmic cpu get NumberOfCores&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">CPU_NumberOfCores</span><span class="o">=</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">conent</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s2">&#34;&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">		<span class="k">elif</span> <span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s2">&#34;NumberOfCores&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">CPU_NumberOfCores</span><span class="o">=</span><span class="n">CPU_NumberOfCores</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">conent</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">CPU_NumberOfCores</span><span class="p">))</span>        
+</span></span><span class="line"><span class="cl"><span class="c1">#将事件加入列表</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyEventHandler</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">FileSystemEventHandler</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">on_any_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">MyEventHandler</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">on_any_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#根据不同的事件对文件做相应处理</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">queue</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">event</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_current_file</span><span class="o">=</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">current_file</span><span class="o">=</span><span class="n">_current_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#创建或修改文件，则进行同步</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;created&#34;</span> <span class="ow">or</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;modified&#34;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">rsync_cmd</span><span class="o">=</span><span class="s1">&#39;rsync -avz -R -d --port=873 --delete --progress &#34;&#39;</span><span class="o">+</span><span class="n">current_file</span><span class="o">+</span><span class="s1">&#39;&#34; &#39;</span><span class="o">+</span><span class="n">rsyncDes</span><span class="o">+</span><span class="s1">&#39; --password-file=&#34;/cygdrive/d/ServerCheck/rsync/pass.txt&#34;&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">rsync_cmd</span><span class="p">)</span>	
+</span></span><span class="line"><span class="cl">        <span class="c1">#若删除本地文件，则删除NAS服务器中的相应文件		</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;deleted&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#使用paramiko模块进行处理</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span> <span class="o">=</span> <span class="n">paramiko</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">paramiko</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;192.168.123.42&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;administrator&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;XXX&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;rm -rf &#34;/volume1/Real-time&#39;</span><span class="o">+</span><span class="n">current_file</span><span class="o">+</span><span class="s1">&#39;&#34;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#若修改文件名，则删除旧文件，同步新文件</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;moved&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#删除旧文件</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span> <span class="o">=</span> <span class="n">paramiko</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">paramiko</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;192.168.123.42&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;administrator&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;Z900TE@Quality!!#&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">stdin</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;rm -rf &#34;/volume1/Real-time&#39;</span><span class="o">+</span><span class="n">current_file</span><span class="o">+</span><span class="s1">&#39;&#34;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">#获取新文件名，并进行同步</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_new_file</span><span class="o">=</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">rsyncSrc</span><span class="p">,</span><span class="s1">&#39;/cygdrive/d/Debug_Log&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">new_file</span><span class="o">=</span><span class="n">_new_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">rsync_cmd</span><span class="o">=</span><span class="s1">&#39;rsync -avz -R -d --port=873 --delete --progress &#34;&#39;</span><span class="o">+</span><span class="n">new_file</span><span class="o">+</span><span class="s1">&#39;&#34; &#39;</span><span class="o">+</span><span class="n">rsyncDes</span><span class="o">+</span><span class="s1">&#39; --password-file=&#34;/cygdrive/d/ServerCheck/rsync/pass.txt&#34;&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">rsync_cmd</span><span class="p">)</span>	
+</span></span><span class="line"><span class="cl">        <span class="c1">#时间间隔7sec，防止内存和cpu过高</span>
+</span></span><span class="line"><span class="cl">        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">rsyncSrc</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;D:\Debug_Log&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rsyncDes</span><span class="o">=</span><span class="s1">&#39;rsync_backup@192.168.123.42::realtime&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#记录日志</span>
+</span></span><span class="line"><span class="cl">    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;[</span><span class="si">%(asctime)s</span><span class="s1"> </span><span class="si">%(threadName)s</span><span class="s1">] </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">datefmt</span><span class="o">=</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#列表</span>
+</span></span><span class="line"><span class="cl">    <span class="n">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#获取cpu核数，用于定义进程池大小</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num_workers</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_CPU_NumberOfCores</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#将列表中的事件取出，逐一进行处理</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pool</span> <span class="o">=</span> <span class="p">[</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">process</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">queue</span><span class="p">,))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_workers</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">pool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#将文件变更的事件记录到列表中</span>
+</span></span><span class="line"><span class="cl">    <span class="n">event_handler</span> <span class="o">=</span> <span class="n">MyEventHandler</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">observer</span> <span class="o">=</span> <span class="n">observers</span><span class="o">.</span><span class="n">Observer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">observer</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">event_handler</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="o">=</span><span class="n">rsyncSrc</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">observer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">observer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">observer</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考连接">参考连接</h2>
 <ul>
@@ -534,7 +543,7 @@
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">Charles Miao</span>
+    <span class="item-content"></span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
@@ -554,7 +563,11 @@
           <a href="/tags/Python/">Python</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/hello-hugo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Hello Hugo - 本地部署测试</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
         <a class="next" href="/post/Linux-Admin-8/">
             <span class="next-text nav-default">Linux基础 - Part8</span>
             <span class="next-text nav-mobile">下一篇</span>
@@ -580,7 +593,7 @@
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
       <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
-  <a href="https://Charles-Miao.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">
@@ -602,13 +615,10 @@
   <span class="copyright-year">
     &copy; 
     2020 - 
-    2021
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">Charles Miao</span>
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
+
     </footer>
 
     <div class="back-to-top" id="back-to-top">
@@ -621,7 +631,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
-  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+  <script>
     var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
     timeago().render(document.querySelectorAll('.timeago'), languageCode);
     timeago.cancel();  
@@ -629,7 +639,7 @@
 
 
 
-<script type="text/javascript" src="/js/main.min.2517c0eb67172a0bae917de4af59b10ca2531411a009d4c0b82f5685259e5771.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 
