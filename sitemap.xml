@@ -226,14 +226,49 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/tags/NAS/</loc>
-    <lastmod>2021-07-13T22:58:21+08:00</lastmod>
+    <loc>https://Charles-Miao.github.io/tags/Python/</loc>
+    <lastmod>2025-03-13T21:45:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/tags/Python/</loc>
+    <loc>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</loc>
+    <lastmod>2025-03-13T21:45:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/XML/</loc>
+    <lastmod>2025-03-13T21:45:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2025-03-13T21:45:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/%E5%AE%9E%E6%88%98%E6%A1%88%E4%BE%8B/</loc>
+    <lastmod>2025-03-13T21:45:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-03-13T21:45:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/NAS/</loc>
     <lastmod>2021-07-13T22:58:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

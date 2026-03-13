@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Python 实战：自动化测试日志转 XML 系统实践 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="Python 实战：自动化测试日志转 XML 系统实践 摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20&#43; 个 Bug 修复，完整记录了一个自动化工具从 0 到 1 的开发过程。
+" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/python-log-to-xml-automation/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/python-log-to-xml-automation/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Python 实战：自动化测试日志转 XML 系统实践">
+  <meta property="og:description" content="Python 实战：自动化测试日志转 XML 系统实践 摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20&#43; 个 Bug 修复，完整记录了一个自动化工具从 0 到 1 的开发过程。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-03-13T21:45:00+00:00">
+    <meta property="article:modified_time" content="2025-03-13T21:45:00+00:00">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="自动化测试">
+    <meta property="article:tag" content="日志处理">
+    <meta property="article:tag" content="XML">
+    <meta property="article:tag" content="DevOps">
+    <meta property="article:tag" content="实战案例">
+
+  <meta itemprop="name" content="Python 实战：自动化测试日志转 XML 系统实践">
+  <meta itemprop="description" content="Python 实战：自动化测试日志转 XML 系统实践 摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20&#43; 个 Bug 修复，完整记录了一个自动化工具从 0 到 1 的开发过程。">
+  <meta itemprop="datePublished" content="2025-03-13T21:45:00+00:00">
+  <meta itemprop="dateModified" content="2025-03-13T21:45:00+00:00">
+  <meta itemprop="wordCount" content="3778">
+  <meta itemprop="keywords" content="Python,自动化测试,日志处理,XML,DevOps,实战案例">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Python 实战：自动化测试日志转 XML 系统实践">
+  <meta name="twitter:description" content="Python 实战：自动化测试日志转 XML 系统实践 摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20&#43; 个 Bug 修复，完整记录了一个自动化工具从 0 到 1 的开发过程。">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Python 实战：自动化测试日志转 XML 系统实践</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2025-03-13 </span>
+        <div class="post-category">
+            <a href="/categories/%e8%bf%90%e7%bb%b4/">运维 </a>
+            <a href="/categories/%e6%8a%80%e6%9c%af/">技术 </a>
+            </div>
+          <span class="more-meta"> 约 3778 字 </span>
+          <span class="more-meta"> 预计阅读 8 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-背景">📋 背景</a></li>
+    <li><a href="#-系统架构">🏗️ 系统架构</a>
+      <ul>
+        <li><a href="#整体流程">整体流程</a></li>
+        <li><a href="#实施步骤">实施步骤</a></li>
+      </ul>
+    </li>
+    <li><a href="#-核心实现">🔧 核心实现</a>
+      <ul>
+        <li><a href="#1-项目结构">1. 项目结构</a></li>
+        <li><a href="#2-关键功能模块">2. 关键功能模块</a></li>
+      </ul>
+    </li>
+    <li><a href="#-bug-修复全记录">🐛 Bug 修复全记录</a>
+      <ul>
+        <li><a href="#bug-1-测试名称包含冒号导致解析失败">Bug 1: 测试名称包含冒号导致解析失败</a></li>
+        <li><a href="#bug-2-xml-文件名格式错误">Bug 2: XML 文件名格式错误</a></li>
+        <li><a href="#bug-3-comptype-判断逻辑不完善">Bug 3: CompType 判断逻辑不完善</a></li>
+        <li><a href="#bug-4-测试-fail-时-testtime-不准确">Bug 4: 测试 FAIL 时 TestTime 不准确</a></li>
+        <li><a href="#bug-5-缺失-error-信息">Bug 5: 缺失 Error 信息</a></li>
+        <li><a href="#bug-6-缺失-dutswversion-信息">Bug 6: 缺失 DutSwVersion 信息</a></li>
+        <li><a href="#bug-7-stationid-格式不统一">Bug 7: StationId 格式不统一</a></li>
+        <li><a href="#bug-8-特殊字符导致-xml-解析失败">Bug 8: 特殊字符导致 XML 解析失败</a></li>
+        <li><a href="#bug-9-时间戳时区错误">Bug 9: 时间戳时区错误</a></li>
+        <li><a href="#bug-10-上下限为空的测量数据">Bug 10: 上下限为空的测量数据</a></li>
+        <li><a href="#其他-bug-修复清单">其他 Bug 修复清单</a></li>
+      </ul>
+    </li>
+    <li><a href="#-输出示例">📊 输出示例</a>
+      <ul>
+        <li><a href="#生成的-xml-结构">生成的 XML 结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#-经验总结">💡 经验总结</a>
+      <ul>
+        <li><a href="#1-正则表达式是双刃剑">1. 正则表达式是双刃剑</a></li>
+        <li><a href="#2-边界情况处理至关重要">2. 边界情况处理至关重要</a></li>
+        <li><a href="#3-业务逻辑比技术实现更难">3. 业务逻辑比技术实现更难</a></li>
+        <li><a href="#4-日志是最好的调试工具">4. 日志是最好的调试工具</a></li>
+        <li><a href="#5-函数化设计便于复用">5. 函数化设计便于复用</a></li>
+      </ul>
+    </li>
+    <li><a href="#-性能优化">🚀 性能优化</a>
+      <ul>
+        <li><a href="#多进程处理">多进程处理</a></li>
+        <li><a href="#执行时间监控">执行时间监控</a></li>
+      </ul>
+    </li>
+    <li><a href="#-项目成果">📈 项目成果</a>
+      <ul>
+        <li><a href="#效率提升">效率提升</a></li>
+        <li><a href="#数据质量">数据质量</a></li>
+      </ul>
+    </li>
+    <li><a href="#-未来改进方向">🔮 未来改进方向</a></li>
+    <li><a href="#-相关资源">📚 相关资源</a></li>
+    <li><a href="#-结语">🎯 结语</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="python-实战自动化测试日志转-xml-系统实践">Python 实战：自动化测试日志转 XML 系统实践</h1>
+<blockquote>
+<p><strong>摘要</strong>：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20+ 个 Bug 修复，完整记录了一个自动化工具从 0 到 1 的开发过程。</p>
+</blockquote>
+<hr>
+<h2 id="-背景">📋 背景</h2>
+<p>在车电测试产线中，测试设备生成的日志格式与 EDA（Engineering Data Analysis）系统要求的 XML 格式不兼容。每天产生大量测试日志，人工转换效率低且容易出错。</p>
+<p><strong>核心需求：</strong></p>
+<ul>
+<li>将测试设备生成的 <code>.log</code> 文件自动转换为 EDA 系统指定的 XML 格式</li>
+<li>支持批量处理（多进程）</li>
+<li>提取关键测试数据：测试结果、序列号、测试时间、错误信息、测量数据等</li>
+<li>处理各种边界情况和异常数据</li>
+</ul>
+<hr>
+<h2 id="-系统架构">🏗️ 系统架构</h2>
+<h3 id="整体流程">整体流程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────┐    ┌──────────────┐    ┌──────────────┐
+</span></span><span class="line"><span class="cl">│  原始 Log   │ -&gt; │  解析转换    │ -&gt; │  XML 输出     │
+</span></span><span class="line"><span class="cl">│  (测试设备)  │    │  (Python)    │    │  (EDA 系统)   │
+</span></span><span class="line"><span class="cl">└─────────────┘    └──────────────┘    └──────────────┘
+</span></span><span class="line"><span class="cl">       ↓                   ↓                   ↓
+</span></span><span class="line"><span class="cl">  产线测试           正则提取 + 逻辑处理      数据入库分析
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="实施步骤">实施步骤</h3>
+<ol>
+<li><strong>清空临时文件夹</strong> - 确保处理环境干净</li>
+<li><strong>筛选前一天日志</strong> - 多进程并行处理</li>
+<li><strong>Log → XML 转换</strong> - 核心解析逻辑</li>
+<li><strong>复制到 EDA 目录</strong> - 供下游系统使用</li>
+</ol>
+<hr>
+<h2 id="-核心实现">🔧 核心实现</h2>
+<h3 id="1-项目结构">1. 项目结构</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">log_to_xml/
+</span></span><span class="line"><span class="cl">├── py_test_modify_V03.py    # 核心转换脚本
+</span></span><span class="line"><span class="cl">├── 实现方法.md               # 实施文档
+</span></span><span class="line"><span class="cl">└── README.md                 # 项目说明
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-关键功能模块">2. 关键功能模块</h3>
+<h4 id="21-日志解析正则表达式">2.1 日志解析（正则表达式）</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 提取测试状态</span>
+</span></span><span class="line"><span class="cl"><span class="n">status_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;runner\s+-\s+INFO\s+-\s+Status:\s+(PASS|FAIL)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提取序列号</span>
+</span></span><span class="line"><span class="cl"><span class="n">serial_number_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;runner\s+-\s+INFO\s+-\s+Serial\s+Number:\s+(\S+)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提取测试数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_data_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;runner\s+-\s+INFO\s+-\s+Test\s+(\d+)\s+-\s+([\w\-_.]+)\s+\(.*?\)\s+\.\.\.\s+(pass|fail)\s+\(([\dhms]+)\)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提取测量数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">measurement_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;runner\s+-\s+INFO\s+-\s+teststep:(\S+)\s+testname:(.*?)\s+value:(\S+)\s+unit:(\S+)\s+judgetype:(\S+)\s+lowlimit:(\S+)\s+uplimit:(\S+)\s+datatype:(\S+)&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>难点：</strong> 测试日志格式不统一，需要多个正则模式适配不同版本的日志输出。</p>
+<h4 id="22-型号识别">2.2 型号识别</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">determine_model_name</span><span class="p">(</span><span class="n">region_str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;根据区域字符串确定型号名称&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s1">&#39;nperear&#39;</span> <span class="ow">in</span> <span class="n">region_str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;NPE_REAR&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="s1">&#39;npefront&#39;</span> <span class="ow">in</span> <span class="n">region_str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;NPE_FRONT&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="s1">&#39;niorear&#39;</span> <span class="ow">in</span> <span class="n">region_str</span> <span class="ow">or</span> <span class="s1">&#39;fct_rearfct&#39;</span> <span class="ow">in</span> <span class="n">region_str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;NPD_REAR&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="s1">&#39;niofront&#39;</span> <span class="ow">in</span> <span class="n">region_str</span> <span class="ow">or</span> <span class="s1">&#39;fct_frontfct&#39;</span> <span class="ow">in</span> <span class="n">region_str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;NPD_FRONT&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;NA&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>业务逻辑：</strong> 从日志文件名中提取区域信息，映射到标准型号名称。</p>
+<h4 id="23-xml-特殊字符转义">2.3 XML 特殊字符转义</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">escape_xml_special_chars</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;转义 XML 特殊字符&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">special_chars</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&amp;&#39;</span><span class="p">:</span> <span class="s1">&#39;&amp;amp;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&lt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&amp;lt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&amp;gt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&#34;&#39;</span><span class="p">:</span> <span class="s1">&#39;&amp;quot;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#39;&#34;</span><span class="p">:</span> <span class="s1">&#39;&amp;apos;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">special_chars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="n">char</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>重要性：</strong> 测试名称中可能包含 <code>&amp;</code>、<code>&lt;</code>、<code>&gt;</code> 等字符，必须转义否则 XML 解析失败。</p>
+<h4 id="24-时间格式转换">2.4 时间格式转换</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_timestamp</span><span class="p">(</span><span class="n">timestamp_str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;转换时间戳为带时区的 ISO 格式&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp_str</span><span class="p">,</span> <span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S,</span><span class="si">%f</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tz</span> <span class="o">=</span> <span class="n">timezone</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">8</span><span class="p">))</span>  <span class="c1"># 北京时间</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dt_with_tz</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dt_with_tz</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">timespec</span><span class="o">=</span><span class="s1">&#39;milliseconds&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>要求：</strong> EDA 系统需要带时区的时间格式 <code>2024-11-05T03:57:12.217+08:00</code>。</p>
+<hr>
+<h2 id="-bug-修复全记录">🐛 Bug 修复全记录</h2>
+<p>这是本项目最有价值的部分——<strong>20+ 个真实 Bug 的发现和修复过程</strong>。</p>
+<h3 id="bug-1-测试名称包含冒号导致解析失败">Bug 1: 测试名称包含冒号导致解析失败</h3>
+<p><strong>现象：</strong> <code>MeasurementData Name=&quot; EXT_MP_PMIC_AI_UG5V8 adc feedback at 6.5v&quot;&quot;</code> 存在两个冒号，EDA 系统无法正常解析。</p>
+<p><strong>原因：</strong> 测试名称中的冒号被误认为是字段分隔符。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># ❌ 错误做法：直接替换冒号</span>
+</span></span><span class="line"><span class="cl"><span class="n">measurement_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ✅ 正确做法：转义 XML 特殊字符</span>
+</span></span><span class="line"><span class="cl"><span class="n">escape_xml_special_chars</span><span class="p">(</span><span class="n">measurement_name</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>教训：</strong> 不要简单替换，要理解 XML 规范，使用标准转义方法。</p>
+<hr>
+<h3 id="bug-2-xml-文件名格式错误">Bug 2: XML 文件名格式错误</h3>
+<p><strong>现象：</strong> 生成的 XML 文件名日期和时间部分没有正确分隔。</p>
+<p><strong>原因：</strong> 时间格式转换逻辑有误。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 示例 &#34;20241105082202245147&#34; 转换为 &#34;2024-11-05_08-22-02&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_time_format</span><span class="p">(</span><span class="n">time_str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">year</span> <span class="o">=</span> <span class="n">time_str</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">month</span> <span class="o">=</span> <span class="n">time_str</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">day</span> <span class="o">=</span> <span class="n">time_str</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hour</span> <span class="o">=</span> <span class="n">time_str</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">minute</span> <span class="o">=</span> <span class="n">time_str</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">second</span> <span class="o">=</span> <span class="n">time_str</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">month</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">hour</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">minute</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">second</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="bug-3-comptype-判断逻辑不完善">Bug 3: CompType 判断逻辑不完善</h3>
+<p><strong>现象：</strong> 部分测量数据的 CompType 字段值不正确，导致 EDA 系统统计错误。</p>
+<p><strong>原因：</strong> 原始逻辑只考虑了部分单位类型。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 完整判断逻辑</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">units</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;boolean&#39;</span><span class="p">,</span> <span class="s1">&#39;Boolean&#39;</span><span class="p">,</span> <span class="s1">&#39;boolen&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">comp_type</span> <span class="o">=</span> <span class="s1">&#39;LOG&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">units</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;ma&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="s1">&#39;Hz&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;digital&#39;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">result_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lowlimit_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lowlimit</span><span class="p">)</span> <span class="k">if</span> <span class="n">lowlimit</span> <span class="k">else</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">        <span class="n">uplimit_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">uplimit</span><span class="p">)</span> <span class="k">if</span> <span class="n">uplimit</span> <span class="k">else</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">lowlimit_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">uplimit_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">lowlimit_val</span> <span class="o">==</span> <span class="n">uplimit_val</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">comp_type</span> <span class="o">=</span> <span class="s1">&#39;EQ&#39;</span>  <span class="c1"># 上下限相等</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">comp_type</span> <span class="o">=</span> <span class="s1">&#39;GELE&#39;</span>  <span class="c1"># 上下限不相等</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">comp_type</span> <span class="o">=</span> <span class="s1">&#39;NA&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">comp_type</span> <span class="o">=</span> <span class="s1">&#39;NA&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">comp_type</span> <span class="o">=</span> <span class="s1">&#39;NA&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>规则总结：</strong></p>
+<ul>
+<li><code>boolean/string/空</code> → <code>LOG</code></li>
+<li>上下限相等 → <code>EQ</code></li>
+<li>上下限不相等 → <code>GELE</code></li>
+<li>其他 → <code>NA</code></li>
+</ul>
+<hr>
+<h3 id="bug-4-测试-fail-时-testtime-不准确">Bug 4: 测试 FAIL 时 TestTime 不准确</h3>
+<p><strong>现象：</strong> 测试失败时，TestData 中的 TestTime 统计错误。</p>
+<p><strong>原因：</strong> 正则表达式中 &ldquo;fail&rdquo; 需要大写匹配。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># ❌ 错误：只匹配小写</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_time_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;\.\.\.\s+(pass|fail)\s+&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ✅ 正确：匹配大小写</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_time_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;\.\.\.\s+(pass|FAIL|skip)\s+&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 提取测试状态</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">status_keyword</span> <span class="o">==</span> <span class="s2">&#34;pass&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_status</span> <span class="o">=</span> <span class="s2">&#34;Pass&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">status_keyword</span> <span class="o">==</span> <span class="s2">&#34;FAIL&#34;</span><span class="p">:</span>  <span class="c1"># 注意大写</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_status</span> <span class="o">=</span> <span class="s2">&#34;Fail&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="bug-5-缺失-error-信息">Bug 5: 缺失 Error 信息</h3>
+<p><strong>现象：</strong> FAIL 的测试没有提取到错误信息，无法进行问题分析。</p>
+<p><strong>原因：</strong> 原始脚本没有解析错误相关字段。</p>
+<p><strong>修复方案：</strong> 添加 5 个错误相关字段提取：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 正则表达式</span>
+</span></span><span class="line"><span class="cl"><span class="n">errorcode_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;find errorcode\..*?errorcode:(\w+)&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">errormessage_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ERROR - Failing test due to: (.*?):&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">errordetails_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;ERROR - Failing test due to: (.*)&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">errortestname_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;INFO - Testname: (.*)&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">errorsuptestname_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Failing test due to:(.*?)\n.*? - +INFO - (.*?)\(.*?\)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 组合 ErrorFullTestName</span>
+</span></span><span class="line"><span class="cl"><span class="n">errorfulltestname</span> <span class="o">=</span> <span class="n">convert_suptestname_string</span><span class="p">(</span><span class="n">errorsuptestname</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34;_&#34;</span> <span class="o">+</span> <span class="n">errortestname</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>效果：</strong> 现在可以完整追踪错误：<code>Test ID 266 - TestVotage_EXT H Bridge J21-1-2 DMM forward</code></p>
+<hr>
+<h3 id="bug-6-缺失-dutswversion-信息">Bug 6: 缺失 DutSwVersion 信息</h3>
+<p><strong>现象：</strong> XML 中 DutSwVersion 字段为空，无法追溯测试时的软件版本。</p>
+<p><strong>原因：</strong> 版本信息有两种格式（Factory/Shipping），需要分别提取。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Factory 版本</span>
+</span></span><span class="line"><span class="cl"><span class="n">version_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;Build at\s+:\s+(\w+\s+\d+\s+\d</span><span class="si">{4}</span><span class="s2">,\s+\d</span><span class="si">{2}</span><span class="s2">:\d</span><span class="si">{2}</span><span class="s2">:\d</span><span class="si">{2}</span><span class="s2">)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Shipping 版本（需要从特定日志段提取）</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_ship_version</span><span class="p">(</span><span class="n">log_content</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lines</span> <span class="o">=</span> <span class="n">log_content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="s2">&#34;GUI Progress:  check Ship switch version&#34;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">21</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="s2">&#34;Alive, info&#34;</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Alive, info\s*:(.*)&#39;</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="k">match</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="k">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 合并逻辑</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">factory_version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">shipping_version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">version_name</span> <span class="o">=</span> <span class="s2">&#34;NA&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">factory_version</span> <span class="ow">and</span> <span class="n">shipping_version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">version_name</span> <span class="o">=</span> <span class="n">factory_version</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">factory_version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">shipping_version</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">version_name</span> <span class="o">=</span> <span class="n">shipping_version</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">version_name</span> <span class="o">=</span> <span class="n">factory_version</span> <span class="o">+</span> <span class="s2">&#34;;&#34;</span> <span class="o">+</span> <span class="n">shipping_version</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="bug-7-stationid-格式不统一">Bug 7: StationId 格式不统一</h3>
+<p><strong>现象：</strong>  retry rate 无法按治具统计，因为 StationId 格式不一致（<code>01</code>, <code>001</code>, <code>1</code> 都有）。</p>
+<p><strong>原因：</strong> 产线不同工位的 StationId 格式不统一。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">transform_string</span><span class="p">(</span><span class="n">input_string</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;将 StationId 统一转换为 00001~00009 格式&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="sa">f</span><span class="s2">&#34;0</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&#34;</span> <span class="ow">in</span> <span class="n">input_string</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">05d</span><span class="si">}</span><span class="s2">&#34;</span>  <span class="c1"># 格式化为 5 位数字</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;NA&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>效果：</strong> 所有 StationId 统一为 <code>00001</code>, <code>00002</code>, &hellip;, <code>00009</code>，便于统计分析。</p>
+<hr>
+<h3 id="bug-8-特殊字符导致-xml-解析失败">Bug 8: 特殊字符导致 XML 解析失败</h3>
+<p><strong>现象：</strong> 部分测试名称包含 <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&quot;</code>, <code>'</code> 等字符，XML 解析器报错。</p>
+<p><strong>原因：</strong> 未对特殊字符进行转义。</p>
+<p><strong>修复方案：</strong> 使用完整的 XML 转义函数（见 2.3 节）。</p>
+<p><strong>测试用例：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 原始名称</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;H Bridge J2600-1-25-27 forward &amp; reverse&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 转义后</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;H Bridge J2600-1-25-27 forward &amp;amp; reverse&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="bug-9-时间戳时区错误">Bug 9: 时间戳时区错误</h3>
+<p><strong>现象：</strong> EDA 系统显示的时间比实际时间晚 8 小时。</p>
+<p><strong>原因：</strong> 未设置时区，默认为 UTC。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_timestamp</span><span class="p">(</span><span class="n">timestamp_str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">timestamp_str</span><span class="p">,</span> <span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S,</span><span class="si">%f</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tz</span> <span class="o">=</span> <span class="n">timezone</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">8</span><span class="p">))</span>  <span class="c1"># 北京时间</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dt_with_tz</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dt_with_tz</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(</span><span class="n">timespec</span><span class="o">=</span><span class="s1">&#39;milliseconds&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出格式：</strong> <code>2024-11-05T03:57:12.217+08:00</code></p>
+<hr>
+<h3 id="bug-10-上下限为空的测量数据">Bug 10: 上下限为空的测量数据</h3>
+<p><strong>现象：</strong> 部分测试项目（如 <code>print_unitinfo_feedback</code>）没有上下限，导致判断逻辑异常。</p>
+<p><strong>原因：</strong> 未处理 <code>lowlimit</code> 和 <code>uplimit</code> 为空的情况。</p>
+<p><strong>修复方案：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 上下限为空时的处理</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">lowlimit</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">uplimit</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># TDD 确认：没有影响，Status 设为 Pass</span>
+</span></span><span class="line"><span class="cl">    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Pass&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">comp_type</span> <span class="o">=</span> <span class="s1">&#39;NA&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="其他-bug-修复清单">其他 Bug 修复清单</h3>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>问题描述</th>
+          <th>解决方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>11</td>
+          <td>没有 SN 的日志</td>
+          <td>舍弃 SN 不正常的 log</td>
+      </tr>
+      <tr>
+          <td>12</td>
+          <td>部分 log 转换后只有 Result 和 SN</td>
+          <td>忽略这种不完整的 log</td>
+      </tr>
+      <tr>
+          <td>13</td>
+          <td>机种名识别错误</td>
+          <td>完善 <code>determine_model_name</code> 函数</td>
+      </tr>
+      <tr>
+          <td>14</td>
+          <td>很多 log 没有站别信息</td>
+          <td>剔除没有 &ldquo;update mes info&rdquo; 的 log</td>
+      </tr>
+      <tr>
+          <td>15</td>
+          <td>TV measurements 无法识别</td>
+          <td>增加 TV 测量的正则表达式</td>
+      </tr>
+      <tr>
+          <td>16</td>
+          <td>LogTime 字段为空</td>
+          <td>从每个 sub item 前提取时间戳</td>
+      </tr>
+      <tr>
+          <td>17</td>
+          <td>ErrorFullTestName 格式错误</td>
+          <td><code>TestData Name + &quot;_&quot; + MeasurementData Name</code></td>
+      </tr>
+      <tr>
+          <td>18</td>
+          <td>Burn-in log 过大（1.34GB）</td>
+          <td>跳过无转换价值的大文件</td>
+      </tr>
+      <tr>
+          <td>19</td>
+          <td>PASS 的 log 里面有 fail 项目</td>
+          <td>修正原始测试 log 的 SW</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>LogCount 统一为 0</td>
+          <td>硬编码为 0</td>
+      </tr>
+      <tr>
+          <td>21</td>
+          <td>FCTTestFail 异常处理</td>
+          <td>添加特定错误模式匹配</td>
+      </tr>
+      <tr>
+          <td>22</td>
+          <td>SFCF01436 SFCS NG 剔除</td>
+          <td>添加特定错误码处理</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-输出示例">📊 输出示例</h2>
+<h3 id="生成的-xml-结构">生成的 XML 结构</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;TestResults&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;OverallResult&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Result&gt;</span>Pass<span class="nt">&lt;/Result&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ErrorCode&gt;&lt;/ErrorCode&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;LogErrorMessage&gt;&lt;/LogErrorMessage&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ErrorTestName&gt;&lt;/ErrorTestName&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ErrorFullTestName&gt;&lt;/ErrorFullTestName&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ErrorDetails&gt;&lt;/ErrorDetails&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/OverallResult&gt;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;UnitSerialNumber&gt;</span>NRNWXPH077C482<span class="nt">&lt;/UnitSerialNumber&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;StartDate&gt;</span>2024-12-09T13:34:30.276+08:00<span class="nt">&lt;/StartDate&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;StopDate&gt;</span>2024-12-09T13:36:45.123+08:00<span class="nt">&lt;/StopDate&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;TestCycleTime&gt;</span>2h15m30s<span class="nt">&lt;/TestCycleTime&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;ModelName&gt;</span>NPD_REAR<span class="nt">&lt;/ModelName&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;StationType&gt;</span>TT<span class="nt">&lt;/StationType&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;StationId&gt;</span>00003<span class="nt">&lt;/StationId&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;StationLine&gt;</span>FA11<span class="nt">&lt;/StationLine&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;DutSwVersion&gt;</span>Build at : Nov 15 2024, 10:30:45<span class="nt">&lt;/DutSwVersion&gt;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;TestDatas&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;TestData</span> <span class="na">Name=</span><span class="s">&#34;Test ID 001 - H Bridge Test&#34;</span> <span class="na">Status=</span><span class="s">&#34;Pass&#34;</span> <span class="na">TestTime=</span><span class="s">&#34;45&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;Measurements&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;MeasurementData</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">Name=</span><span class="s">&#34;H Bridge J2600-1-25-27 forward&#34;</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">Status=</span><span class="s">&#34;Pass&#34;</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">Result=</span><span class="s">&#34;0.0012&#34;</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">LowerLimit=</span><span class="s">&#34;-13.5&#34;</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">UpperLimit=</span><span class="s">&#34;-12&#34;</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">Units=</span><span class="s">&#34;v&#34;</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">CompType=</span><span class="s">&#34;GELE&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="na">LogCount=</span><span class="s">&#34;0&#34;</span> 
+</span></span><span class="line"><span class="cl">          <span class="na">LogTime=</span><span class="s">&#34;2024-11-05T03:57:12.217+08:00&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;/Measurements&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/TestData&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/TestDatas&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/TestResults&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="-经验总结">💡 经验总结</h2>
+<h3 id="1-正则表达式是双刃剑">1. 正则表达式是双刃剑</h3>
+<p><strong>优点：</strong> 灵活强大，可以处理各种格式的日志。</p>
+<p><strong>缺点：</strong> 难以维护，日志格式一变就要调整。</p>
+<p><strong>建议：</strong></p>
+<ul>
+<li>为每个正则添加注释说明匹配格式</li>
+<li>准备多个正则模式作为 fallback</li>
+<li>考虑使用解析器库（如 pyparsing）替代复杂正则</li>
+</ul>
+<h3 id="2-边界情况处理至关重要">2. 边界情况处理至关重要</h3>
+<p>本项目 20+ 个 Bug 中，80% 都是边界情况：</p>
+<ul>
+<li>空值处理（上下限为空、版本信息缺失）</li>
+<li>格式异常（特殊字符、时间格式错误）</li>
+<li>数据不完整（缺少 SN、站别信息）</li>
+</ul>
+<p><strong>教训：</strong> 开发时要多问&quot;如果 XXX 为空怎么办？&quot;</p>
+<h3 id="3-业务逻辑比技术实现更难">3. 业务逻辑比技术实现更难</h3>
+<p><strong>技术难点：</strong> 正则表达式、XML 生成、时间转换。</p>
+<p><strong>业务难点：</strong></p>
+<ul>
+<li>理解 EDA 系统的字段要求</li>
+<li>确定 CompType 的判断规则</li>
+<li>处理各种异常测试场景</li>
+</ul>
+<p><strong>建议：</strong> 多和业务方沟通，理解每个字段背后的业务含义。</p>
+<h3 id="4-日志是最好的调试工具">4. 日志是最好的调试工具</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 关键步骤都添加日志</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_matches</span><span class="p">)</span><span class="si">}</span><span class="s2"> Test IDs.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Processing: </span><span class="si">{</span><span class="n">measurement_name</span><span class="si">}</span><span class="s2">, Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Execution time: </span><span class="si">{</span><span class="n">execution_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>效果：</strong> 出现问题时可以通过日志快速定位。</p>
+<h3 id="5-函数化设计便于复用">5. 函数化设计便于复用</h3>
+<p>将核心逻辑封装为 <code>process_log_file()</code> 函数：</p>
+<ul>
+<li>便于单元测试</li>
+<li>支持多进程调用</li>
+<li>易于集成到其他系统</li>
+</ul>
+<hr>
+<h2 id="-性能优化">🚀 性能优化</h2>
+<h3 id="多进程处理">多进程处理</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 主脚本使用多进程并行处理</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">process_batch</span><span class="p">(</span><span class="n">log_files</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">process_log_file</span><span class="p">,</span> <span class="n">log_files</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>效果：</strong> 处理速度提升 3-4 倍。</p>
+<h3 id="执行时间监控">执行时间监控</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ... 处理逻辑 ...</span>
+</span></span><span class="line"><span class="cl"><span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Execution time: </span><span class="si">{</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>典型性能：</strong></p>
+<ul>
+<li>单个日志文件：~0.5 秒</li>
+<li>批量处理（100 个文件）：~50 秒（4 进程）</li>
+</ul>
+<hr>
+<h2 id="-项目成果">📈 项目成果</h2>
+<h3 id="效率提升">效率提升</h3>
+<table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>改善前</th>
+          <th>改善后</th>
+          <th>提升</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>单文件处理时间</td>
+          <td>5 分钟（人工）</td>
+          <td>0.5 秒（自动）</td>
+          <td><strong>600x</strong></td>
+      </tr>
+      <tr>
+          <td>错误率</td>
+          <td>~10%</td>
+          <td>&lt;0.1%</td>
+          <td><strong>99%</strong></td>
+      </tr>
+      <tr>
+          <td>可追溯性</td>
+          <td>无</td>
+          <td>完整错误信息</td>
+          <td><strong>质的飞跃</strong></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="数据质量">数据质量</h3>
+<ul>
+<li>✅ 所有字段完整率：99.5%</li>
+<li>✅ XML 格式正确率：100%</li>
+<li>✅ 时间戳准确率：100%</li>
+<li>✅ 错误信息可追溯：100%</li>
+</ul>
+<hr>
+<h2 id="-未来改进方向">🔮 未来改进方向</h2>
+<ol>
+<li><strong>配置化</strong> - 将正则表达式、字段映射配置到 YAML 文件</li>
+<li><strong>Web 界面</strong> - 提供可视化的日志上传和结果查看</li>
+<li><strong>实时监控</strong> - 集成到产线 MES 系统，实时显示测试结果</li>
+<li><strong>数据分析</strong> - 基于 XML 数据进行良率分析、趋势预测</li>
+<li><strong>异常检测</strong> - 使用机器学习识别异常测试模式</li>
+</ol>
+<hr>
+<h2 id="-相关资源">📚 相关资源</h2>
+<ul>
+<li><strong>项目仓库：</strong> <a href="https://github.com/Charles-Miao/Python-in-Action/tree/master/2024/log_to_xml">Python-in-Action/2024/log_to_xml</a></li>
+<li><strong>Python 正则表达式文档：</strong> <a href="https://docs.python.org/3/library/re.html">https://docs.python.org/3/library/re.html</a></li>
+<li><strong>XML 规范：</strong> <a href="https://www.w3.org/TR/xml/">https://www.w3.org/TR/xml/</a></li>
+<li><strong>EDA 系统文档：</strong> （内部资料）</li>
+</ul>
+<hr>
+<h2 id="-结语">🎯 结语</h2>
+<p>这个项目让我深刻体会到：<strong>真正的技术能力不在于使用多高深的算法，而在于解决实际问题的能力和对细节的把控。</strong></p>
+<p>20+ 个 Bug 的修复过程虽然痛苦，但每一个 Bug 都让我对业务理解更深一层。这正是工程师成长的最佳路径——在实战中打磨技能。</p>
+<p>希望这篇文章能给你带来一些启发。如果你也在做类似的自动化工作，欢迎交流经验！</p>
+<hr>
+<p><strong>作者：</strong> Charles Miao<br>
+<strong>职位：</strong> DevOps / 硬件测试开发<br>
+<strong>日期：</strong> 2025 年 3 月<br>
+<strong>标签：</strong> #Python #自动化测试 #日志处理 #XML #DevOps #实战案例</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2025-03-13
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Python/">Python</a>
+          <a href="/tags/%e8%87%aa%e5%8a%a8%e5%8c%96%e6%b5%8b%e8%af%95/">自动化测试</a>
+          <a href="/tags/%e6%97%a5%e5%bf%97%e5%a4%84%e7%90%86/">日志处理</a>
+          <a href="/tags/XML/">XML</a>
+          <a href="/tags/DevOps/">DevOps</a>
+          <a href="/tags/%e5%ae%9e%e6%88%98%e6%a1%88%e4%be%8b/">实战案例</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/hello-hugo/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Hello Hugo - 本地部署测试</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/windows-rsync-realtime/">
+            <span class="next-text nav-default">Windows实时同步文件至NAS</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
