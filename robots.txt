@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://Charles-Miao.github.io/sitemap.xml
