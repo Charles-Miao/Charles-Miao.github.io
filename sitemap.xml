@@ -323,4 +323,221 @@
     <priority>0.5</priority>
   </url>
   
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/NAS/</loc>
+    <lastmod>2021-07-13T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Rsync/</loc>
+    <lastmod>2021-07-13T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Windows/</loc>
+    <lastmod>2021-07-13T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/windows-rsync-realtime/</loc>
+    <lastmod>2021-07-13T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Linux/</loc>
+    <lastmod>2021-06-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-8/</loc>
+    <lastmod>2021-06-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-7/</loc>
+    <lastmod>2021-06-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-6/</loc>
+    <lastmod>2021-06-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-5/</loc>
+    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-4/</loc>
+    <lastmod>2021-06-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-3/</loc>
+    <lastmod>2021-05-26T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-2/</loc>
+    <lastmod>2021-05-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Linux-Admin-1/</loc>
+    <lastmod>2021-05-23T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Apacucli/</loc>
+    <lastmod>2021-05-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Zabbix/</loc>
+    <lastmod>2021-05-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</loc>
+    <lastmod>2021-05-19T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/HP/</loc>
+    <lastmod>2021-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Zabbix-in-Action-4/</loc>
+    <lastmod>2021-05-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/R/</loc>
+    <lastmod>2020-09-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-3/</loc>
+    <lastmod>2020-09-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/%E7%9B%B8%E5%85%B3%E6%80%A7%E9%AA%8C%E8%AF%81/</loc>
+    <lastmod>2020-09-09T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/WEB/</loc>
+    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-2/</loc>
+    <lastmod>2020-09-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/PC/</loc>
+    <lastmod>2020-08-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/</loc>
+    <lastmod>2020-08-11T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Grafana/</loc>
+    <lastmod>2020-07-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</loc>
+    <lastmod>2020-07-07T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</loc>
+    <lastmod>2020-06-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/about-the-blog/</loc>
+    <lastmod>2020-06-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</loc>
+    <lastmod>2019-11-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/Zabbix-Introduction/</loc>
+    <lastmod>2019-11-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
 </urlset>

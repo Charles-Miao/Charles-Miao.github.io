@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>相关性验证 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/%E7%9B%B8%E5%85%B3%E6%80%A7%E9%AA%8C%E8%AF%81/</link>
+    <description>Recent content in 相关性验证 on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 09 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/tags/%E7%9B%B8%E5%85%B3%E6%80%A7%E9%AA%8C%E8%AF%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设备电脑监控 - 有趣的数据分析</title>
+      <link>https://Charles-Miao.github.io/post/Host-PC-Monitoring-3/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/post/Host-PC-Monitoring-3/</guid>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容：&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;提出问题&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;清洗数据&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;相关性验证&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;一些结论&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;提出问题&#34;&gt;提出问题&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;测试时间是否和电脑的配置和性能相关？&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;数据清洗&#34;&gt;数据清洗&lt;/h2&gt;&#xA;&lt;p&gt;测试时间&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;抓取&lt;a href=&#34;https://github.com/Charles-Miao/blog/blob/master/static/Test-Time-Analysis/raw-data/log.7z&#34;&gt;UIlog&lt;/a&gt;，并使用脚本&lt;a href=&#34;https://github.com/Charles-Miao/blog/blob/master/static/Test-Time-Analysis/computer_test_log.py&#34;&gt;computer_test_log.py&lt;/a&gt;筛选测试log，并生成csv文件&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;测试时间平均值，剔除两端异常数据，EXCEL函数&lt;strong&gt;TRIMMEAN(array,percent)&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

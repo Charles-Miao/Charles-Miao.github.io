@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PC on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/PC/</link>
+    <description>Recent content in PC on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 11 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/tags/PC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设备电脑监控 - 蓝图篇</title>
+      <link>https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/</link>
+      <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/post/Host-PC-Monitoring-1/</guid>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;专案背景&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;蓝图和构思&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;实战工具和方法&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;&#xA;&lt;p&gt;日常需要手动维护&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;手动安装系统、手动安装驱动、手动更新程序&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;手动升级补丁、手动休眠和shutdown、现场手动处理电脑异常、手动检查officescan连接状况和电脑激活状况&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

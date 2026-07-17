@@ -15,5 +15,19 @@
       <guid>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</guid>
       <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20+ 个 Bug 修复，完整记录了一个自动化工具从 0 到 1 的开发过程。&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>Windows实时同步文件至NAS</title>
+      <link>https://Charles-Miao.github.io/post/windows-rsync-realtime/</link>
+      <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/post/windows-rsync-realtime/</guid>
+      <description>&lt;h1 id=&#34;主要内容&#34;&gt;主要内容&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;问题说明&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;环境部署&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;脚本实现&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;问题说明&#34;&gt;问题说明&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;需要将windows系统中的测试log（小而多）实时拷贝至NAS Server共享目录&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Windows中缺乏开源免费的工具（sersync）实时同步测试log，robocopy适合做增量定期备份，Second Copy等软件都为收费软件&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Zabbix自定义Key读值为空</title>
+      <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</link>
+      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</guid>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;问题说明&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;分析思路&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;解决方案&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;问题说明&#34;&gt;问题说明&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;透过&lt;a href=&#34;https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/CentOS-7&#34;&gt;Python脚本&lt;/a&gt;调用hpacucli指令读取硬件信息，本地可以正常读取硬件信息，zabbix server端透过zabbix_get指令读值为空&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;分析思路&#34;&gt;分析思路&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Google&lt;a href=&#34;https://www.yuanmas.com/info/rgzEoJ5Ay8.html&#34;&gt;自定义脚本获取key失败怎么办？&lt;/a&gt;，赋予zabbix账号管理员权限，现象依旧&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;调整配置档案zabbix_agent.conf中的debuglevel参数，默认为3只显示warning信息，4为debug模式，透过debug log（/var/log/zabbix）发现，指令执行没有特别异常，现象依旧（此时已崩溃，Google无解，debug log无解）&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

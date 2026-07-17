@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Zabbix in Action - Linux - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="主要内容 RHEL 5如何安装和配置agent &amp; snmp协议 RHEL 5如何实现HP DL160 G6的硬件监控 Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项 " /><meta name="keywords" content="Hugo, DevOps, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.157.0 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/Zabbix-in-Action-2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
+
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-2/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Zabbix in Action - Linux">
+  <meta property="og:description" content="主要内容 RHEL 5如何安装和配置agent &amp; snmp协议 RHEL 5如何实现HP DL160 G6的硬件监控 Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-06-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2020-06-28T00:00:00+00:00">
+    <meta property="article:tag" content="Zabbix">
+    <meta property="article:tag" content="Linux">
+
+  <meta itemprop="name" content="Zabbix in Action - Linux">
+  <meta itemprop="description" content="主要内容 RHEL 5如何安装和配置agent &amp; snmp协议 RHEL 5如何实现HP DL160 G6的硬件监控 Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项">
+  <meta itemprop="datePublished" content="2020-06-28T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2020-06-28T00:00:00+00:00">
+  <meta itemprop="wordCount" content="581">
+  <meta itemprop="keywords" content="Zabbix,Linux">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Zabbix in Action - Linux">
+  <meta name="twitter:description" content="主要内容 RHEL 5如何安装和配置agent &amp; snmp协议 RHEL 5如何实现HP DL160 G6的硬件监控 Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Zabbix in Action - Linux</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-28 </span>
+        <div class="post-category">
+            <a href="/categories/%e6%8a%80%e6%9c%af/">技术 </a>
+            </div>
+          <span class="more-meta"> 约 581 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="主要内容">主要内容</h2>
+<ul>
+<li>
+<p>RHEL 5如何安装和配置agent &amp; snmp协议</p>
+</li>
+<li>
+<p>RHEL 5如何实现HP DL160 G6的硬件监控</p>
+</li>
+<li>
+<p>Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项</p>
+</li>
+</ul>
+<h2 id="download-zabbix-agent-rpm-package">Download <a href="https://repo.zabbix.com/zabbix/3.2/rhel/5/x86_64/">zabbix agent</a> rpm package</h2>
+<ul>
+<li>
+<p>zabbix-agent</p>
+</li>
+<li>
+<p>zabbix-get</p>
+</li>
+<li>
+<p>zabbix-sender</p>
+</li>
+</ul>
+<h2 id="zabbix-agent-install--config">Zabbix agent install &amp; config</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">rpm -ivh zabbix-agent-3.2.0-1.el5.i386.rpm --force --nodeps <span class="c1">#install agent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vim /etc/zabbix/zabbix_agentd.conf <span class="c1">#setting config file</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf <span class="c1">#start agent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vi /etc/rc.local <span class="c1">#add to startup</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">/etc/init.d/zabbix-agent restart <span class="c1">#add to startup</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="search-snmp-rpm-package">Search <a href="http://rpm.pbone.net/">snmp</a> rpm package</h2>
+<ul>
+<li>
+<p>lm_sensors-3.0.2-1centos5.i386.rpm</p>
+</li>
+<li>
+<p>net-snmp-5.4.2-4centos5.i386.rpm</p>
+</li>
+<li>
+<p>net-snmp-devel-5.4.2-4centos5.i386.rpm</p>
+</li>
+<li>
+<p>net-snmp-libs-5.4.2-4centos5.i386.rpm</p>
+</li>
+<li>
+<p>net-snmp-utils-5.4.2-4centos5.i386.rpm</p>
+</li>
+</ul>
+<h2 id="install--config-snmp-service">Install &amp; config snmp service</h2>
+<ul>
+<li>
+<p><a href="https://www.jianshu.com/p/1293ca633995">Centos7 安装snmp</a></p>
+</li>
+<li>
+<p><a href="https://blog.51cto.com/907832555/1953617">CentOS下SNMP服务安装</a></p>
+</li>
+</ul>
+<h2 id="zabbix通过snmp监控hp服务器硬件信息"><a href="https://blog.51cto.com/sfzhang88/1595211">Zabbix通过SNMP监控HP服务器硬件信息</a></h2>
+<ul>
+<li>
+<p>hpacucli-9.40-12.0.x86_64.rpm</p>
+</li>
+<li>
+<p>hp-snmp-agents-9.40-2506.37.rhel6.x86_64.rpm</p>
+</li>
+<li>
+<p>hp-health-9.40-1602.44.rhel6.x86_64.rpm</p>
+</li>
+</ul>
+<h2 id="linux自定义key">Linux自定义Key</h2>
+<ul>
+<li>
+<p>Ubuntu自定义key Python脚本：<a href="https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Ubuntu">https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/Ubuntu</a></p>
+</li>
+<li>
+<p>RHEL自定义key Python脚本：<a href="https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/RHEL">https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/RHEL</a></p>
+</li>
+<li>
+<p>计划任务crontab设定参照如下指令：</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#Ubuntu</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">0</span> <span class="m">13</span> * * * python /etc/zabbix/general_info.py &gt; ~/temp.log
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#RHEL</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">0</span> <span class="m">13</span> * * * <span class="nb">source</span> /etc/profile <span class="o">&amp;&amp;</span> python /etc/zabbix/general_info.py
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="其他知识">其他知识</h2>
+<ul>
+<li>在使用ftp传输时，需要将传输模式改为二进位模式</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">open x.x.x.x <span class="c1">#打开并登录ftp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">image <span class="c1">#設定二進位傳輸模式(同binary)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mget <span class="c1">#傳輸多個遠端檔案</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">quit <span class="c1">#離開ftp會話</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文章作者</p>
+<p>上次更新</p>
+<p>2020-06-28</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/Zabbix/">Zabbix</a>
+          <a href="/tags/Linux/">Linux</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/Zabbix-in-Action-3/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Zabbix in Action - Grafana</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/about-the-blog/">
+            <span class="next-text nav-default">About The Blog</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="mailto:fengkuang33@163.com" class="iconfont icon-email" title="email"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2024 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
