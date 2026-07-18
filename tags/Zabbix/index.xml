@@ -6,49 +6,49 @@
     <description>Recent content in Zabbix on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 May 2021 22:15:08 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/tags/Zabbix/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Zabbix自定义Key读值为空</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</link>
-      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;问题说明&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;分析思路&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;解决方案&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;问题说明&#34;&gt;问题说明&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;透过&lt;a href=&#34;https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/CentOS-7&#34;&gt;Python脚本&lt;/a&gt;调用hpacucli指令读取硬件信息，本地可以正常读取硬件信息，zabbix server端透过zabbix_get指令读值为空&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;分析思路&#34;&gt;分析思路&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Google&lt;a href=&#34;https://www.yuanmas.com/info/rgzEoJ5Ay8.html&#34;&gt;自定义脚本获取key失败怎么办？&lt;/a&gt;，赋予zabbix账号管理员权限，现象依旧&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;调整配置档案zabbix_agent.conf中的debuglevel参数，默认为3只显示warning信息，4为debug模式，透过debug log（/var/log/zabbix）发现，指令执行没有特别异常，现象依旧（此时已崩溃，Google无解，debug log无解）&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;问题说明&lt;/li&gt;&#xA;&lt;li&gt;分析思路&lt;/li&gt;&#xA;&lt;li&gt;解决方案&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Zabbix in Action - DL160 G6</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-4/</link>
-      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 18 May 2021 22:22:27 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-4/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;背景说明&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;升级Windows Server 2012探索&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;升级CentOS 7探索&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;解决方案&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;其他说明&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;背景说明&#34;&gt;背景说明&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;公司需求针对EOS OS（CenotOS-6和Windows Server 2008）进行系统升级&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;背景说明&lt;/li&gt;&#xA;&lt;li&gt;升级Windows Server 2012探索&lt;/li&gt;&#xA;&lt;li&gt;升级CentOS 7探索&lt;/li&gt;&#xA;&lt;li&gt;解决方案&lt;/li&gt;&#xA;&lt;li&gt;其他说明&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Zabbix in Action - Grafana</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</link>
-      <pubDate>Tue, 07 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 07 Jul 2020 22:25:58 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-3/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Grafana+Zabbix&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;文件同步监控实战（Grafana+MySQL）&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;MySQL配置&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;grafanazabbix&#34;&gt;Grafana+Zabbix&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Grafana是一个跨平台的开源的度量分析和可视化工具，可以通过将采集的数据查询然后可视化的展示，并及时通知&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Grafana+Zabbix&lt;/li&gt;&#xA;&lt;li&gt;文件同步监控实战（Grafana+MySQL）&lt;/li&gt;&#xA;&lt;li&gt;MySQL配置&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Zabbix in Action - Linux</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</link>
-      <pubDate>Sun, 28 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 28 Jun 2020 11:53:17 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-2/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;RHEL 5如何安装和配置agent &amp;amp; snmp协议&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;RHEL 5如何实现HP DL160 G6的硬件监控&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;download-zabbix-agent-rpm-package&#34;&gt;Download &lt;a href=&#34;https://repo.zabbix.com/zabbix/3.2/rhel/5/x86_64/&#34;&gt;zabbix agent&lt;/a&gt; rpm package&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;zabbix-agent&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;zabbix-get&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;RHEL 5如何安装和配置agent &amp;amp; snmp协议&lt;/li&gt;&#xA;&lt;li&gt;RHEL 5如何实现HP DL160 G6的硬件监控&lt;/li&gt;&#xA;&lt;li&gt;Ubuntu/ RHEL自定义key介绍，以及crontab设定注意事项&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
     <item>
       <title>Zabbix in Action - Windows</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</link>
-      <pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 21 Nov 2019 10:38:09 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-1/</guid>
-      <description>&lt;h2 id=&#34;软硬件环境&#34;&gt;软硬件环境&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Server端：Ubuntu 16.04虚拟机&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Agent端：Windows Server，主要硬件有DL380 G7、DL380 G9、DL380 G10、DL160 G6、DELL2900、DELL2950、supermicro等&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;软硬件环境&#34;&gt;软硬件环境&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Server端：Ubuntu 16.04虚拟机&lt;/li&gt;&#xA;&lt;li&gt;Agent端：Windows Server，主要硬件有DL380 G7、DL380 G9、DL380 G10、DL160 G6、DELL2900、DELL2950、supermicro等&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
     <item>
-      <title>Zabbix Intro &amp;amp; Demo</title>
+      <title>Zabbix Intro &amp; Demo</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-Introduction/</link>
-      <pubDate>Thu, 14 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 14 Nov 2019 18:26:47 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-Introduction/</guid>
-      <description>&lt;p&gt;主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等&lt;/p&gt;&#xA;&lt;h2 id=&#34;zabbix介紹&#34;&gt;Zabbix介紹&lt;/h2&gt;&#xA;&lt;p&gt;Alexei Vladishev 创建了Zabbix 项目, 当前处于活跃开发状态, Zabbix SIA提供支持.&lt;/p&gt;</description>
+      <description>&lt;p&gt;主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

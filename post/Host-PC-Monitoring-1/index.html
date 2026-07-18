@@ -46,16 +46,16 @@
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2020-08-11T00:00:00+00:00">
-    <meta property="article:modified_time" content="2020-08-11T00:00:00+00:00">
+    <meta property="article:published_time" content="2020-08-11T22:03:23+08:00">
+    <meta property="article:modified_time" content="2020-08-11T22:03:23+08:00">
     <meta property="article:tag" content="Windows">
     <meta property="article:tag" content="PC">
 
   <meta itemprop="name" content="设备电脑监控 - 蓝图篇">
   <meta itemprop="description" content="主要内容 专案背景 蓝图和构思 实战工具和方法">
-  <meta itemprop="datePublished" content="2020-08-11T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2020-08-11T00:00:00+00:00">
-  <meta itemprop="wordCount" content="919">
+  <meta itemprop="datePublished" content="2020-08-11T22:03:23+08:00">
+  <meta itemprop="dateModified" content="2020-08-11T22:03:23+08:00">
+  <meta itemprop="wordCount" content="910">
   <meta itemprop="keywords" content="Windows,PC">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="设备电脑监控 - 蓝图篇">
@@ -137,9 +137,9 @@
       <div class="post-meta">
         <span class="post-time"> 2020-08-11 </span>
         <div class="post-category">
-            <a href="/categories/%e6%8a%80%e6%9c%af/">技术 </a>
+            <a href="/categories/%e8%bf%90%e7%bb%b4/">运维 </a>
             </div>
-          <span class="more-meta"> 约 919 字 </span>
+          <span class="more-meta"> 约 910 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -149,112 +149,97 @@
     <div class="post-content">
       <h2 id="主要内容">主要内容</h2>
 <ul>
-<li>
-<p>专案背景</p>
-</li>
-<li>
-<p>蓝图和构思</p>
-</li>
-<li>
-<p>实战工具和方法</p>
-</li>
+<li>专案背景</li>
+<li>蓝图和构思</li>
+<li>实战工具和方法</li>
 </ul>
 <h2 id="背景">背景</h2>
+<ol>
+<li>
 <p>日常需要手动维护</p>
 <ul>
-<li>
-<p>手动安装系统、手动安装驱动、手动更新程序</p>
-</li>
-<li>
-<p>手动升级补丁、手动休眠和shutdown、现场手动处理电脑异常、手动检查officescan连接状况和电脑激活状况</p>
-</li>
-<li>
-<p>电脑基本信息、安全信息、系统性能、系统运行状况等数据全部需要手动确认和记录，无法透过电脑信息分析问题</p>
-</li>
-<li>
-<p>电脑故障无系统追踪，无法透过历史数据分析问题</p>
-</li>
+<li>手动安装系统、手动安装驱动、手动更新程序</li>
+<li>手动升级补丁、手动休眠和shutdown、现场手动处理电脑异常、手动检查officescan连接状况和电脑激活状况</li>
+<li>电脑基本信息、安全信息、系统性能、系统运行状况等数据全部需要手动确认和记录，无法透过电脑信息分析问题</li>
+<li>电脑故障无系统追踪，无法透过历史数据分析问题</li>
 </ul>
+</li>
+<li>
 <p>数位化，大势所趋</p>
 <ul>
 <li>各个工厂都在大力发展自动化线体，针对这种线体中的设备、治具、仪器、电脑等必定需要系统监控和自动化维护</li>
 </ul>
+</li>
+</ol>
 <h2 id="蓝图">蓝图</h2>
+<p><img src="https://github.com/Charles-Miao/blog/blob/master/static/Host-PC-Monitoring/blueprint.PNG?raw=true" alt="blueprint"></p>
 <ul>
-<li>
-<p>首先，将电脑各种手动维护改为自动化维护</p>
-</li>
-<li>
-<p>其次，使用系统监控电脑数据，并实现远程协助</p>
-</li>
-<li>
-<p>最后，透过监控和历史数据对电脑进行更智能化的维护</p>
-</li>
+<li>首先，将电脑各种手动维护改为自动化维护</li>
+<li>其次，使用系统监控电脑数据，并实现远程协助</li>
+<li>最后，透过监控和历史数据对电脑进行更智能化的维护</li>
 </ul>
 <h2 id="实战">实战</h2>
-<p>封装Windows image</p>
 <ul>
 <li>
-<p>使用工具：EasySysprep</p>
+<p>封装Windows image</p>
+<ul>
+<li>使用工具：EasySysprep</li>
+<li>参考连接：<a href="https://cloud.tencent.com/developer/article/1438238">https://cloud.tencent.com/developer/article/1438238</a></li>
+</ul>
 </li>
 <li>
-<p>参考连接：<a href="https://cloud.tencent.com/developer/article/1438238">https://cloud.tencent.com/developer/article/1438238</a></p>
-</li>
-</ul>
 <p>自动升级电脑补丁</p>
 <ul>
 <li>使用工具：WSUS</li>
 </ul>
+</li>
+<li>
 <p>远程登录产线电脑，并协助处理问题</p>
 <ul>
-<li>
-<p>使用工具：TightVNC</p>
-</li>
-<li>
-<p>使用方法：将VNC工具封装在电脑image中，透过监控系统获取电脑的IP信息，再透过服务器远程控制产线电脑</p>
-</li>
+<li>使用工具：TightVNC</li>
+<li>使用方法：将VNC工具封装在电脑image中，透过监控系统获取电脑的IP信息，再透过服务器远程控制产线电脑</li>
 </ul>
+</li>
+<li>
 <p>自动检查officescan和正版激活状况</p>
 <ul>
-<li>
-<p>自定义开发工具：<a href="https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer">https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer</a></p>
-</li>
-<li>
-<p>透过监控系统实现闭环管理</p>
-</li>
+<li>自定义开发工具：<a href="https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer">https://github.com/Charles-Miao/Python-in-Action/tree/master/CheckComputer</a></li>
+<li>透过监控系统实现闭环管理</li>
 </ul>
+</li>
+<li>
 <p>电脑监控系统设计和开发</p>
 <ul>
-<li>
-<p>实现监控电脑基本信息、安全信息、系统性能、系统运行状况等</p>
-</li>
-<li>
-<p>介绍连接：<a href="https://charles-miao.github.io/post/Host-PC-Monitoring-2/">https://charles-miao.github.io/post/Host-PC-Monitoring-2/</a></p>
-</li>
+<li>实现监控电脑基本信息、安全信息、系统性能、系统运行状况等</li>
+<li>介绍连接：<a href="https://charles-miao.github.io/post/Host-PC-Monitoring-2/">https://charles-miao.github.io/post/Host-PC-Monitoring-2/</a></li>
 </ul>
+</li>
+<li>
 <p>透过监控数据分析电脑问题</p>
 <ul>
-<li>
-<p>使用工具和方法：R，相关性分析</p>
-</li>
-<li>
-<p>链接：<a href="https://charles-miao.github.io/post/Host-PC-Monitoring-3/">https://charles-miao.github.io/post/Host-PC-Monitoring-3/</a></p>
-</li>
+<li>使用工具和方法：R，相关性分析</li>
+<li>链接：<a href="https://charles-miao.github.io/post/Host-PC-Monitoring-3/">https://charles-miao.github.io/post/Host-PC-Monitoring-3/</a></li>
 </ul>
+</li>
+<li>
 <p>自动化部署电脑系统、驱动和程式（待更新）</p>
 <ul>
 <li>使用工具和方法：Ansible、PXE备份还原、自定义系统开发</li>
 </ul>
+</li>
+<li>
 <p>电脑故障追踪，协助分析问题（待完善）</p>
 <ul>
 <li>使用工具：Mantis，trac</li>
 </ul>
+</li>
+<li>
 <p>电脑智慧化管理案例分享（待完善）</p>
+</li>
+<li>
 <p>电脑自动休眠和shutdown（待完善）</p>
-<p>文章作者</p>
-<p>上次更新</p>
-<p>2020-08-11</p>
-
+</li>
+</ul>
     </div>
 
     

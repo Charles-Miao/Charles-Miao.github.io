@@ -46,15 +46,15 @@
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2021-06-28T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-06-28T00:00:00+00:00">
+    <meta property="article:published_time" content="2021-06-28T23:19:54+08:00">
+    <meta property="article:modified_time" content="2021-06-28T23:19:54+08:00">
     <meta property="article:tag" content="Linux">
 
   <meta itemprop="name" content="Linux基础 - Part8">
   <meta itemprop="description" content="主要内容 监控内容 系统监控指令 报警媒介">
-  <meta itemprop="datePublished" content="2021-06-28T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2021-06-28T00:00:00+00:00">
-  <meta itemprop="wordCount" content="715">
+  <meta itemprop="datePublished" content="2021-06-28T23:19:54+08:00">
+  <meta itemprop="dateModified" content="2021-06-28T23:19:54+08:00">
+  <meta itemprop="wordCount" content="580">
   <meta itemprop="keywords" content="Linux">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Linux基础 - Part8">
@@ -136,9 +136,9 @@
       <div class="post-meta">
         <span class="post-time"> 2021-06-28 </span>
         <div class="post-category">
-            <a href="/categories/%e6%8a%80%e6%9c%af/">技术 </a>
+            <a href="/categories/%e8%bf%90%e7%bb%b4/">运维 </a>
             </div>
-          <span class="more-meta"> 约 715 字 </span>
+          <span class="more-meta"> 约 580 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -148,93 +148,33 @@
     <div class="post-content">
       <h1 id="主要内容">主要内容</h1>
 <ul>
-<li>
-<p>监控内容</p>
-</li>
-<li>
-<p>系统监控指令</p>
-</li>
-<li>
-<p>报警媒介</p>
-</li>
+<li>监控内容</li>
+<li>系统监控指令</li>
+<li>报警媒介</li>
 </ul>
 <blockquote>
-</blockquote>
 <p><a href="https://github.com/Charles-Miao/Linux/blob/master/Linux%E5%9F%BA%E7%A1%80/%E7%AC%94%E8%AE%B044~45.txt">详细笔记</a></p>
+</blockquote>
 <h2 id="监控内容">监控内容</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">3
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">5
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">6
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">7
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">8
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 1. 硬件监控，服务器、路由器、交换机、防火墙（snmp）</span>
-</span></span><span class="line"><span class="cl">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1. 硬件监控，服务器、路由器、交换机、防火墙（snmp）</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 2. 系统监控，CPU 内存 磁盘 网络 进程 TCP（十一种状态）</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 3. 服务监控，nginx php tomcat Redis memcache mysql</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 4. 网站监控，请求时间 响应时间 加载时间 页面监控</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 5. 日志监控，ELK 日志易</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 6. 安全监控，Firewalld（4层和4层以上）WAF（nginx+lua）（应用层面）安全宝 牛盾云 安全狗</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 7. 网络监控，smokeping 监控宝 站长工具 奇云测 多机房</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 8. 业务监控，活动产生多少流量 产生多少注册量 带来多少价值</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -263,213 +203,49 @@
 </span><span class="lnt">20
 </span><span class="lnt">21
 </span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">3
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">5
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">6
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">7
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">8
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">9
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">10
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">11
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">12
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">13
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">14
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">15
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">16
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">17
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">18
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">19
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">20
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">21
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">22
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># CPU：top htop glances</span>
-</span></span><span class="line"><span class="cl">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># CPU：top htop glances</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># us：user state	用户态信息	40%</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># sy：system state	内核态信息	40%</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># idle		空闲状态		20%</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 内存：top htop free</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 内存可用率</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># swap空间使用情况</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 磁盘：df iotop glances</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 磁盘使用情况</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 磁盘的IO消耗</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 网络：iftop glances</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 带宽使用情况</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 进程：top htop ps glances</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 占用内存比较多的内存</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 负载：w top uptime glances</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 10分钟负载</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 15分钟负载</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 10分钟负载 &lt;CPU内核数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 15分钟负载 &lt;CPU内核数</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="报警媒介">报警媒介</h2>
 <h3 id="微信报警">微信报警：</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">3
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">5
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">6
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">7
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">8
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 1. 注册企业微信，并配置</span>
-</span></span><span class="line"><span class="cl">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1. 注册企业微信，并配置</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 01. 获取企业ID</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 02 允许员工加入</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 03 应用小程序（创建、agentid、secret）</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 2. 编写脚本，python，网上下载</span>
@@ -482,34 +258,13 @@
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 1. 利用阿里大鱼（收费）</span>
-</span></span><span class="line"><span class="cl">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 1. 利用阿里大鱼（收费）</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 2. onealert</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>文章作者</p>
-<p>上次更新</p>
-<p>2021-06-28</p>
-
+</div>
     </div>
 
     

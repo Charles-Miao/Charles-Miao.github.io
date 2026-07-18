@@ -15,5 +15,12 @@
       <guid>https://Charles-Miao.github.io/post/english-learning-journey/</guid>
       <description></description>
     </item>
+    <item>
+      <title>About The Blog</title>
+      <link>https://Charles-Miao.github.io/post/about-the-blog/</link>
+      <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/about-the-blog/</guid>
+      <description>&lt;p&gt;主要讲博客因何而起，以及一路怎么实现的博客，顺便还介绍了一些笔记类工具&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

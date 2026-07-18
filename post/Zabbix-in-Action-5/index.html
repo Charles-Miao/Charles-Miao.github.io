@@ -46,8 +46,8 @@
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2021-05-19T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-05-19T00:00:00+00:00">
+    <meta property="article:published_time" content="2021-05-19T22:15:08+08:00">
+    <meta property="article:modified_time" content="2021-05-19T22:15:08+08:00">
     <meta property="article:tag" content="Zabbix">
     <meta property="article:tag" content="Apacucli">
     <meta property="article:tag" content="Python">
@@ -55,9 +55,9 @@
 
   <meta itemprop="name" content="Zabbix自定义Key读值为空">
   <meta itemprop="description" content="主要内容 问题说明 分析思路 解决方案">
-  <meta itemprop="datePublished" content="2021-05-19T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2021-05-19T00:00:00+00:00">
-  <meta itemprop="wordCount" content="593">
+  <meta itemprop="datePublished" content="2021-05-19T22:15:08+08:00">
+  <meta itemprop="dateModified" content="2021-05-19T22:15:08+08:00">
+  <meta itemprop="wordCount" content="536">
   <meta itemprop="keywords" content="Zabbix,Apacucli,Python,Linux">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Zabbix自定义Key读值为空">
@@ -139,9 +139,9 @@
       <div class="post-meta">
         <span class="post-time"> 2021-05-19 </span>
         <div class="post-category">
-            <a href="/categories/%e6%8a%80%e6%9c%af/">技术 </a>
+            <a href="/categories/%e8%bf%90%e7%bb%b4/">运维 </a>
             </div>
-          <span class="more-meta"> 约 593 字 </span>
+          <span class="more-meta"> 约 536 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -151,15 +151,9 @@
     <div class="post-content">
       <h2 id="主要内容">主要内容</h2>
 <ul>
-<li>
-<p>问题说明</p>
-</li>
-<li>
-<p>分析思路</p>
-</li>
-<li>
-<p>解决方案</p>
-</li>
+<li>问题说明</li>
+<li>分析思路</li>
+<li>解决方案</li>
 </ul>
 <h2 id="问题说明">问题说明</h2>
 <ul>
@@ -167,133 +161,45 @@
 </ul>
 <h2 id="分析思路">分析思路</h2>
 <ul>
-<li>
-<p>Google<a href="https://www.yuanmas.com/info/rgzEoJ5Ay8.html">自定义脚本获取key失败怎么办？</a>，赋予zabbix账号管理员权限，现象依旧</p>
-</li>
-<li>
-<p>调整配置档案zabbix_agent.conf中的debuglevel参数，默认为3只显示warning信息，4为debug模式，透过debug log（/var/log/zabbix）发现，指令执行没有特别异常，现象依旧（此时已崩溃，Google无解，debug log无解）</p>
-</li>
+<li>Google<a href="https://www.yuanmas.com/info/rgzEoJ5Ay8.html">自定义脚本获取key失败怎么办？</a>，赋予zabbix账号管理员权限，现象依旧</li>
+<li>调整配置档案zabbix_agent.conf中的debuglevel参数，默认为3只显示warning信息，4为debug模式，透过debug log（/var/log/zabbix）发现，指令执行没有特别异常，现象依旧（此时已崩溃，Google无解，debug log无解）</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">3
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">5
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">6
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">7
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">8
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">9
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.560 Requested [hp.pdisk_discovery]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.560 In zbx_popen() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.561 End of zbx_popen():7
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4841:20210519:153212.561 zbx_popen(): executing script
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.666 In zbx_waitpid()
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.667 zbx_waitpid() exited, status:0
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.667 End of zbx_waitpid():4841
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.667 EXECUTE_STR() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39; len:12 cmd_result:&#39;{&amp;#34;data&amp;#34;: []}&#39;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">4752:20210519:153212.667 Sending back [{&amp;#34;data&amp;#34;: []}]
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">  4752:20210519:153212.560 Requested [hp.pdisk_discovery]
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.560 In zbx_popen() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39;
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.561 End of zbx_popen():7
+</span></span><span class="line"><span class="cl">  4841:20210519:153212.561 zbx_popen(): executing script
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.666 In zbx_waitpid()
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 zbx_waitpid() exited, status:0
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 End of zbx_waitpid():4841
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 EXECUTE_STR() command:&#39;python /etc/zabbix/hp/pdisk_discovery.py&#39; len:12 cmd_result:&#39;{&#34;data&#34;: []}&#39;
+</span></span><span class="line"><span class="cl">  4752:20210519:153212.667 Sending back [{&#34;data&#34;: []}]
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>
-<p>调试python脚本，发现使用zabbix账号调用hpacucli指令时，此指令未正常运行，无任何报错</p>
-</li>
-<li>
-<p>使用admin账号執行hpacucli指令提示：<strong>Error: You need to have administrator rights to continue.</strong></p>
-</li>
-<li>
-<p>赋予admin管理员权限，并使用sudo hpacucli可以正常执行指令</p>
-</li>
+<li>调试python脚本，发现使用zabbix账号调用hpacucli指令时，此指令未正常运行，无任何报错</li>
+<li>使用admin账号執行hpacucli指令提示：<strong>Error: You need to have administrator rights to continue.</strong></li>
+<li>赋予admin管理员权限，并使用sudo hpacucli可以正常执行指令</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">2
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">visudo <span class="c1">#赋予admin权限，可执行所有指令，并无需输入password</span>
-</span></span><span class="line"><span class="cl">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">visudo <span class="c1">#赋予admin权限，可执行所有指令，并无需输入password</span>
 </span></span><span class="line"><span class="cl">admin <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
 </span></span></code></pre></td></tr></table>
 </div>
@@ -304,37 +210,21 @@
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">zabbix <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">zabbix <span class="nv">ALL</span><span class="o">=(</span>root<span class="o">)</span> NOPASSWD: ALL
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>使用<strong>sudo hpacucli</strong>指令运行</li>
 </ul>
-<p>文章作者</p>
-<p>上次更新</p>
-<p>2021-05-19</p>
-
     </div>
 
     
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/Zabbix/">Zabbix</a>
-          <a href="/tags/Apacucli/">Apacucli</a>
+          <a href="/tags/apacucli/">apacucli</a>
           <a href="/tags/Python/">Python</a>
           <a href="/tags/Linux/">Linux</a>
           </div>

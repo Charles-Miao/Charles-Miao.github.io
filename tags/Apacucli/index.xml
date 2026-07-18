@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Apacucli on Charles&#39;s Blog</title>
-    <link>https://Charles-Miao.github.io/tags/Apacucli/</link>
+    <link>https://Charles-Miao.github.io/tags/apacucli/</link>
     <description>Recent content in Apacucli on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 May 2021 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://Charles-Miao.github.io/tags/Apacucli/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 May 2021 22:15:08 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/tags/apacucli/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Zabbix自定义Key读值为空</title>
       <link>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</link>
-      <pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-in-Action-5/</guid>
-      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;问题说明&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;分析思路&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;解决方案&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;问题说明&#34;&gt;问题说明&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;透过&lt;a href=&#34;https://github.com/Charles-Miao/Server-Monitoring/tree/master/Ver2.0/zabbix/CentOS-7&#34;&gt;Python脚本&lt;/a&gt;调用hpacucli指令读取硬件信息，本地可以正常读取硬件信息，zabbix server端透过zabbix_get指令读值为空&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;分析思路&#34;&gt;分析思路&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Google&lt;a href=&#34;https://www.yuanmas.com/info/rgzEoJ5Ay8.html&#34;&gt;自定义脚本获取key失败怎么办？&lt;/a&gt;，赋予zabbix账号管理员权限，现象依旧&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;调整配置档案zabbix_agent.conf中的debuglevel参数，默认为3只显示warning信息，4为debug模式，透过debug log（/var/log/zabbix）发现，指令执行没有特别异常，现象依旧（此时已崩溃，Google无解，debug log无解）&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;主要内容&#34;&gt;主要内容&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;问题说明&lt;/li&gt;&#xA;&lt;li&gt;分析思路&lt;/li&gt;&#xA;&lt;li&gt;解决方案&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>
