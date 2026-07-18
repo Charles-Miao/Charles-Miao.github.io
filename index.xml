@@ -9,6 +9,13 @@
     <lastBuildDate>Thu, 11 Jun 2026 09:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About</title>
+      <link>https://Charles-Miao.github.io/about/</link>
+      <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/about/</guid>
+      <description>&lt;p&gt;GTD深度用户&lt;/p&gt;&#xA;&lt;p&gt;伪极客，平时喜欢瞎折腾&lt;/p&gt;&#xA;&lt;p&gt;有空喜欢看看书，听听播客&lt;/p&gt;&#xA;&lt;p&gt;喜欢非主流音乐，轻音乐，电音，人声，古典乐&lt;/p&gt;&#xA;&lt;p&gt;目前在代工厂从事运维工作&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>内网环境下的本地 AI Agent 实践</title>
       <link>https://Charles-Miao.github.io/post/local-ai-agent-practice/</link>
       <pubDate>Thu, 11 Jun 2026 09:00:00 +0800</pubDate>

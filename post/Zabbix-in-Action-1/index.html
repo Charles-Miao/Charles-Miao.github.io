@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="" /><meta name="description" content="软硬件环境 Server端：Ubuntu 16.04虚拟机 Agent端：Windows Server，主要硬件有DL380 G7、DL380 G9、DL380 G10、DL160 G6、DELL2900、DELL2950、supermicro等 " /><meta name="keywords" content="Hugo, DevOps, blog" />
+<meta name="author" content="" /><meta name="description" content="软硬件环境 Server端：Ubuntu 16.04虚拟机 Agent端：Windows Server，主要硬件有DL380 G7、DL380 G9、DL380 G10、DL160 G6、DELL2900、DELL2950、supermicro等 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -33,10 +33,11 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
 
 
 <meta property="og:url" content="https://Charles-Miao.github.io/post/Zabbix-in-Action-1/">
@@ -85,13 +86,15 @@
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/">
-        <li class="mobile-menu-item">Home</li>
+        <li class="mobile-menu-item">首页</li>
       </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
+        <li class="mobile-menu-item">归档</li>
       </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
+        <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
       </a>
   </ul>
 
@@ -113,13 +116,15 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
       </li>
   </ul>
 </nav>
@@ -141,11 +146,31 @@
             </div>
           <span class="more-meta"> 约 1573 字 </span>
           <span class="more-meta"> 预计阅读 4 分钟 </span>
-        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
-    
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#软硬件环境">软硬件环境</a></li>
+    <li><a href="#server-tool安装问题汇总">Server tool安装&amp;问题汇总</a></li>
+    <li><a href="#hp-dl380系列服务器透过ilo口snmp协议进行硬件监控">HP DL380系列服务器透过iLO口snmp协议进行硬件监控</a></li>
+    <li><a href="#dl160-g6--supermicro透过ipmi--snmp协议进行硬件监控">DL160 G6 &amp; Supermicro透过ipmi &amp; snmp协议进行硬件监控</a></li>
+    <li><a href="#dell服务器硬件监控">DELL服务器硬件监控</a></li>
+    <li><a href="#windows服务器一些特殊信息获取">Windows服务器一些特殊信息获取</a></li>
+    <li><a href="#zabbix-web端配置模板">Zabbix web端配置模板</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2019-11-21T10:38:09" title="November 21, 2019">November 21, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <h2 id="软硬件环境">软硬件环境</h2>
 <ul>
@@ -270,7 +295,21 @@
 </ul>
     </div>
 
-    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-11-21
+        
+    </span>
+  </p>
+  
+  
+</div>
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/Zabbix/">Zabbix</a>
@@ -302,8 +341,11 @@
 
     <footer id="footer" class="footer">
       <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
-      <a href="mailto:fengkuang33@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
   
 </div>
 
@@ -317,11 +359,15 @@
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
-  
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
 
   <span class="copyright-year">
     &copy; 
-    2024 - 
+    2020 - 
     2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
@@ -332,9 +378,17 @@
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
 
 
 

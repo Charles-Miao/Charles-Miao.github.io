@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="" /><meta name="description" content="主要内容 nginx服务部署安装 nginx目录结构 nginx服务的企业应用 nginx访问模块 网站的LNMP架构部署 负载均衡 高可用服务 " /><meta name="keywords" content="Hugo, DevOps, blog" />
+<meta name="author" content="" /><meta name="description" content="主要内容 nginx服务部署安装 nginx目录结构 nginx服务的企业应用 nginx访问模块 网站的LNMP架构部署 负载均衡 高可用服务 " /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -33,10 +33,11 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
 
 
 <meta property="og:url" content="https://Charles-Miao.github.io/post/Linux-Admin-7/">
@@ -84,13 +85,15 @@
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/">
-        <li class="mobile-menu-item">Home</li>
+        <li class="mobile-menu-item">首页</li>
       </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
+        <li class="mobile-menu-item">归档</li>
       </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
+        <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
       </a>
   </ul>
 
@@ -112,13 +115,15 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
       </li>
   </ul>
 </nav>
@@ -140,11 +145,83 @@
             </div>
           <span class="more-meta"> 约 8379 字 </span>
           <span class="more-meta"> 预计阅读 17 分钟 </span>
-        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
-    
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nginx服务部署安装">nginx服务部署安装</a>
+      <ul>
+        <li><a href="#编译安装">编译安装</a></li>
+        <li><a href="#yum官方源安装方式">yum官方源安装方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx目录结构">nginx目录结构</a>
+      <ul>
+        <li><a href="#etclogrotated">/etc/logrotate.d</a></li>
+        <li><a href="#etcnginx配置文件">/etc/nginx，配置文件</a></li>
+        <li><a href="#varlognginx日志文件">/var/log/nginx，日志文件</a></li>
+        <li><a href="#usrbinnginx命令文件">/usr/bin/nginx，命令文件</a></li>
+        <li><a href="#usrsharenginxhtml站点目录">/usr/share/nginx/html，站点目录</a></li>
+        <li><a href="#etcnginxnginxconfnginx服务配置文件">/etc/nginx/nginx.conf，nginx服务配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx服务的企业应用">nginx服务的企业应用</a>
+      <ul>
+        <li><a href="#利用nginx服务搭建一个网站">利用nginx服务搭建一个网站</a></li>
+        <li><a href="#利用nginx服务搭建一个多网站www-bbs-blog">利用nginx服务搭建一个多网站（www bbs blog）</a></li>
+        <li><a href="#企业中虚拟主机访问方式">企业中虚拟主机访问方式</a></li>
+        <li><a href="#网站页面访问原理">网站页面访问原理：</a></li>
+      </ul>
+    </li>
+    <li><a href="#nginx访问模块">nginx访问模块</a>
+      <ul>
+        <li><a href="#nginx访问模块ngx_http_access_module">nginx访问模块：ngx_http_access_module</a></li>
+        <li><a href="#nginx认证模块ngx_http_auth_basic_module">nginx认证模块：ngx_http_auth_basic_module</a></li>
+        <li><a href="#nginx模块功能ngx_http_autoindex_module">nginx模块功能：ngx_http_autoindex_module</a></li>
+        <li><a href="#状态模块ngx_http_stub_status_module">状态模块：ngx_http_stub_status_module</a></li>
+        <li><a href="#ngx_http_log_module">ngx_http_log_module</a></li>
+        <li><a href="#ngx_http_core_module">ngx_http_core_module</a></li>
+        <li><a href="#http_rewrite_module">http_rewrite_module</a></li>
+      </ul>
+    </li>
+    <li><a href="#网站的lnmp架构部署">网站的LNMP架构部署</a>
+      <ul>
+        <li><a href="#lnmp架构的原理">LNMP架构的原理</a></li>
+        <li><a href="#实现lnmp之间建立关系">实现LNMP之间建立关系</a></li>
+        <li><a href="#部署搭建网站页面代码上线">部署搭建网站页面（代码上线）</a></li>
+        <li><a href="#上传wordpress主题报413错误如何解决">上传wordpress主题，报413错误，如何解决？</a></li>
+        <li><a href="#如何让lnmp架构和存储服务器建立关系">如何让LNMP架构和存储服务器建立关系</a></li>
+        <li><a href="#如何让lnmp架构和数据库服务器建立关系">如何让LNMP架构和数据库服务器建立关系？？？</a></li>
+      </ul>
+    </li>
+    <li><a href="#负载均衡">负载均衡</a>
+      <ul>
+        <li><a href="#负载均衡概念">负载均衡概念</a></li>
+        <li><a href="#负载均衡的环境">负载均衡的环境</a></li>
+        <li><a href="#负载均衡服务器部署">负载均衡服务器部署：</a></li>
+        <li><a href="#负载均衡配置模块详细说明">负载均衡配置模块详细说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#高可用服务">高可用服务</a>
+      <ul>
+        <li><a href="#高可用keepalived服务部署流程">高可用keepalived服务部署流程</a></li>
+        <li><a href="#高可用服务器企业应用">高可用服务器企业应用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2021-06-23T22:59:59" title="June 23, 2021">June 23, 2021</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
     <div class="post-content">
       <h1 id="主要内容">主要内容</h1>
 <ul>
@@ -1843,7 +1920,21 @@
 </div>
     </div>
 
-    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-06-23
+        
+    </span>
+  </p>
+  
+  
+</div>
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/Linux/">Linux</a>
@@ -1874,8 +1965,11 @@
 
     <footer id="footer" class="footer">
       <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
-      <a href="mailto:fengkuang33@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
   
 </div>
 
@@ -1889,11 +1983,15 @@
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
-  
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
 
   <span class="copyright-year">
     &copy; 
-    2024 - 
+    2020 - 
     2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
@@ -1904,9 +2002,17 @@
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
 
 
 

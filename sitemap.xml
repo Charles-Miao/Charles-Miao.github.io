@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://Charles-Miao.github.io/about/</loc>
+    <lastmod>2020-06-25T09:32:30+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://Charles-Miao.github.io/tags/AI/</loc>
     <lastmod>2026-06-11T09:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>

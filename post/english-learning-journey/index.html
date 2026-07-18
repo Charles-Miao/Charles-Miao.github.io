@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="" /><meta name="description" content="从上学时英语 70 多分到工作后决心学好英语，分享我的英语学习资源、工具和方法，以及使用新概念英语系统学习的实践经验" /><meta name="keywords" content="Hugo, DevOps, blog" />
+<meta name="author" content="" /><meta name="description" content="从上学时英语 70 多分到工作后决心学好英语，分享我的英语学习资源、工具和方法，以及使用新概念英语系统学习的实践经验" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -33,10 +33,11 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
-
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 <link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
 
 
 <meta property="og:url" content="https://Charles-Miao.github.io/post/english-learning-journey/">
@@ -88,13 +89,15 @@
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
     <a href="/">
-        <li class="mobile-menu-item">Home</li>
+        <li class="mobile-menu-item">首页</li>
       </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
+        <li class="mobile-menu-item">归档</li>
       </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
+        <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
-        <li class="mobile-menu-item">Categories</li>
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
       </a>
   </ul>
 
@@ -116,13 +119,15 @@
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
+        <a class="menu-item-link" href="/">首页</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">归档</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
+        <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/categories/">Categories</a>
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
       </li>
   </ul>
 </nav>
@@ -145,11 +150,88 @@
             </div>
           <span class="more-meta"> 约 2896 字 </span>
           <span class="more-meta"> 预计阅读 6 分钟 </span>
-        
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
     </header>
 
-    
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-前言">📖 前言</a></li>
+    <li><a href="#-学习理念">🎯 学习理念</a>
+      <ul>
+        <li><a href="#核心学习理念">核心学习理念</a></li>
+      </ul>
+    </li>
+    <li><a href="#-学习资源整理">📚 学习资源整理</a>
+      <ul>
+        <li><a href="#视频教程">视频教程</a></li>
+        <li><a href="#播客节目狗熊有话说">播客节目（狗熊有话说）</a></li>
+        <li><a href="#优质文章">优质文章</a></li>
+      </ul>
+    </li>
+    <li><a href="#-学习工具栈">🛠️ 学习工具栈</a>
+      <ul>
+        <li><a href="#单词记忆">单词记忆</a></li>
+        <li><a href="#词典和阅读">词典和阅读</a></li>
+        <li><a href="#听力和口语">听力和口语</a></li>
+      </ul>
+    </li>
+    <li><a href="#-新概念英语nce学习路径">📖 新概念英语（NCE）学习路径</a>
+      <ul>
+        <li><a href="#为什么选择-nce">为什么选择 NCE？</a></li>
+        <li><a href="#四册定位">四册定位</a></li>
+        <li><a href="#学习方法">学习方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#-学习进度管理">📊 学习进度管理</a>
+      <ul>
+        <li><a href="#已完成-">已完成 ✅</a></li>
+        <li><a href="#进行中-">进行中 🔄</a></li>
+        <li><a href="#计划中-">计划中 ⏳</a></li>
+      </ul>
+    </li>
+    <li><a href="#-学习心得">💡 学习心得</a>
+      <ul>
+        <li><a href="#1-坚持比方法更重要">1. 坚持比方法更重要</a></li>
+        <li><a href="#2-创造语言环境">2. 创造语言环境</a></li>
+        <li><a href="#3-可理解输入是关键">3. 可理解输入是关键</a></li>
+        <li><a href="#4-多感官协同">4. 多感官协同</a></li>
+        <li><a href="#5-利用碎片时间">5. 利用碎片时间</a></li>
+      </ul>
+    </li>
+    <li><a href="#-下一步计划">🎯 下一步计划</a>
+      <ul>
+        <li><a href="#短期目标1-3-个月">短期目标（1-3 个月）</a></li>
+        <li><a href="#中期目标3-6-个月">中期目标（3-6 个月）</a></li>
+        <li><a href="#长期目标6-12-个月">长期目标（6-12 个月）</a></li>
+      </ul>
+    </li>
+    <li><a href="#-给初学者的建议">📝 给初学者的建议</a>
+      <ul>
+        <li><a href="#1-明确目标">1. 明确目标</a></li>
+        <li><a href="#2-选择适合的教材">2. 选择适合的教材</a></li>
+        <li><a href="#3-制定可行计划">3. 制定可行计划</a></li>
+        <li><a href="#4-找到学习伙伴">4. 找到学习伙伴</a></li>
+        <li><a href="#5-享受过程">5. 享受过程</a></li>
+      </ul>
+    </li>
+    <li><a href="#-资源汇总">🔗 资源汇总</a>
+      <ul>
+        <li><a href="#学习平台">学习平台</a></li>
+        <li><a href="#视频教程-1">视频教程</a></li>
+        <li><a href="#工具-app">工具 App</a></li>
+        <li><a href="#播客">播客</a></li>
+      </ul>
+    </li>
+    <li><a href="#-参考书籍">📚 参考书籍</a></li>
+    <li><a href="#-结语">💬 结语</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
     <div class="post-content">
       <h2 id="-前言">📖 前言</h2>
 <p>上学时，我的英语成绩比较一般，正常也就<strong>70 多分</strong>的水平。工作后，一直有一个将英语学好的想法，希望能够达到<strong>正常交流</strong>的水平。</p>
@@ -713,7 +795,21 @@
 <p><em>GitHub 项目：<a href="https://github.com/Charles-Miao/NCE">Charles-Miao/NCE</a></em></p>
     </div>
 
-    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2025-12-13
+        
+    </span>
+  </p>
+  
+  
+</div>
 <footer class="post-footer">
       <div class="post-tags">
           <a href="/tags/%e8%8b%b1%e8%af%ad%e5%ad%a6%e4%b9%a0/">英语学习</a>
@@ -748,8 +844,11 @@
 
     <footer id="footer" class="footer">
       <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
-      <a href="mailto:fengkuang33@163.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
   
 </div>
 
@@ -763,11 +862,15 @@
     <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
   </span>
 
-  
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
 
   <span class="copyright-year">
     &copy; 
-    2024 - 
+    2020 - 
     2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
   </span>
 </div>
@@ -778,9 +881,17 @@
       <i class="iconfont icon-up"></i>
     </div>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
 
 
 
