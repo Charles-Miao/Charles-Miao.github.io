@@ -6,21 +6,21 @@
     <description>Recent content in 自动化测试 on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 13 Mar 2026 21:55:03 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2026 21:53:28 +0000</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Python 实战：自动化测试日志转 XML 系统实践</title>
-      <link>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</link>
-      <pubDate>Fri, 13 Mar 2026 21:55:03 +0000</pubDate>
-      <guid>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</guid>
-      <description>Python 实战：自动化测试日志转 XML 系统实践 摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分</description>
-    </item>
     <item>
       <title>Python 实战：自动化测试日志转 XML 系统实践</title>
       <link>https://Charles-Miao.github.io/posts/python-log-to-xml-automation/</link>
       <pubDate>Fri, 13 Mar 2026 21:53:28 +0000</pubDate>
       <guid>https://Charles-Miao.github.io/posts/python-log-to-xml-automation/</guid>
       <description>Python 实战：自动化测试日志转 XML 系统实践 摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分</description>
+    </item>
+    <item>
+      <title>Python 实战：自动化测试日志转 XML 系统实践</title>
+      <link>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</link>
+      <pubDate>Tue, 10 Dec 2024 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</guid>
+      <description>摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20+ 个 Bug 修复，完整记录</description>
     </item>
   </channel>
 </rss>

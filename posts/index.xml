@@ -13,7 +13,7 @@
       <link>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</link>
       <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+      <description>上半年的一些反思 今年面试了一圈，最大的体会有两点：英语 和 AI 越来越重要。 业余时间自己在学英语，春节那会也搭了自己的 QwenPaw（OpenCl</description>
     </item>
     <item>
       <title>Python 实战：自动化测试日志转 XML 系统实践</title>
