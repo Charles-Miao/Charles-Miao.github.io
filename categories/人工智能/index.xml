@@ -6,14 +6,21 @@
     <description>Recent content in 人工智能 on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 11 Jun 2026 09:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jun 2026 12:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>内网环境下的本地 AI Agent 实践</title>
       <link>https://Charles-Miao.github.io/post/local-ai-agent-practice/</link>
-      <pubDate>Thu, 11 Jun 2026 09:00:00 +0800</pubDate>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/local-ai-agent-practice/</guid>
-      <description>&lt;h2 id=&#34;上半年的一些反思&#34;&gt;上半年的一些反思&lt;/h2&gt;&#xA;&lt;p&gt;今年面试了一圈，最大的体会有两点：&lt;strong&gt;英语&lt;/strong&gt; 和 &lt;strong&gt;AI&lt;/strong&gt; 越来越重要。&lt;/p&gt;&#xA;&lt;p&gt;业余时间自己在学英语，春节那会也搭了自己的 QwenPaw（OpenClaw）Agent，确实用到了个人生活中——帮自己处理邮件、追踪加密货币价格、定期发送系统心跳报告。&lt;/p&gt;&#xA;&lt;p&gt;但说实话，这些能力&lt;strong&gt;一直没法应用到工作中&lt;/strong&gt;，挺可惜的。&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>内网环境下的本地 AI Agent 实践</title>
+      <link>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</link>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
     </item>
   </channel>
 </rss>

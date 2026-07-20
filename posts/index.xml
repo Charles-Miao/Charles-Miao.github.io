@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/posts/</link>
+    <description>Recent content in Posts on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 11 Jun 2026 12:00:00 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>内网环境下的本地 AI Agent 实践</title>
+      <link>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</link>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>Python 实战：自动化测试日志转 XML 系统实践</title>
+      <link>https://Charles-Miao.github.io/posts/python-log-to-xml-automation/</link>
+      <pubDate>Fri, 13 Mar 2026 21:53:28 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/posts/python-log-to-xml-automation/</guid>
+      <description>Python 实战：自动化测试日志转 XML 系统实践 摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分</description>
+    </item>
+    <item>
+      <title>Hello Hugo - 本地部署测试</title>
+      <link>https://Charles-Miao.github.io/posts/hello-hugo/</link>
+      <pubDate>Fri, 13 Mar 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/posts/hello-hugo/</guid>
+      <description>🎉 Hello Hugo! 这是我的第一篇文章，使用 本地 Hugo 成功发布！ 📋 配置过程总结 1. 安装 Homebrew 1 /bin/bash -c &amp;ldquo;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&amp;quot; 2. 安装 Hugo 1 arch -arm64 /opt/homebrew/bin/brew install hugo 3. 克隆博客仓库 1 git clone git@github.com:Charles-Miao/blog.git 4. 安装主题 1 2 cd blog/themes</description>
+    </item>
+    <item>
+      <title>DevOps 实战：生产环境高可用架构优化实践</title>
+      <link>https://Charles-Miao.github.io/posts/devops-ha-architecture-optimization/</link>
+      <pubDate>Sat, 31 Jan 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/posts/devops-ha-architecture-optimization/</guid>
+      <description>📋 前言 在生产环境中，高可用（High Availability） 是保障业务连续性的关键。本文分享了我在实际工作中实施的三个高可用架构优化方案，</description>
+    </item>
+    <item>
+      <title>英语学习初探：一个 DevOps 工程师的自学之路</title>
+      <link>https://Charles-Miao.github.io/posts/english-learning-journey/</link>
+      <pubDate>Sat, 13 Dec 2025 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/posts/english-learning-journey/</guid>
+      <description>📖 前言 上学时，我的英语成绩比较一般，正常也就70 多分的水平。工作后，一直有一个将英语学好的想法，希望能够达到正常交流的水平。 和很多人一样，我</description>
+    </item>
+    <item>
+      <title>自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制</title>
+      <link>https://Charles-Miao.github.io/posts/gitea-lfs-version-control/</link>
+      <pubDate>Sat, 21 Jun 2025 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/posts/gitea-lfs-version-control/</guid>
+      <description>📋 项目背景 原有痛点 我们之前使用 SVN 管理测试程序的变更记录，但在实际使用中遇到了一个严重的局限性： SVN 无法处理 2GB 以上的大文件 随着测试程序和镜像文件</description>
+    </item>
+  </channel>
+</rss>

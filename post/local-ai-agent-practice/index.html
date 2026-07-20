@@ -16,14 +16,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="" /><meta name="description" content="在一台闲置服务器上部署本地大模型，尝试在内网无外网的环境中运行 AI Agent 的踩坑记录" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="" /><meta name="description" content=" 摘要：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。
+" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.157.0 with theme even" />
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
 
 
 <link rel="canonical" href="https://Charles-Miao.github.io/post/local-ai-agent-practice/" />
@@ -35,35 +36,36 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/sass/main.min.af7fd1da18d66c2b017df5b4cae508ef44cfcac3fb4c7c7a327fe4f4f9e28b08.css" rel="stylesheet">
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
 
 
 <meta property="og:url" content="https://Charles-Miao.github.io/post/local-ai-agent-practice/">
   <meta property="og:site_name" content="Charles&#39;s Blog">
   <meta property="og:title" content="内网环境下的本地 AI Agent 实践">
-  <meta property="og:description" content="在一台闲置服务器上部署本地大模型，尝试在内网无外网的环境中运行 AI Agent 的踩坑记录">
+  <meta property="og:description" content=" 摘要：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2026-06-11T09:00:00+08:00">
-    <meta property="article:modified_time" content="2026-06-11T09:00:00+08:00">
-    <meta property="article:tag" content="AI">
-    <meta property="article:tag" content="LLM">
-    <meta property="article:tag" content="Ollama">
-    <meta property="article:tag" content="Llama">
-    <meta property="article:tag" content="Qwen">
+    <meta property="article:published_time" content="2026-06-11T12:00:00+08:00">
+    <meta property="article:modified_time" content="2026-06-11T12:00:00+08:00">
     <meta property="article:tag" content="本地部署">
+    <meta property="article:tag" content="Qwen">
+    <meta property="article:tag" content="Ollama">
+    <meta property="article:tag" content="LLM">
+    <meta property="article:tag" content="Llama">
+    <meta property="article:tag" content="AI">
 
   <meta itemprop="name" content="内网环境下的本地 AI Agent 实践">
-  <meta itemprop="description" content="在一台闲置服务器上部署本地大模型，尝试在内网无外网的环境中运行 AI Agent 的踩坑记录">
-  <meta itemprop="datePublished" content="2026-06-11T09:00:00+08:00">
-  <meta itemprop="dateModified" content="2026-06-11T09:00:00+08:00">
-  <meta itemprop="wordCount" content="1233">
-  <meta itemprop="keywords" content="AI,LLM,Ollama,Llama,Qwen,本地部署,Windows Server">
+  <meta itemprop="description" content=" 摘要：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。">
+  <meta itemprop="datePublished" content="2026-06-11T12:00:00+08:00">
+  <meta itemprop="dateModified" content="2026-06-11T12:00:00+08:00">
+  <meta itemprop="wordCount" content="1363">
+  <meta itemprop="keywords" content="本地部署,Qwen,Ollama,LLM,Llama,AI">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="内网环境下的本地 AI Agent 实践">
-  <meta name="twitter:description" content="在一台闲置服务器上部署本地大模型，尝试在内网无外网的环境中运行 AI Agent 的踩坑记录">
+  <meta name="twitter:description" content=" 摘要：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -145,10 +147,10 @@
       <div class="post-meta">
         <span class="post-time"> 2026-06-11 </span>
         <div class="post-category">
-            <a href="/categories/%e4%ba%ba%e5%b7%a5%e6%99%ba%e8%83%bd/">人工智能 </a>
-            <a href="/categories/%e8%bf%90%e7%bb%b4/">运维 </a>
+            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"> 人工智能 </a>
+            <a href="/categories/%E8%BF%90%E7%BB%B4/"> 运维 </a>
             </div>
-          <span class="more-meta"> 约 1233 字 </span>
+          <span class="more-meta"> 约 1363 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -178,7 +180,10 @@
   </div>
 </div>
     <div class="post-content">
-      <h2 id="上半年的一些反思">上半年的一些反思</h2>
+      <blockquote>
+<p><strong>摘要</strong>：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。</p>
+</blockquote>
+<h2 id="上半年的一些反思">上半年的一些反思</h2>
 <p>今年面试了一圈，最大的体会有两点：<strong>英语</strong> 和 <strong>AI</strong> 越来越重要。</p>
 <p>业余时间自己在学英语，春节那会也搭了自己的 QwenPaw（OpenClaw）Agent，确实用到了个人生活中——帮自己处理邮件、追踪加密货币价格、定期发送系统心跳报告。</p>
 <p>但说实话，这些能力<strong>一直没法应用到工作中</strong>，挺可惜的。</p>
@@ -186,7 +191,7 @@
 <p>仔细想想，主要卡在两个地方：</p>
 <p><strong>一、工厂环境没有外网</strong>
 作为制造业的测试开发/DevOps，产线环境完全隔离，<code>api.openai.com</code> 都连不上，更别说用 QwenPaw 或者任何云端 AI 服务。</p>
-<p><strong>二、今年的工作内容偏基础架构</strong>
+<p><strong>二、去年的工作内容偏基础架构</strong>
 25 年主要精力在架线、服务器高可用、监控部署这些 DevOps 基建活。虽然扎实，但缺少一些能把 AI 结合进去的跨领域应用场景。</p>
 <p>没有场景，就没有动力去深入折腾。</p>
 <h2 id="转机新的工作调动">转机：新的工作调动</h2>
@@ -195,30 +200,30 @@
 <h2 id="选型两台闲置服务器">选型：两台闲置服务器</h2>
 <p>手头正好有两台闲置的服务器，配置还不错：</p>
 <table>
-  <thead>
-      <tr>
-          <th>配置项</th>
-          <th>参数</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>CPU</td>
-          <td>双路 Intel Gold 5317（共 24 核 48 线程）</td>
-      </tr>
-      <tr>
-          <td>内存</td>
-          <td><strong>256 GB</strong> DDR4</td>
-      </tr>
-      <tr>
-          <td>系统</td>
-          <td>Windows Server 2022 Standard</td>
-      </tr>
-      <tr>
-          <td>显卡</td>
-          <td>无独显（纯 CPU 推理）</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>配置项</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>双路 Intel Gold 5317（共 24 核 48 线程）</td>
+</tr>
+<tr>
+<td>内存</td>
+<td><strong>256 GB DDR4</strong></td>
+</tr>
+<tr>
+<td>系统</td>
+<td>Windows Server 2022 Standard</td>
+</tr>
+<tr>
+<td>显卡</td>
+<td>无独显（纯 CPU 推理）</td>
+</tr>
+</tbody>
 </table>
 <p>和 AI 沟通后，推荐的部署方案是：</p>
 <ul>
@@ -245,7 +250,6 @@
 <p>Windows Server 上的 Ollama 是原生 Windows 版本，不确定性能是否受影响。试试在 WSL 2 里跑 Linux 版 Ollama，说不定速度能快一点。</p>
 <h3 id="3-实在不行就接外网">3. 实在不行就接外网</h3>
 <p>如果本地部署始终达不到可用水平，那就只能想办法让工作环境能连外网，继续用 QwenPaw 的云端模型。</p>
-<hr>
 <h2 id="一些思考">一些思考</h2>
 <p>这次折腾最大的收获倒不是成功部署了模型，而是对 <strong>AI Agent 在离线环境下的工作边界</strong> 有了更清晰的认识：</p>
 <ul>
@@ -274,18 +278,17 @@
 </div>
 <footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/AI/">AI</a>
-          <a href="/tags/LLM/">LLM</a>
-          <a href="/tags/Ollama/">Ollama</a>
-          <a href="/tags/Llama/">Llama</a>
+          <a href="/tags/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2/">本地部署</a>
           <a href="/tags/Qwen/">Qwen</a>
-          <a href="/tags/%e6%9c%ac%e5%9c%b0%e9%83%a8%e7%bd%b2/">本地部署</a>
-          <a href="/tags/Windows%20Server/">Windows Server</a>
+          <a href="/tags/Ollama/">Ollama</a>
+          <a href="/tags/LLM/">LLM</a>
+          <a href="/tags/Llama/">Llama</a>
+          <a href="/tags/AI/">AI</a>
           </div>
       <nav class="post-nav">
         
-        <a class="next" href="/post/hello-hugo/">
-            <span class="next-text nav-default">Hello Hugo - 本地部署测试</span>
+        <a class="next" href="/post/python-log-to-xml-automation/">
+            <span class="next-text nav-default">Python 实战：自动化测试日志转 XML 系统实践</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -307,6 +310,7 @@
       <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
       <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
   
 </div>
