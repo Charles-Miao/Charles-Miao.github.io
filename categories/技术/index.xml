@@ -6,8 +6,15 @@
     <description>Recent content in 技术 on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 10 Dec 2024 12:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Mar 2026 12:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello Hugo - 本地部署测试</title>
+      <link>https://Charles-Miao.github.io/post/hello-hugo/</link>
+      <pubDate>Fri, 13 Mar 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/hello-hugo/</guid>
+      <description>摘要：本文记录了基于 Hugo + Even 主题的个人博客本地部署过程，包含环境配置、主题安装、文章管理以及本地预览等步骤。 背景 之前的博客系统使用起来不太方便</description>
+    </item>
     <item>
       <title>Python 实战：自动化测试日志转 XML 系统实践</title>
       <link>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</link>

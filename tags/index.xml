@@ -44,6 +44,27 @@
       <description></description>
     </item>
     <item>
+      <title>Hugo</title>
+      <link>https://Charles-Miao.github.io/tags/Hugo/</link>
+      <pubDate>Fri, 13 Mar 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/Hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>博客</title>
+      <link>https://Charles-Miao.github.io/tags/%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Fri, 13 Mar 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/%E5%8D%9A%E5%AE%A2/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>静态站点</title>
+      <link>https://Charles-Miao.github.io/tags/%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9/</link>
+      <pubDate>Fri, 13 Mar 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Python</title>
       <link>https://Charles-Miao.github.io/tags/Python/</link>
       <pubDate>Tue, 10 Dec 2024 12:00:00 +0800</pubDate>
@@ -72,17 +93,17 @@
       <description></description>
     </item>
     <item>
-      <title>Linux</title>
-      <link>https://Charles-Miao.github.io/tags/Linux/</link>
-      <pubDate>Mon, 28 Jun 2021 23:19:54 +0800</pubDate>
-      <guid>https://Charles-Miao.github.io/tags/Linux/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Apacucli</title>
       <link>https://Charles-Miao.github.io/tags/apacucli/</link>
       <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/tags/apacucli/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://Charles-Miao.github.io/tags/Linux/</link>
+      <pubDate>Wed, 19 May 2021 22:15:08 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/Linux/</guid>
       <description></description>
     </item>
     <item>
