@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>英语 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/categories/%E8%8B%B1%E8%AF%AD/</link>
+    <description>Recent content in 英语 on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 13 Dec 2025 12:00:00 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/categories/%E8%8B%B1%E8%AF%AD/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一个 DevOps 工程师的英语学习之路</title>
+      <link>https://Charles-Miao.github.io/post/english-learning-journey/</link>
+      <pubDate>Sat, 13 Dec 2025 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/english-learning-journey/</guid>
+      <description>摘要：本文记录了一位 DevOps 工程师从学生时代英语基础薄弱，到工作后持续探索英语学习方法的完整历程。文章按时间线梳理了 2010 年代、2020 年代及 2025 年至今</description>
+    </item>
+  </channel>
+</rss>

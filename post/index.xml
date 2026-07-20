@@ -13,7 +13,7 @@
       <link>https://Charles-Miao.github.io/post/local-ai-agent-practice/</link>
       <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/local-ai-agent-practice/</guid>
-      <description>上半年的一些反思 今年面试了一圈，最大的体会有两点：英语 和 AI 越来越重要。 业余时间自己在学英语，春节那会也搭了自己的 QwenPaw（OpenCl</description>
+      <description>摘要：本文记录了制造业纯内网无外网环境下，基于闲置双路 CPU 服务器落地本地 AI Agent 的完整实践过程。文章先后对比了 Ollama 与 llama.cpp 两种部署方案的性能表现与功能局</description>
     </item>
     <item>
       <title>Hello Hugo - 本地部署测试</title>
@@ -27,21 +27,21 @@
       <link>https://Charles-Miao.github.io/post/devops-ha-architecture-optimization/</link>
       <pubDate>Sat, 31 Jan 2026 12:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/devops-ha-architecture-optimization/</guid>
-      <description>📋 前言 在生产环境中，高可用（High Availability） 是保障业务连续性的关键。本文分享了我在实际工作中实施的三个高可用架构优化方案，</description>
+      <description>摘要：本文分享了在生产环境中实施的两个高可用架构优化实践：Log 服务器双节点 + DFS + Nginx 负载均衡方案，以及Burn-in 老化测试网络的分层优化架</description>
     </item>
     <item>
-      <title>英语学习初探：一个 DevOps 工程师的自学之路</title>
+      <title>一个 DevOps 工程师的英语学习之路</title>
       <link>https://Charles-Miao.github.io/post/english-learning-journey/</link>
       <pubDate>Sat, 13 Dec 2025 12:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/english-learning-journey/</guid>
-      <description>📖 前言 上学时，我的英语成绩比较一般，正常也就70 多分的水平。工作后，一直有一个将英语学好的想法，希望能够达到正常交流的水平。 和很多人一样，我</description>
+      <description>摘要：本文记录了一位 DevOps 工程师从学生时代英语基础薄弱，到工作后持续探索英语学习方法的完整历程。文章按时间线梳理了 2010 年代、2020 年代及 2025 年至今</description>
     </item>
     <item>
       <title>自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制</title>
       <link>https://Charles-Miao.github.io/post/gitea-lfs-version-control/</link>
       <pubDate>Sat, 21 Jun 2025 12:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/gitea-lfs-version-control/</guid>
-      <description>📋 项目背景 原有痛点 我们之前使用 SVN 管理测试程序的变更记录，但在实际使用中遇到了一个严重的局限性： SVN 无法处理 2GB 以上的大文件 随着测试程序和镜像文件</description>
+      <description>摘要：本文记录了制造业测试环境下，从SVN迁移到Gitea+LFS自建Git服务器的完整落地实践。文章对比了Gogs、Gitblit、Git</description>
     </item>
     <item>
       <title>Python 实战：自动化测试日志转 XML 系统实践</title>

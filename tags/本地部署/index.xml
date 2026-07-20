@@ -13,14 +13,7 @@
       <link>https://Charles-Miao.github.io/post/local-ai-agent-practice/</link>
       <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/local-ai-agent-practice/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
-    </item>
-    <item>
-      <title>内网环境下的本地 AI Agent 实践</title>
-      <link>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</link>
-      <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
-      <guid>https://Charles-Miao.github.io/posts/local-ai-agent-practice/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;摘要&lt;/strong&gt;：本文记录了在制造业无外网环境下，利用两台闲置服务器（256GB 内存、无独显）部署本地 AI Agent 的完整实践过程。对比了 Ollama 和 Llama.cpp 两种 CPU 推理方案的性能差异，分析了大模型在离线环境下遇到的响应速度、stop 参数配置以及 Agent 连续思考能力缺失等核心问题，并给出了后续优化方向。&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+      <description>摘要：本文记录了制造业纯内网无外网环境下，基于闲置双路 CPU 服务器落地本地 AI Agent 的完整实践过程。文章先后对比了 Ollama 与 llama.cpp 两种部署方案的性能表现与功能局</description>
     </item>
   </channel>
 </rss>

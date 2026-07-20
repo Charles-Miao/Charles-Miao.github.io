@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI 应用 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/categories/AI-%E5%BA%94%E7%94%A8/</link>
+    <description>Recent content in AI 应用 on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 11 Jun 2026 12:00:00 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/categories/AI-%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>内网环境下的本地 AI Agent 实践</title>
+      <link>https://Charles-Miao.github.io/post/local-ai-agent-practice/</link>
+      <pubDate>Thu, 11 Jun 2026 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/local-ai-agent-practice/</guid>
+      <description>摘要：本文记录了制造业纯内网无外网环境下，基于闲置双路 CPU 服务器落地本地 AI Agent 的完整实践过程。文章先后对比了 Ollama 与 llama.cpp 两种部署方案的性能表现与功能局</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SVN迁移 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/SVN%E8%BF%81%E7%A7%BB/</link>
+    <description>Recent content in SVN迁移 on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 21 Jun 2025 12:00:00 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/tags/SVN%E8%BF%81%E7%A7%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自建 Git 服务器：Gitea &#43; LFS 实现测试程序版本控制</title>
+      <link>https://Charles-Miao.github.io/post/gitea-lfs-version-control/</link>
+      <pubDate>Sat, 21 Jun 2025 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/gitea-lfs-version-control/</guid>
+      <description>摘要：本文记录了制造业测试环境下，从SVN迁移到Gitea+LFS自建Git服务器的完整落地实践。文章对比了Gogs、Gitblit、Git</description>
+    </item>
+  </channel>
+</rss>
