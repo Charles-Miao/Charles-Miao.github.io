@@ -6,7 +6,7 @@
     <description>Recent content on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 11 Jun 2026 12:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2026 16:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
@@ -14,6 +14,13 @@
       <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/about/</guid>
       <description>GTD深度用户 伪极客，平时喜欢瞎折腾 有空喜欢看看书，听听播客 喜欢非主流音乐，轻音乐，电音，人声，古典乐 目前在代工厂从事运维工作</description>
+    </item>
+    <item>
+      <title>AI Agent应用：制造测试脚本逆向工程</title>
+      <link>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</link>
+      <pubDate>Sun, 02 Aug 2026 16:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</guid>
+      <description>摘要：本文记录了针对某笔记本工厂老化测试（RUNIN）与系统下载（SWDL）两套测试脚本体系的逆向梳理过程：从 PXE 网络启动入口出发，逐层解读 .bat/.cmd</description>
     </item>
     <item>
       <title>内网环境下的本地 AI Agent 实践</title>
