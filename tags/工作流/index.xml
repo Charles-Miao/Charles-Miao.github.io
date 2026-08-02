@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>自动化 on Charles&#39;s Blog</title>
-    <link>https://Charles-Miao.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
-    <description>Recent content in 自动化 on Charles&#39;s Blog</description>
+    <title>工作流 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/</link>
+    <description>Recent content in 工作流 on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Thu, 23 Jul 2026 17:00:00 +0800</lastBuildDate>
-    <atom:link href="https://Charles-Miao.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://Charles-Miao.github.io/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AI Agent应用 - 自动化工单检查工作流</title>
       <link>https://Charles-Miao.github.io/post/ai-agent-tso-workflow/</link>

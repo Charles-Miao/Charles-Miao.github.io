@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>AI应用 on Charles&#39;s Blog</title>
-    <link>https://Charles-Miao.github.io/categories/AI%E5%BA%94%E7%94%A8/</link>
-    <description>Recent content in AI应用 on Charles&#39;s Blog</description>
+    <title>Ai应用 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/categories/ai%E5%BA%94%E7%94%A8/</link>
+    <description>Recent content in Ai应用 on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 02 Aug 2026 16:00:00 +0800</lastBuildDate>
-    <atom:link href="https://Charles-Miao.github.io/categories/AI%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://Charles-Miao.github.io/categories/ai%E5%BA%94%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>AI Agent应用：制造测试脚本逆向工程</title>
+      <title>AI Agent应用 - 制造测试脚本逆向工程</title>
       <link>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</link>
       <pubDate>Sun, 02 Aug 2026 16:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</guid>
       <description>摘要：本文记录了针对某笔记本工厂老化测试（RUNIN）与系统下载（SWDL）两套测试脚本体系的逆向梳理过程：从 PXE 网络启动入口出发，逐层解读 .bat/.cmd</description>
+    </item>
+    <item>
+      <title>AI Agent应用 - 自动化工单检查工作流</title>
+      <link>https://Charles-Miao.github.io/post/ai-agent-tso-workflow/</link>
+      <pubDate>Thu, 23 Jul 2026 17:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/ai-agent-tso-workflow/</guid>
+      <description>摘要：本文记录了基于 AI Agent 的 TSO 工单自动化检查方案，包含 MES 系统数据获取、POR 报告数据匹配、可复用技能封装等完整实现过程，将原本人工处理 10 分钟的</description>
     </item>
   </channel>
 </rss>
