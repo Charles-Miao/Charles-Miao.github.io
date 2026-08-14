@@ -10,7 +10,77 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/tags/AI-Agent/</loc>
-    <lastmod>2026-08-02T16:00:00+08:00</lastmod>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/AI-Agent-Aging-Dashboard-Web-Development/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/categories/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Flask/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/SNMP/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/Vue-3/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/%E5%B7%A5%E4%B8%9A%E7%9C%8B%E6%9D%BF/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -24,34 +94,6 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/categories/ai%E5%BA%94%E7%94%A8/</loc>
-    <lastmod>2026-08-02T16:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/categories/</loc>
-    <lastmod>2026-08-02T16:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/</loc>
-    <lastmod>2026-08-02T16:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/post/</loc>
-    <lastmod>2026-08-02T16:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/tags/</loc>
     <lastmod>2026-08-02T16:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -206,13 +248,6 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2026-03-13T12:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2026-03-13T12:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

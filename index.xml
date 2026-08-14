@@ -6,7 +6,7 @@
     <description>Recent content on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 02 Aug 2026 16:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 13 Aug 2026 21:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
@@ -14,6 +14,13 @@
       <pubDate>Thu, 25 Jun 2020 09:32:30 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/about/</guid>
       <description>GTD深度用户 伪极客，平时喜欢瞎折腾 有空喜欢看看书，听听播客 喜欢非主流音乐，轻音乐，电音，人声，古典乐 目前在代工厂从事运维工作</description>
+    </item>
+    <item>
+      <title>AI Agent应用 - 老化看板Web程序开发</title>
+      <link>https://Charles-Miao.github.io/post/AI-Agent-Aging-Dashboard-Web-Development/</link>
+      <pubDate>Thu, 13 Aug 2026 21:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/AI-Agent-Aging-Dashboard-Web-Development/</guid>
+      <description>摘要：本文记录了使用 AI Agent 辅助开发老化架（Run-in Rack）测试看板系统的完整过程。系统基于 Flask + MySQL + Vue 3 + Element Plus + ECharts 构建，通过 SNMP 协议采集交换</description>
     </item>
     <item>
       <title>AI Agent应用 - 制造测试脚本逆向工程</title>
