@@ -6,8 +6,36 @@
     <description>Recent content in Tags on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 13 Aug 2026 21:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 12:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>故障诊断</title>
+      <link>https://Charles-Miao.github.io/tags/%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>机器学习</title>
+      <link>https://Charles-Miao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>系统架构</title>
+      <link>https://Charles-Miao.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>智能制造</title>
+      <link>https://Charles-Miao.github.io/tags/%E6%99%BA%E8%83%BD%E5%88%B6%E9%80%A0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Charles-Miao.github.io/tags/%E6%99%BA%E8%83%BD%E5%88%B6%E9%80%A0/</guid>
+      <description></description>
+    </item>
     <item>
       <title>AI Agent</title>
       <link>https://Charles-Miao.github.io/tags/AI-Agent/</link>

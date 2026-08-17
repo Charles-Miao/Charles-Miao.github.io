@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>架构设计：产线故障智能诊断系统 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="摘要：本文围绕制造业产线老化测试场景，设计了一套从数据采集到智能决策的故障诊断系统方案。采用分层架构，以规则引擎快速起步、机器学习持续提升、" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/production-fault-diagnosis/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/production-fault-diagnosis/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="架构设计：产线故障智能诊断系统">
+  <meta property="og:description" content="摘要：本文围绕制造业产线老化测试场景，设计了一套从数据采集到智能决策的故障诊断系统方案。采用分层架构，以规则引擎快速起步、机器学习持续提升、">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-08-17T12:00:00+08:00">
+    <meta property="article:modified_time" content="2026-08-17T12:00:00+08:00">
+    <meta property="article:tag" content="智能制造">
+    <meta property="article:tag" content="系统架构">
+    <meta property="article:tag" content="机器学习">
+    <meta property="article:tag" content="故障诊断">
+
+  <meta itemprop="name" content="架构设计：产线故障智能诊断系统">
+  <meta itemprop="description" content="摘要：本文围绕制造业产线老化测试场景，设计了一套从数据采集到智能决策的故障诊断系统方案。采用分层架构，以规则引擎快速起步、机器学习持续提升、">
+  <meta itemprop="datePublished" content="2026-08-17T12:00:00+08:00">
+  <meta itemprop="dateModified" content="2026-08-17T12:00:00+08:00">
+  <meta itemprop="wordCount" content="3108">
+  <meta itemprop="keywords" content="智能制造,系统架构,机器学习,故障诊断">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="架构设计：产线故障智能诊断系统">
+  <meta name="twitter:description" content="摘要：本文围绕制造业产线老化测试场景，设计了一套从数据采集到智能决策的故障诊断系统方案。采用分层架构，以规则引擎快速起步、机器学习持续提升、">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">架构设计：产线故障智能诊断系统</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2026-08-17 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+            </div>
+          <span class="more-meta"> 约 3108 字 </span>
+          <span class="more-meta"> 预计阅读 7 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#系统整体架构">系统整体架构</a></li>
+    <li><a href="#各层详细设计与技术选型">各层详细设计与技术选型</a>
+      <ul>
+        <li><a href="#1-数据采集与接入层">1. 数据采集与接入层</a></li>
+        <li><a href="#2-数据存储与处理层">2. 数据存储与处理层</a></li>
+        <li><a href="#3-智能分析引擎层核心">3. 智能分析引擎层（核心）</a></li>
+        <li><a href="#4-后端服务层">4. 后端服务层</a></li>
+        <li><a href="#5-前端展示层">5. 前端展示层</a></li>
+      </ul>
+    </li>
+    <li><a href="#实施路径建议">实施路径建议</a>
+      <ul>
+        <li><a href="#第一期数据打通--规则引擎12-个月">第一期：数据打通 + 规则引擎（1~2 个月）</a></li>
+        <li><a href="#第二期模型训练--闭环优化23-个月">第二期：模型训练 + 闭环优化（2~3 个月）</a></li>
+        <li><a href="#第三期智能化升级持续迭代">第三期：智能化升级（持续迭代）</a></li>
+      </ul>
+    </li>
+    <li><a href="#关键注意事项">关键注意事项</a></li>
+    <li><a href="#技术栈总结">技术栈总结</a></li>
+    <li><a href="#下一步计划">下一步计划</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p><strong>摘要</strong>：本文围绕制造业产线老化测试场景，设计了一套从数据采集到智能决策的故障诊断系统方案。采用分层架构，以规则引擎快速起步、机器学习持续提升、数据闭环不断进化为核心思路，覆盖系统架构、技术选型与分阶段实施路径。</p>
+</blockquote>
+<hr>
+<h2 id="背景">背景</h2>
+<p>产线老化测试环节每天产生大量测试 Log、维修记录和复测记录，目前对故障的判定高度依赖人工经验。希望构建一套智能诊断系统，能根据测试 Log 自动给出&quot;复测&quot;或&quot;刷维修&quot;的建议，降低对人工经验的依赖，提升产线效率与一致性。</p>
+<p>整体思路是：<strong>用规则引擎快速起步，用机器学习持续提升，用数据闭环不断进化</strong>。先让产线用起来，再逐步变聪明。</p>
+<h2 id="系统整体架构">系统整体架构</h2>
+<p>建议采用分层架构，从下到上分为五层：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">┌─────────────────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">│              前端展示层（产线操作员界面）             │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│              后端服务层（API + 业务逻辑）            │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│              智能分析引擎层（核心决策）              │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│              数据存储与处理层                       │
+</span></span><span class="line"><span class="cl">├─────────────────────────────────────────────────┤
+</span></span><span class="line"><span class="cl">│              数据采集与接入层                       │
+</span></span><span class="line"><span class="cl">└─────────────────────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="各层详细设计与技术选型">各层详细设计与技术选型</h2>
+<h3 id="1-数据采集与接入层">1. 数据采集与接入层</h3>
+<p>这一层负责从产线各系统获取原始数据，是整个系统的基础。</p>
+<p><strong>需要采集的数据源：</strong></p>
+<ul>
+<li><strong>老化测试上抛 Log</strong>：测试程序产出的原始日志文件（包含测试项、错误码、错误描述、时间戳等）</li>
+<li><strong>维修记录</strong>：维修工站的操作记录（维修动作、更换部件、维修结果、维修人员等）</li>
+<li><strong>复测记录</strong>：复测的通过/失败结果、复测次数</li>
+<li><strong>设备配置信息</strong>：机型、BIOS 版本、固件版本、硬件 BOM 等</li>
+<li><strong>产线环境数据（可选）</strong>：温度、湿度、老化架位置等</li>
+</ul>
+<p><strong>技术方案：</strong></p>
+<ul>
+<li>通过消息队列（如 RabbitMQ / Kafka）对接测试系统，实时接收上抛 Log</li>
+<li>通过数据库同步（如 Canal / Debezium）或 API 对接 MES 系统，获取维修记录和复测记录</li>
+<li>对于历史存量数据，通过批量导入工具一次性灌入</li>
+</ul>
+<h3 id="2-数据存储与处理层">2. 数据存储与处理层</h3>
+<p><strong>数据库选型：</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>推荐数据库</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>结构化业务数据（工单、设备信息、维修记录）</td>
+<td>PostgreSQL / MySQL</td>
+<td>主数据库，存储核心业务数据</td>
+</tr>
+<tr>
+<td>测试 Log 原文及全文检索</td>
+<td>Elasticsearch</td>
+<td>支持 Log 的全文搜索、关键词匹配、相似度检索</td>
+</tr>
+<tr>
+<td>特征化后的 Log 数据</td>
+<td>ClickHouse / PostgreSQL</td>
+<td>存储经过解析、结构化后的 Log 特征字段，用于统计分析</td>
+</tr>
+<tr>
+<td>缓存与实时状态</td>
+<td>Redis</td>
+<td>缓存热点查询结果、设备实时状态</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数据处理流程：</strong></p>
+<ol>
+<li><strong>Log 解析</strong>：将非结构化的测试 Log 解析为结构化字段（错误码、失败测试项、错误关键词等）</li>
+<li><strong>特征提取</strong>：从 Log 中提取关键特征（如失败模块、错误类型、错误频次等）</li>
+<li><strong>数据关联</strong>：将同一台设备的测试 Log、复测记录、维修记录通过设备序列号（SN）关联起来，形成完整的&quot;故障-处置&quot;链路</li>
+</ol>
+<h3 id="3-智能分析引擎层核心">3. 智能分析引擎层（核心）</h3>
+<p>这是系统的&quot;大脑&quot;，建议采用规则引擎 + 机器学习模型双轨并行的策略。</p>
+<h4 id="第一阶段基于规则引擎快速上线">第一阶段：基于规则引擎（快速上线）</h4>
+<p>先基于资深工程师的经验，建立判定规则库。规则示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">IF 错误码 = &#34;BATTERY_COMM_FAIL&#34; AND 复测次数 &lt; 2
+</span></span><span class="line"><span class="cl">   → 建议：复测（电池通信偶发失败，复测通过率 85%）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">IF 错误码 = &#34;GPU_ARTIFACT_DETECTED&#34; AND 出现次数 &gt;= 2
+</span></span><span class="line"><span class="cl">   → 建议：刷维修（GPU花屏，硬件故障概率 95%）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">IF 错误码 IN [&#34;WIFI_TIMEOUT&#34;, &#34;BT_PAIRING_FAIL&#34;]
+</span></span><span class="line"><span class="cl">   AND 固件版本 &lt; &#34;V2.3.1&#34;
+</span></span><span class="line"><span class="cl">   → 建议：刷维修（已知固件Bug，需升级固件）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>规则引擎推荐</strong>：Drools（Java 生态）或自研轻量规则引擎</li>
+<li>规则以配置化方式管理，工程师可在后台新增、修改、启停规则，无需改代码</li>
+</ul>
+<h4 id="第二阶段引入机器学习模型持续优化">第二阶段：引入机器学习模型（持续优化）</h4>
+<p>在积累了足够的&quot;Log → 处置动作 → 最终结果&quot;数据后，训练分类模型：</p>
+<ul>
+<li><strong>输入特征</strong>：错误码、失败测试项、错误关键词、机型、固件版本、历史故障次数、老化时长等</li>
+<li><strong>输出</strong>：建议动作（复测 / 刷维修）+ 置信度</li>
+<li><strong>推荐算法</strong>：XGBoost / LightGBM（表格数据效果好、可解释性强）</li>
+<li><strong>模型服务</strong>：通过 ONNX Runtime 或 TorchServe 部署为 API</li>
+</ul>
+<h4 id="第三阶段进阶引入大语言模型辅助分析">第三阶段（进阶）：引入大语言模型辅助分析</h4>
+<p>对于规则覆盖不到的长尾 case，可以接入 LLM（如私有化部署的开源大模型），结合 RAG（检索增强生成）技术，从历史维修案例库中检索相似 case，生成诊断建议。</p>
+<h3 id="4-后端服务层">4. 后端服务层</h3>
+<p><strong>推荐技术栈：</strong></p>
+<ul>
+<li><strong>语言/框架</strong>：Java（Spring Boot）或 Python（FastAPI），取决于团队技术栈</li>
+</ul>
+<p><strong>职责：</strong></p>
+<ul>
+<li>提供 RESTful API 供前端调用</li>
+<li>接收测试系统上报的 Log，触发分析引擎</li>
+<li>管理规则库、模型版本</li>
+<li>记录每次判定结果及人工反馈（用于模型持续优化）</li>
+<li>权限管理（操作员、工程师、管理员不同权限）</li>
+</ul>
+<p><strong>核心 API 设计示例：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="err">POST /api/v1/diagnose
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// 请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;sn&#34;</span><span class="p">:</span> <span class="s2">&#34;设备序列号&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;log_content&#34;</span><span class="p">:</span> <span class="s2">&#34;原始log内容&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;test_stage&#34;</span><span class="p">:</span> <span class="s2">&#34;aging&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;suggestion&#34;</span><span class="p">:</span> <span class="s2">&#34;RETEST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;confidence&#34;</span><span class="p">:</span> <span class="mf">0.87</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;电池通信偶发失败，历史同类case复测通过率85%&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;similar_cases&#34;</span><span class="p">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;rule_matched&#34;</span><span class="p">:</span> <span class="s2">&#34;RULE_003&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5-前端展示层">5. 前端展示层</h3>
+<p><strong>推荐技术栈：</strong></p>
+<ul>
+<li><strong>框架</strong>：Vue 3 + Element Plus 或 React + Ant Design</li>
+<li><strong>部署形态</strong>：Web 应用，产线工位通过浏览器或工控机访问</li>
+</ul>
+<p><strong>核心功能页面：</strong></p>
+<ul>
+<li><strong>诊断查询页</strong>：扫码/输入 SN → 自动拉取最新 Log → 展示诊断建议（复测 or 刷维修）</li>
+<li><strong>历史记录页</strong>：按 SN、时间、故障类型查询历史诊断记录</li>
+<li><strong>规则管理页（工程师用）</strong>：新增/编辑/启停判定规则</li>
+<li><strong>统计看板</strong>：故障类型分布、复测通过率、模型准确率趋势、各机型良率等</li>
+<li><strong>反馈页</strong>：操作员可标记&quot;建议是否正确&quot;，形成闭环数据</li>
+</ul>
+<h2 id="实施路径建议">实施路径建议</h2>
+<p>建议分三期推进，控制风险。</p>
+<h3 id="第一期数据打通--规则引擎12-个月">第一期：数据打通 + 规则引擎（1~2 个月）</h3>
+<ul>
+<li>打通测试系统 Log 上报通道，接入数据库</li>
+<li>整理历史维修记录，与 Log 做关联分析</li>
+<li>与资深工程师一起梳理高频故障场景，编写判定规则（先覆盖 70%~80% 的常见 case）</li>
+<li>开发基础的前端查询页面</li>
+</ul>
+<p><strong>目标</strong>：产线操作员可通过系统查询，系统给出规则建议，但人工仍做最终确认。</p>
+<h3 id="第二期模型训练--闭环优化23-个月">第二期：模型训练 + 闭环优化（2~3 个月）</h3>
+<ul>
+<li>积累第一期运行数据（系统建议 vs 人工最终决策）</li>
+<li>训练分类模型，与规则引擎结果做加权融合</li>
+<li>增加反馈机制，持续优化规则和模型</li>
+</ul>
+<p><strong>目标</strong>：系统建议准确率达到 90% 以上，逐步减少人工复判。</p>
+<h3 id="第三期智能化升级持续迭代">第三期：智能化升级（持续迭代）</h3>
+<ul>
+<li>引入 LLM + RAG 处理长尾 case</li>
+<li>对接产线自动化设备，实现建议自动执行（如自动触发复测流程）</li>
+<li>构建知识图谱，实现故障根因分析</li>
+</ul>
+<p><strong>目标</strong>：减少人工干预，提升产线效率。</p>
+<h2 id="关键注意事项">关键注意事项</h2>
+<ul>
+<li><strong>数据质量是生命线</strong>：Log 格式要标准化，维修记录要结构化录入，垃圾数据进垃圾数据出。</li>
+<li><strong>先规则后模型</strong>：不要一上来就搞 AI，先把规则引擎跑通，让产线先用起来，积累数据后再上模型。</li>
+<li><strong>保留人工兜底</strong>：系统给出建议 + 置信度，低置信度的 case 仍交给人工判断，避免误判造成损失。</li>
+<li><strong>可解释性很重要</strong>：每条建议必须附带理由（命中了哪条规则、参考了哪些历史 case），产线人员才能信任系统。</li>
+<li><strong>与现有系统集成</strong>：需要考虑与 MES、测试程序、维修工站的对接方式，尽量减少产线操作人员的额外操作。</li>
+</ul>
+<h2 id="技术栈总结">技术栈总结</h2>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>推荐技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前端</td>
+<td>Vue 3 / React + Element Plus / Ant Design</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>Spring Boot (Java) 或 FastAPI (Python)</td>
+</tr>
+<tr>
+<td>关系数据库</td>
+<td>PostgreSQL / MySQL</td>
+</tr>
+<tr>
+<td>搜索引擎</td>
+<td>Elasticsearch</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>Redis</td>
+</tr>
+<tr>
+<td>消息队列</td>
+<td>RabbitMQ / Kafka</td>
+</tr>
+<tr>
+<td>规则引擎</td>
+<td>Drools / 自研轻量引擎</td>
+</tr>
+<tr>
+<td>机器学习</td>
+<td>XGBoost / LightGBM + scikit-learn</td>
+</tr>
+<tr>
+<td>模型服务</td>
+<td>ONNX Runtime / FastAPI 封装</td>
+</tr>
+<tr>
+<td>大模型（进阶）</td>
+<td>私有化部署开源 LLM + RAG（LangChain）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="下一步计划">下一步计划</h2>
+<ul>
+<li>与产线工程师对齐高频故障场景，输出首版规则清单</li>
+<li>搭建数据采集通道，完成 Log 与维修记录的 SN 关联</li>
+<li>搭建最小可用前端，跑通&quot;扫码 → 诊断 → 建议&quot;主流程</li>
+<li>建立反馈闭环，为后续模型训练积累标注数据</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2026-08-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%99%BA%E8%83%BD%E5%88%B6%E9%80%A0/">智能制造</a>
+          <a href="/tags/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">系统架构</a>
+          <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+          <a href="/tags/%E6%95%85%E9%9A%9C%E8%AF%8A%E6%96%AD/">故障诊断</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/Aging-Dashboard-Web-Development/">
+            <span class="next-text nav-default">应用开发：老化看板Web程序开发</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
