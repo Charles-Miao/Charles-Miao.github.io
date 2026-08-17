@@ -9,21 +9,21 @@
     <lastBuildDate>Thu, 13 Aug 2026 21:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/tags/AI-Agent/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>AI Agent应用 - 老化看板Web程序开发</title>
-      <link>https://Charles-Miao.github.io/post/AI-Agent-Aging-Dashboard-Web-Development/</link>
+      <title>老化看板Web程序开发</title>
+      <link>https://Charles-Miao.github.io/post/Aging-Dashboard-Web-Development/</link>
       <pubDate>Thu, 13 Aug 2026 21:00:00 +0800</pubDate>
-      <guid>https://Charles-Miao.github.io/post/AI-Agent-Aging-Dashboard-Web-Development/</guid>
+      <guid>https://Charles-Miao.github.io/post/Aging-Dashboard-Web-Development/</guid>
       <description>摘要：本文记录了使用 AI Agent 辅助开发老化架（Run-in Rack）测试看板系统的完整过程。系统基于 Flask + MySQL + Vue 3 + Element Plus + ECharts 构建，通过 SNMP 协议采集交换</description>
     </item>
     <item>
-      <title>AI Agent应用 - 制造测试脚本逆向工程</title>
+      <title>制造测试脚本逆向工程</title>
       <link>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</link>
       <pubDate>Sun, 02 Aug 2026 16:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</guid>
       <description>摘要：本文记录了针对某笔记本工厂老化测试（RUNIN）与系统下载（SWDL）两套测试脚本体系的逆向梳理过程：从 PXE 网络启动入口出发，逐层解读 .bat/.cmd</description>
     </item>
     <item>
-      <title>AI Agent应用 - 自动化工单检查工作流</title>
+      <title>自动化工单检查工作流</title>
       <link>https://Charles-Miao.github.io/post/ai-agent-tso-workflow/</link>
       <pubDate>Thu, 23 Jul 2026 17:00:00 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/ai-agent-tso-workflow/</guid>

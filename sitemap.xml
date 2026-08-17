@@ -9,14 +9,21 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/tags/AI-Agent/</loc>
-    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
+    <loc>https://Charles-Miao.github.io/</loc>
+    <lastmod>2026-08-17T12:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/post/AI-Agent-Aging-Dashboard-Web-Development/</loc>
+    <loc>https://Charles-Miao.github.io/post/</loc>
+    <lastmod>2026-08-17T12:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/tags/AI-Agent/</loc>
     <lastmod>2026-08-13T21:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -30,21 +37,7 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/</loc>
-    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://Charles-Miao.github.io/tags/Flask/</loc>
-    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/post/</loc>
     <lastmod>2026-08-13T21:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -86,8 +79,8 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</loc>
-    <lastmod>2026-08-02T16:00:00+08:00</lastmod>
+    <loc>https://Charles-Miao.github.io/post/Aging-Dashboard-Web-Development/</loc>
+    <lastmod>2026-08-13T21:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -128,8 +121,8 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/post/ai-agent-tso-workflow/</loc>
-    <lastmod>2026-07-23T17:00:00+08:00</lastmod>
+    <loc>https://Charles-Miao.github.io/post/factory-test-script-reverse-engineering/</loc>
+    <lastmod>2026-08-02T16:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -157,6 +150,13 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
+    <lastmod>2026-07-23T17:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/ai-agent-tso-workflow/</loc>
     <lastmod>2026-07-23T17:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
