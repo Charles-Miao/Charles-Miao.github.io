@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Agent应用：基于TRAE的项目理解 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="摘要：本文记录了使用 TRAE Agent 深入理解联想 ProjectH SWDL（工厂量产软件下载）流程的完整过程。通过代码追踪，纠正了原有文档中的多处流程错误，发现并定位了" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/blog_projecth_swdl_trae/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/blog_projecth_swdl_trae/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Agent应用：基于TRAE的项目理解">
+  <meta property="og:description" content="摘要：本文记录了使用 TRAE Agent 深入理解联想 ProjectH SWDL（工厂量产软件下载）流程的完整过程。通过代码追踪，纠正了原有文档中的多处流程错误，发现并定位了">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-10-12T15:00:00+08:00">
+    <meta property="article:modified_time" content="2026-10-12T15:00:00+08:00">
+    <meta property="article:tag" content="TRAE">
+    <meta property="article:tag" content="SWDL">
+    <meta property="article:tag" content="代码理解">
+    <meta property="article:tag" content="Agent">
+
+  <meta itemprop="name" content="Agent应用：基于TRAE的项目理解">
+  <meta itemprop="description" content="摘要：本文记录了使用 TRAE Agent 深入理解联想 ProjectH SWDL（工厂量产软件下载）流程的完整过程。通过代码追踪，纠正了原有文档中的多处流程错误，发现并定位了">
+  <meta itemprop="datePublished" content="2026-10-12T15:00:00+08:00">
+  <meta itemprop="dateModified" content="2026-10-12T15:00:00+08:00">
+  <meta itemprop="wordCount" content="2055">
+  <meta itemprop="keywords" content="TRAE,SWDL,代码理解,Agent">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Agent应用：基于TRAE的项目理解">
+  <meta name="twitter:description" content="摘要：本文记录了使用 TRAE Agent 深入理解联想 ProjectH SWDL（工厂量产软件下载）流程的完整过程。通过代码追踪，纠正了原有文档中的多处流程错误，发现并定位了">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Agent应用：基于TRAE的项目理解</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2026-10-12 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+            </div>
+          <span class="more-meta"> 约 2055 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#trae-理解项目的过程">TRAE 理解项目的过程</a>
+      <ul>
+        <li><a href="#1-生成-code-wiki">1. 生成 Code Wiki</a></li>
+        <li><a href="#2-追踪并修正流程错误">2. 追踪并修正流程错误</a></li>
+        <li><a href="#3-定位生产偶发问题">3. 定位生产偶发问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#trae-vs-qwenpaw-对比">TRAE vs QwenPaw 对比</a>
+      <ul>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#下一步计划">下一步计划</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p><strong>摘要</strong>：本文记录了使用 TRAE Agent 深入理解联想 ProjectH SWDL（工厂量产软件下载）流程的完整过程。通过代码追踪，纠正了原有文档中的多处流程错误，发现并定位了两个生产环境偶发问题的根因，并对比了 TRAE 与 QwenPaw 在不同场景下的适用性。</p>
+</blockquote>
+<hr>
+<h2 id="背景">背景</h2>
+<p>ProjectH SWDL 是联想笔记本工厂量产线上的软件下载部署系统，基于 WinPE + 批处理脚本驱动，涉及镜像部署、OA3 硬件哈希采集、MES 数据上报、BIOS/EC 配置及 Ship Mode 出厂装箱等工序。整套系统由数十个 .bat/.cmd 脚本组成，调用链跨越多次重启（PXE → HDD → PXE），代码量庞大且缺乏完整文档。</p>
+<p>之前整理过一份流程文档，但其中存在一些不准确之处。本次尝试使用 TRAE Agent 对源码进行逐行追踪，验证并修正了流程描述，同时分析了两个生产偶发问题。</p>
+<h2 id="trae-理解项目的过程">TRAE 理解项目的过程</h2>
+<h3 id="1-生成-code-wiki">1. 生成 Code Wiki</h3>
+<p>首先让 TRAE 扫描整个仓库，生成结构化的 <a href="">CODE_WIKI.md</a>，包含：</p>
+<ul>
+<li>项目整体架构（分层图）</li>
+<li>目录结构与模块职责（完整目录树）</li>
+<li>关键脚本与函数说明（入口层 / 测试层 / OBE / 镜像部署层 / FAC / 工具）</li>
+<li>依赖关系（脚本调用图 / 二进制工具 / 驱动 / 网络服务）</li>
+<li>完整运行流程（三阶段）</li>
+<li>ProjectD 对比表</li>
+</ul>
+<h3 id="2-追踪并修正流程错误">2. 追踪并修正流程错误</h3>
+<p>在生成 Wiki 的过程中，TRAE 通过逐行阅读代码发现了原有文档的多处错误：</p>
+<h4 id="错误一路线-c不存在">错误一：&ldquo;路线 C&quot;不存在</h4>
+<p>原文档描述 DLSHIP.BAT 有三条路线（LFIP / OA3-FQC / 普通-OBE-非-FQC），其中&quot;路线 C&quot;跳过 OpenLid 直接 REHDDBOOT。</p>
+<p>TRAE 追踪代码后发现 <code>:FinalCHK</code> 在 <code>CheckOS=PASS</code> 时直接 <code>goto :Check_ACState</code>（L315），完全跳过 <code>:MES_INSTALLOS</code>（L319）和 <code>:FinalCHKBIOS</code>（L342-378），FQC 判断代码<strong>不可达</strong>，实际只有两条路线。</p>
+<h4 id="错误二rehddboot-不是重启">错误二：&quot;:REHDDBOOT&rdquo; 不是重启</h4>
+<p>原文档写&quot;Reboot 进入 HDD Ship Image → 在 HDD 中执行 MES/ShipMode/Shutdown&quot;。</p>
+<p>TRAE 逐行阅读 <a href="">DLSHIP.BAT L568-580</a> 后发现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl"><span class="p">:</span><span class="nl">REHDDBOOT</span>
+</span></span><span class="line"><span class="cl"><span class="k">call</span> BIOS_load_default.bat
+</span></span><span class="line"><span class="cl"><span class="k">CALL</span> BIOS_boot_to_HDD.BAT           ← 仅设置 BIOS 启动顺序
+</span></span><span class="line"><span class="cl">H2OUVE-W-CONSOLEx64.exe -uvebf disabled
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">:</span><span class="nl">ALLPASS</span><span class="c1">                             ← 直接贯穿！没有 reboot！</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>:REHDDBOOT</code> 只设置 BIOS 启动顺序为 HDD，<strong>不执行重启</strong>，脚本直接贯穿到 <code>:ALLPASS</code>，所有收尾步骤（MES 上报、日志上传、Show SN、Ship Mode、Close MFG、电量检查、关机）都在 <strong>WinPE</strong> 中完成，最终 <code>wpeutil shutdown</code> 关机。</p>
+<h4 id="错误三完整三阶段流程">错误三：完整三阶段流程</h4>
+<p>原文档将 FAC 阶段简单描述为&quot;HDD 内执行&quot;。</p>
+<p>TRAE 追踪后发现完整流程是<strong>三阶段</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Phase 1 (首次 PXE): LFIP 下载镜像 → 设 HDD 启动 → 重启
+</span></span><span class="line"><span class="cl">Phase 2 (HDD): Windows OOBE 执行 OA30.CMD(写 OA3) + PXEBOOT.CMD(切回 PXE) → 重启
+</span></span><span class="line"><span class="cl">Phase 3 (二次 PXE): CheckOS=PASS → 电池→SecureBoot→DEL_OEM→REHDDBOOT(不重启)
+</span></span><span class="line"><span class="cl">  → MES PASS + 日志 + ShowSN + ShipMode + CloseMFG + shutdown (全程 WinPE)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-定位生产偶发问题">3. 定位生产偶发问题</h3>
+<p>基于对代码的深入理解，分析了两个每天 600 台中 1-2 台复现的问题：</p>
+<h4 id="问题一黑屏mes-pass-后ship-mode-前">问题一：黑屏（MES PASS 后、Ship Mode 前）</h4>
+<table>
+<thead>
+<tr>
+<th>线索</th>
+<th>分析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Caps Lock 可切换</td>
+<td>系统未死机，显示控制器/面板供电异常</td>
+</tr>
+<tr>
+<td>重启后 BIOS/WinPE 都会随机黑屏</td>
+<td>硬件层问题，非 OS 层</td>
+</tr>
+<tr>
+<td>概率低（1-2/600）</td>
+<td>特定面板批次或 EC 固件边界条件</td>
+</tr>
+</tbody>
+</table>
+<p><strong>最大嫌疑</strong>：<code>H2OUVE-W-CONSOLEx64.exe -uvebf disabled</code>（L577），该命令写入 BIOS NVRAM 禁用 UVEBF，特定面板不兼容会导致黑屏，且设置持久化重启后仍生效。</p>
+<p><strong>恢复方式</strong>：拔 AC + 拆电池 → 长按电源键 30 秒 → EC 硬复位。</p>
+<h4 id="问题二电量-100ship-mode-后">问题二：电量 100%（Ship Mode 后）</h4>
+<p>代码执行顺序为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1. SHIPMODE  → set_ship_mode 1        ← 进入 Ship Mode (电池隔离)
+</span></span><span class="line"><span class="cl">2. CloseMFG  → set_learn_mode 0       ← 退出 Learn Mode
+</span></span><span class="line"><span class="cl">3.            → set_test 0             ← 退出 Test Mode (可能恢复充电!)
+</span></span><span class="line"><span class="cl">4.            → set_mfg_mode 0         ← 退出 MFG Mode
+</span></span><span class="line"><span class="cl">5.            → ACStatus -c 55 75     ← 电量检查 (此时仍 55-75%)
+</span></span><span class="line"><span class="cl">6.            → wpeutil shutdown       ← 关机
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>根因</strong>：Ship Mode 在 CloseMFG 之前执行。<code>set_test 0</code> 退出 Test Mode 时可能覆盖了 Ship Mode 的电池隔离状态，如果 AC 仍连接，电池会在关机后继续充电到 100%。</p>
+<p><strong>修复建议</strong>：对调顺序，Ship Mode 放最后：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CloseMFG → ACStatus → SHIPMODE → shutdown
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="trae-vs-qwenpaw-对比">TRAE vs QwenPaw 对比</h2>
+<p>在这次项目分析中，我同时使用了 TRAE 和 QwenPaw，对比两者的体验：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>TRAE</th>
+<th>QwenPaw</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>代码理解</strong></td>
+<td>★★★★★ 逐行追踪批处理脚本，交叉引用行号，发现不可达死代码</td>
+<td>★★★ 可处理单文件，但跨文件调用链追踪弱</td>
+</tr>
+<tr>
+<td><strong>代码编写</strong></td>
+<td>★★★★★ 直接编辑项目文件，保持原有格式</td>
+<td>★★★ 偏向桌面操作，代码编写非强项</td>
+</tr>
+<tr>
+<td><strong>问题诊断</strong></td>
+<td>★★★★★ 能结合代码逻辑 + 生产现象定位根因</td>
+<td>★★★ 可分析现象，但无法深入代码验证</td>
+</tr>
+<tr>
+<td><strong>批量桌面任务</strong></td>
+<td>★★★ 可执行但非核心场景</td>
+<td>★★★★★ 批量文件操作、桌面自动化强项</td>
+</tr>
+<tr>
+<td><strong>个人助理</strong></td>
+<td>★★★ 偏代码导向</td>
+<td>★★★★★ 通用助理性质更浓</td>
+</tr>
+<tr>
+<td><strong>项目全景</strong></td>
+<td>★★★★★ 扫描整个仓库生成 Wiki，理解架构</td>
+<td>★★ 缺乏项目级全局视角</td>
+</tr>
+<tr>
+<td><strong>交互体验</strong></td>
+<td>★★★★★ 可点击文件链接跳转源码</td>
+<td>★★★ 传统对话式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结">总结</h3>
+<ul>
+<li><strong>TRAE 更适合</strong>：代码设计、代码编写、代码理解、针对代码中的问题提问和优化、跨文件调用链追踪、项目架构分析</li>
+<li><strong>QwenPaw 更适合</strong>：批量桌面操作、文件管理、个人助理性质的任务</li>
+</ul>
+<h2 id="下一步计划">下一步计划</h2>
+<ul>
+<li>测试性修改 <code>H2OUVE -uvebf disabled</code> 行，验证黑屏是否消除</li>
+<li>对调 SHIPMODE 和 CloseMFG 顺序，验证电量 100% 问题</li>
+<li>用 TRAE 继续分析 ProjectD SWDL 流程，完善对比</li>
+<li>探索 TRAE 的代码修改能力，尝试直接修复 DLSHIP.BAT</li>
+</ul>
+<hr>
+<p>✅ 通过 TRAE 深入理解了 ProjectH SWDL 完整流程，修正了 3 处流程错误，定位了 2 个生产问题根因。TRAE 在代码理解和问题诊断方面表现出色。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2026-10-12
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/TRAE/">TRAE</a>
+          <a href="/tags/SWDL/">SWDL</a>
+          <a href="/tags/%E4%BB%A3%E7%A0%81%E7%90%86%E8%A7%A3/">代码理解</a>
+          <a href="/tags/Agent/">Agent</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/production-fault-diagnosis/">
+            <span class="next-text nav-default">架构设计：产线故障智能诊断系统</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
