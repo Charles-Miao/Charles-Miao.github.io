@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FA报告 on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/categories/FA%E6%8A%A5%E5%91%8A/</link>
+    <description>Recent content in FA报告 on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 17 May 2022 12:00:00 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/categories/FA%E6%8A%A5%E5%91%8A/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wallaby DL OS NG 失效分析</title>
+      <link>https://Charles-Miao.github.io/post/wallaby-dl-os-ng-fa-report/</link>
+      <pubDate>Tue, 17 May 2022 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/wallaby-dl-os-ng-fa-report/</guid>
+      <description>摘要：本文记录了Wallaby机型TV阶段Shipping Image下载失败（DL OS NG）问题的完整失效分析过程，涵盖问题描述、人机料法环全</description>
+    </item>
+    <item>
+      <title>Lion ZC 网络连接慢问题分析</title>
+      <link>https://Charles-Miao.github.io/post/lion-zc-network-slow-analysis/</link>
+      <pubDate>Wed, 05 Dec 2018 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/lion-zc-network-slow-analysis/</guid>
+      <description>摘要：本文记录了Lion机型ZC阶段网络连接慢（上电后ping通时间从15秒延长至60秒）的完整分析过程，涵盖测试网络架构排查、交叉验证、数</description>
+    </item>
+  </channel>
+</rss>

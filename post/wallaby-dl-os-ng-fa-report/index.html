@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Wallaby DL OS NG 失效分析 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="摘要：本文记录了Wallaby机型TV阶段Shipping Image下载失败（DL OS NG）问题的完整失效分析过程，涵盖问题描述、人机料法环全" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/wallaby-dl-os-ng-fa-report/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/wallaby-dl-os-ng-fa-report/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Wallaby DL OS NG 失效分析">
+  <meta property="og:description" content="摘要：本文记录了Wallaby机型TV阶段Shipping Image下载失败（DL OS NG）问题的完整失效分析过程，涵盖问题描述、人机料法环全">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-05-17T12:00:00+08:00">
+    <meta property="article:modified_time" content="2022-05-17T12:00:00+08:00">
+    <meta property="article:tag" content="失效分析">
+    <meta property="article:tag" content="Wallaby">
+    <meta property="article:tag" content="DL">
+    <meta property="article:tag" content="MCP">
+    <meta property="article:tag" content="Bad Block">
+
+  <meta itemprop="name" content="Wallaby DL OS NG 失效分析">
+  <meta itemprop="description" content="摘要：本文记录了Wallaby机型TV阶段Shipping Image下载失败（DL OS NG）问题的完整失效分析过程，涵盖问题描述、人机料法环全">
+  <meta itemprop="datePublished" content="2022-05-17T12:00:00+08:00">
+  <meta itemprop="dateModified" content="2022-05-17T12:00:00+08:00">
+  <meta itemprop="wordCount" content="1602">
+  <meta itemprop="keywords" content="失效分析,Wallaby,DL,MCP,Bad Block">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Wallaby DL OS NG 失效分析">
+  <meta name="twitter:description" content="摘要：本文记录了Wallaby机型TV阶段Shipping Image下载失败（DL OS NG）问题的完整失效分析过程，涵盖问题描述、人机料法环全">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Wallaby DL OS NG 失效分析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-05-17 </span>
+        <div class="post-category">
+            <a href="/categories/FA%E6%8A%A5%E5%91%8A/"> FA报告 </a>
+            </div>
+          <span class="more-meta"> 约 1602 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#问题描述">问题描述</a></li>
+    <li><a href="#问题分析人机料法环">问题分析（人机料法环）</a>
+      <ul>
+        <li><a href="#历史数据分析">历史数据分析</a></li>
+        <li><a href="#人人员作业手法">人（人员作业手法）</a></li>
+        <li><a href="#机设备治具">机（设备/治具）</a></li>
+        <li><a href="#料物料mcp">料（物料/MCP）</a></li>
+        <li><a href="#法测试方法流程">法（测试方法/流程）</a></li>
+        <li><a href="#环环境因素">环（环境因素）</a></li>
+        <li><a href="#分析总结">分析总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#根本原因">根本原因</a></li>
+    <li><a href="#action">Action</a>
+      <ul>
+        <li><a href="#short-term短期对策">Short Term（短期对策）</a></li>
+        <li><a href="#long-term长期对策">Long Term（长期对策）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2022-05-17T12:00:00" title="May 17, 2022">May 17, 2022</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <blockquote>
+<p><strong>摘要</strong>：本文记录了Wallaby机型TV阶段Shipping Image下载失败（DL OS NG）问题的完整失效分析过程，涵盖问题描述、人机料法环全方位排查、根本原因定位以及短期/长期改善措施。</p>
+</blockquote>
+<hr>
+<h2 id="问题描述">问题描述</h2>
+<ul>
+<li><strong>机型</strong>：Wallaby</li>
+<li><strong>发生时间</strong>：2022年02月14日</li>
+<li><strong>发生阶段</strong>：TV（共5机）</li>
+<li><strong>不良率</strong>：0.5%~1.0%（年前约0.2%）</li>
+<li><strong>现象描述</strong>：Wallaby Shipping image 下载失败，设备管理器中无法识别到设备；
+NG主板回流PCBA后，100%可以强制下载test image。</li>
+</ul>
+<hr>
+<h2 id="问题分析人机料法环">问题分析（人机料法环）</h2>
+<h3 id="历史数据分析">历史数据分析</h3>
+<p>通过Wallaby DL NG历史数据分析：</p>
+<ol>
+<li><strong>时间趋势</strong>：问题初始发生于2月份，断断续续出现高不良，集中爆发时间为3月至5月初。</li>
+<li><strong>不良率走势</strong>：
+<ul>
+<li>2月初：F/R约 0.2%</li>
+<li>2月下半月：F/R升至约 0.7%</li>
+<li>3月：F/R约 0.9%</li>
+<li>4~5月初：F/R约 1.1%</li>
+</ul>
+</li>
+<li><strong>失败阶段</strong>：DL NG机台绝大多数在烧录 <strong>System file</strong> 和少量烧录 <strong>Modem file</strong> 时fail，错误类型为 <code>status read failed (too many links)</code>。</li>
+<li><strong>治具分布</strong>：捞取NG机台UI log发现，NG未集中出现在某个治具，排除治具单点问题。</li>
+</ol>
+<h3 id="人人员作业手法">人（人员作业手法）</h3>
+<p>排查动作：</p>
+<ul>
+<li>测试人员盯站确认作业手法</li>
+<li>治具清洁</li>
+</ul>
+<p><strong>结论</strong>：以上动作均无改善，<strong>排除人员因素</strong>。</p>
+<h3 id="机设备治具">机（设备/治具）</h3>
+<p>排查动作：</p>
+<ul>
+<li>两套cradle治具更换为顶针治具</li>
+<li>3/15使用台北寄出新底座</li>
+<li>更换I5 8G高配电脑</li>
+<li>清理电脑中USB HWID、device ID等注册表信息</li>
+</ul>
+<p><strong>结论</strong>：以上动作均无改善，<strong>排除治具和测试电脑因素</strong>。</p>
+<h3 id="料物料mcp">料（物料/MCP）</h3>
+<p>排查动作：</p>
+<ul>
+<li>NG机台MCP送厂商分析，结果为 <strong>NTF</strong>（No Trouble Found）</li>
+<li>将NG机台的MCP植球到OK板子上进行DL shipping loopback测试，<strong>不良现象跟随MCP</strong></li>
+<li>OK机台来回DL shipping和factory共300次，未发生fail现象</li>
+<li>5/8抓取NG MB DL fail的UART log，log显示烧录system file时出现 <strong>bad block</strong>，随后烧录中断，机台USB连接断开，且无法再识别到装置</li>
+<li>确认4月底至5月初MCP D/C：
+<ul>
+<li>SMT P13616400E-2148</li>
+<li>SMT P14208300E-2202（提供UART log的板子为此code）</li>
+<li>SMT P14025400E-2202</li>
+</ul>
+</li>
+</ul>
+<p><strong>结论</strong>：不良现象跟随MCP，且UART log确认出现bad block，<strong>料件（MCP）为主要怀疑方向</strong>。</p>
+<h3 id="法测试方法流程">法（测试方法/流程）</h3>
+<p>排查动作：</p>
+<ul>
+<li>RD初次建议将modem和system烧录顺序往前调整，验证后未能起效</li>
+<li>Qualcomm建议flash modem和system file前先做 <strong>erase</strong> 这两个分区的动作</li>
+<li>5/12~5/14 try run验证，<strong>无烧录modem &amp; system fail的issue</strong></li>
+</ul>
+<p><strong>结论</strong>：烧录前增加erase分区动作可有效解决此问题。</p>
+<h3 id="环环境因素">环（环境因素）</h3>
+<p>排查动作：</p>
+<ul>
+<li>RD考虑错误信息显示&quot;too many links&quot;，可能是电脑USB接口供给cradle的5V不稳定导致</li>
+<li>建议增加USB HUB转接（HUB有额外电源供电）</li>
+<li>验证测试3号、4号测试电脑HUB转接，<strong>并无改善</strong></li>
+</ul>
+<p><strong>结论</strong>：以上动作均无改善，<strong>排除环境因素</strong>。</p>
+<h3 id="分析总结">分析总结</h3>
+<blockquote>
+<p>初步分析 <strong>MCP bad block问题</strong> 导致Wallaby TV DL高不良。</p>
+</blockquote>
+<hr>
+<h2 id="根本原因">根本原因</h2>
+<p><strong>Root Cause</strong>：初步分析 <strong>MCP bad block数量超标或bad block集中在key partition</strong>，导致烧录指令无法完成烧录动作。而system file属于系统关键文件，此部分烧录fail导致机台USB断开，无法识别装置。</p>
+<p>关于MCP厂商对于Bad block管控的规格：</p>
+<blockquote>
+<p>bad blocks 的规格为 original bad block &gt; 40 为不良品</p>
+</blockquote>
+<p>近期MCP bad block数量和分布状况，待TM与厂商确认是否可以提供。</p>
+<hr>
+<h2 id="action">Action</h2>
+<h3 id="short-term短期对策">Short Term（短期对策）</h3>
+<ol>
+<li>在flash modem和system分区文件前，先做 <strong>erase分区</strong> 动作（5/16开会正式导入）</li>
+<li>PD和FAE区分fail状况，根据fail状况再加入其他的erase指令</li>
+</ol>
+<h3 id="long-term长期对策">Long Term（长期对策）</h3>
+<ol>
+<li>收集NG MCP D/C信息提供给TM，待TM与MCP厂商确认关于bad block是否有改善的机会</li>
+<li>将 <strong>Erase动作作为标配</strong> 加入image download流程中</li>
+</ol>
+<hr>
+<p>✅ 失效分析完成，短期对策已验证有效，长期对策持续跟进中！</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-05-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%A4%B1%E6%95%88%E5%88%86%E6%9E%90/">失效分析</a>
+          <a href="/tags/Wallaby/">Wallaby</a>
+          <a href="/tags/DL/">DL</a>
+          <a href="/tags/MCP/">MCP</a>
+          <a href="/tags/Bad-Block/">Bad Block</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/python-log-to-xml-automation/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Python 实战：自动化测试日志转 XML 系统实践</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/windows-rsync-realtime/">
+            <span class="next-text nav-default">Windows实时同步文件至NAS</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

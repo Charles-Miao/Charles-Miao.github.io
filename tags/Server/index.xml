@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Server on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/Server/</link>
+    <description>Recent content in Server on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 17 Sep 2019 12:00:00 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/tags/Server/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Server异常与机房温度关联分析</title>
+      <link>https://Charles-Miao.github.io/post/server-temp-correlation-analysis/</link>
+      <pubDate>Tue, 17 Sep 2019 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/server-temp-correlation-analysis/</guid>
+      <description>摘要：本文基于2017年至2019年的HDD/Server异常记录，结合2019年6~9月机房温度监控数据，深入分析了机房温度与服务器故障之</description>
+    </item>
+  </channel>
+</rss>

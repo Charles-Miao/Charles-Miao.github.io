@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lion on Charles&#39;s Blog</title>
+    <link>https://Charles-Miao.github.io/tags/Lion/</link>
+    <description>Recent content in Lion on Charles&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 05 Dec 2018 12:00:00 +0800</lastBuildDate>
+    <atom:link href="https://Charles-Miao.github.io/tags/Lion/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lion ZC 网络连接慢问题分析</title>
+      <link>https://Charles-Miao.github.io/post/lion-zc-network-slow-analysis/</link>
+      <pubDate>Wed, 05 Dec 2018 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/lion-zc-network-slow-analysis/</guid>
+      <description>摘要：本文记录了Lion机型ZC阶段网络连接慢（上电后ping通时间从15秒延长至60秒）的完整分析过程，涵盖测试网络架构排查、交叉验证、数</description>
+    </item>
+  </channel>
+</rss>

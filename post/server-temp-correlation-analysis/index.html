@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Server异常与机房温度关联分析 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="摘要：本文基于2017年至2019年的HDD/Server异常记录，结合2019年6~9月机房温度监控数据，深入分析了机房温度与服务器故障之" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/server-temp-correlation-analysis/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/server-temp-correlation-analysis/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="Server异常与机房温度关联分析">
+  <meta property="og:description" content="摘要：本文基于2017年至2019年的HDD/Server异常记录，结合2019年6~9月机房温度监控数据，深入分析了机房温度与服务器故障之">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2019-09-17T12:00:00+08:00">
+    <meta property="article:modified_time" content="2019-09-17T12:00:00+08:00">
+    <meta property="article:tag" content="机房运维">
+    <meta property="article:tag" content="温度监控">
+    <meta property="article:tag" content="Server">
+    <meta property="article:tag" content="HDD">
+    <meta property="article:tag" content="数据分析">
+
+  <meta itemprop="name" content="Server异常与机房温度关联分析">
+  <meta itemprop="description" content="摘要：本文基于2017年至2019年的HDD/Server异常记录，结合2019年6~9月机房温度监控数据，深入分析了机房温度与服务器故障之">
+  <meta itemprop="datePublished" content="2019-09-17T12:00:00+08:00">
+  <meta itemprop="dateModified" content="2019-09-17T12:00:00+08:00">
+  <meta itemprop="wordCount" content="2200">
+  <meta itemprop="keywords" content="机房运维,温度监控,Server,HDD,数据分析">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Server异常与机房温度关联分析">
+  <meta name="twitter:description" content="摘要：本文基于2017年至2019年的HDD/Server异常记录，结合2019年6~9月机房温度监控数据，深入分析了机房温度与服务器故障之">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Server异常与机房温度关联分析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-09-17 </span>
+        <div class="post-category">
+            <a href="/categories/%E8%BF%90%E7%BB%B4%E5%88%86%E6%9E%90/"> 运维分析 </a>
+            </div>
+          <span class="more-meta"> 约 2200 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#机房温度变化趋势">机房温度变化趋势</a>
+      <ul>
+        <li><a href="#2019年69月温度走势">2019年6~9月温度走势</a></li>
+        <li><a href="#温湿度传感器实测数据">温湿度传感器实测数据</a></li>
+      </ul>
+    </li>
+    <li><a href="#server异常与温度关联分析">Server异常与温度关联分析</a>
+      <ul>
+        <li><a href="#69月故障事件对比">6~9月故障事件对比</a></li>
+        <li><a href="#严重事件时间线">严重事件时间线</a></li>
+      </ul>
+    </li>
+    <li><a href="#历史数据分析20172019">历史数据分析（2017~2019）</a>
+      <ul>
+        <li><a href="#hdd异常年度趋势">HDD异常年度趋势</a></li>
+        <li><a href="#server异常年度趋势">Server异常年度趋势</a></li>
+      </ul>
+    </li>
+    <li><a href="#分析结论">分析结论</a>
+      <ul>
+        <li><a href="#核心结论">核心结论</a></li>
+        <li><a href="#温度控制建议">温度控制建议</a></li>
+      </ul>
+    </li>
+    <li><a href="#改进建议">改进建议</a>
+      <ul>
+        <li><a href="#1-制冷系统冗余">1. 制冷系统冗余</a></li>
+        <li><a href="#2-温度监控告警">2. 温度监控告警</a></li>
+        <li><a href="#3-高温季节专项巡检">3. 高温季节专项巡检</a></li>
+        <li><a href="#4-数据持续积累">4. 数据持续积累</a></li>
+      </ul>
+    </li>
+    <li><a href="#经验总结">经验总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+  <div class="post-outdated">
+    <div class="warn">
+      <p>【注意】最后更新于 <span class="timeago" datetime="2019-09-17T12:00:00" title="September 17, 2019">September 17, 2019</span>，文中内容可能已过时，请谨慎使用。</p>
+    </div>
+  </div>
+    <div class="post-content">
+      <blockquote>
+<p><strong>摘要</strong>：本文基于2017年至2019年的HDD/Server异常记录，结合2019年6~9月机房温度监控数据，深入分析了机房温度与服务器故障之间的关联性。数据表明，高温季节HDD损坏和Server异常数量明显增多，建议机房温度控制在22°C±2°C范围内。</p>
+</blockquote>
+<hr>
+<h2 id="背景">背景</h2>
+<p>机房温度是影响服务器稳定性的关键因素之一。2019年7月中旬以来，机房温度出现明显上升且波动加大，同期Server异常和HDD损坏事件有所增加。本文从历史数据和实时监控两个维度，系统分析温度对机房设备可靠性的影响。</p>
+<p><strong>分析数据来源</strong>：</p>
+<ul>
+<li>2017年~2019年 HDD/Server 异常记录</li>
+<li>2019年6月~9月 机房每日平均温度数据</li>
+<li>B6_Temp1 温湿度传感器实时数据（2019-09 ~ 2019-11）</li>
+</ul>
+<hr>
+<h2 id="机房温度变化趋势">机房温度变化趋势</h2>
+<h3 id="2019年69月温度走势">2019年6~9月温度走势</h3>
+<p><strong>关键时间节点</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>时间段</th>
+<th>温度特征</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6/8 ~ 7月中旬</td>
+<td>温度总体趋于稳定</td>
+<td>平稳期</td>
+</tr>
+<tr>
+<td>6月初</td>
+<td>温度异常上升</td>
+<td>电缆损坏导致停电</td>
+</tr>
+<tr>
+<td>7月中旬 ~ 9月</td>
+<td>温度上升，起伏较大</td>
+<td>高温波动期</td>
+</tr>
+</tbody>
+</table>
+<p>7月中旬后机房平均温度<strong>总体高于6月</strong>，且稳定性下降，主要受以下事件影响：</p>
+<ul>
+<li>冰机损坏，切换小空调 → 温度上升</li>
+<li>冰机关闭，使用小空调</li>
+<li>冰机管道损毁，使用小空调</li>
+<li>MDF冰机漏水，场务维修</li>
+</ul>
+<h3 id="温湿度传感器实测数据">温湿度传感器实测数据</h3>
+<p>基于B6_Temp1传感器9月~11月监测数据（采样间隔约15分钟）：</p>
+<table>
+<thead>
+<tr>
+<th>月份</th>
+<th>记录数</th>
+<th>温度范围</th>
+<th>平均温度</th>
+<th>湿度范围</th>
+<th>平均湿度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2019-09</td>
+<td>2759条</td>
+<td>17.6 ~ 26.2°C</td>
+<td><strong>22.1°C</strong></td>
+<td>40.8 ~ 80.3%</td>
+<td>62.7%</td>
+</tr>
+<tr>
+<td>2019-10</td>
+<td>2629条</td>
+<td>19.9 ~ 24.9°C</td>
+<td><strong>23.0°C</strong></td>
+<td>32.0 ~ 64.2%</td>
+<td>52.2%</td>
+</tr>
+<tr>
+<td>2019-11</td>
+<td>2224条</td>
+<td>20.6 ~ 25.9°C</td>
+<td><strong>22.6°C</strong></td>
+<td>24.5 ~ 67.1%</td>
+<td>45.5%</td>
+</tr>
+<tr>
+<td><strong>整体</strong></td>
+<td><strong>7612条</strong></td>
+<td><strong>17.6 ~ 26.2°C</strong></td>
+<td><strong>22.6°C</strong></td>
+<td><strong>24.5 ~ 80.3%</strong></td>
+<td><strong>54.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>9月典型日温度波动示例</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>平均温度</th>
+<th>最低温</th>
+<th>最高温</th>
+<th>波动幅度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9/5</td>
+<td>23.4°C</td>
+<td>22.0°C</td>
+<td>26.2°C</td>
+<td>4.2°C</td>
+</tr>
+<tr>
+<td>9/13</td>
+<td>24.0°C</td>
+<td>22.4°C</td>
+<td>25.5°C</td>
+<td>3.1°C</td>
+</tr>
+<tr>
+<td>9/16</td>
+<td>20.5°C</td>
+<td>20.1°C</td>
+<td>20.8°C</td>
+<td>0.7°C</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>可以看到，高温日温度波动可达4°C以上，而低温日波动不足1°C，温度稳定性差异显著。</p>
+</blockquote>
+<hr>
+<h2 id="server异常与温度关联分析">Server异常与温度关联分析</h2>
+<h3 id="69月故障事件对比">6~9月故障事件对比</h3>
+<table>
+<thead>
+<tr>
+<th>时间段</th>
+<th>温度状态</th>
+<th>HDD常规损坏</th>
+<th>非常规损坏</th>
+<th>严重事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6月 ~ 7月中旬</td>
+<td>较低且稳定</td>
+<td>4颗</td>
+<td>0</td>
+<td>-</td>
+</tr>
+<tr>
+<td>7月中旬 ~ 9月</td>
+<td>较高且波动大</td>
+<td>6颗</td>
+<td>2次</td>
+<td>车电主Server阵列穿孔（停线80min）<!-- raw HTML omitted -->Ecobee主Server自动异常重启（停线15min）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键发现</strong>：</p>
+<ul>
+<li>7月中旬温度上升后，HDD损坏数量从4颗增至6颗，增幅 <strong>50%</strong></li>
+<li>出现两次<strong>近两年首次</strong>的非常规损坏（阵列穿透、异常重启）</li>
+<li>两次严重事件共造成 <strong>停线95分钟</strong></li>
+</ul>
+<h3 id="严重事件时间线">严重事件时间线</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">冰机损坏/管道问题 → 温度上升 → Server负载加大 →
+</span></span><span class="line"><span class="cl">  ├── 车电主Server阵列穿孔 → 停线80min
+</span></span><span class="line"><span class="cl">  └── Ecobee主Server自动异常重启 → 停线15min
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="历史数据分析20172019">历史数据分析（2017~2019）</h2>
+<h3 id="hdd异常年度趋势">HDD异常年度趋势</h3>
+<p>HDD异常包括：<strong>HDD损坏</strong> 和 <strong>掉盘</strong>（更换HDD或重新插拔后恢复正常）。</p>
+<p><strong>季节分布规律</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>季节</th>
+<th>HDD损坏情况</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>夏季（6~8月）</td>
+<td>损坏较多</td>
+<td>高温季节</td>
+</tr>
+<tr>
+<td>秋季（9~10月）</td>
+<td>损坏较多</td>
+<td>余温影响</td>
+</tr>
+<tr>
+<td>冬季（12~2月）</td>
+<td>少量损坏</td>
+<td>低温季节</td>
+</tr>
+<tr>
+<td>春季（3~5月）</td>
+<td>较少</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>结论</strong>：除受搬迁影响的特殊时段外，HDD异常<strong>集中发生在每年6月到10月温度较高的季节</strong>，呈现明显的季节性特征。</p>
+</blockquote>
+<h3 id="server异常年度趋势">Server异常年度趋势</h3>
+<p>Server异常类型包括：<strong>系统崩溃、CPU报错、内存报错、蓝屏、阵列穿孔、异常重启</strong>等。</p>
+<p>同样呈现显著的季节规律：</p>
+<ul>
+<li><strong>高温季节</strong>：Server异常数量明显较多</li>
+<li><strong>低温季节</strong>：异常较少</li>
+<li><strong>特殊事件</strong>：搬迁期间因物理移动和环境变化导致异常集中</li>
+</ul>
+<hr>
+<h2 id="分析结论">分析结论</h2>
+<h3 id="核心结论">核心结论</h3>
+<blockquote>
+<p><strong>2017年底至2019年9月初，机房温度较高时，HDD损坏数量和Server异常数量明显较多。</strong></p>
+</blockquote>
+<p>温度升高带来的影响：</p>
+<ol>
+<li><strong>HDD故障率上升</strong>：高温导致硬盘内部温度升高，影响磁头稳定性和盘片寿命</li>
+<li><strong>Server稳定性下降</strong>：CPU、内存等核心部件在高温下更容易出现报错</li>
+<li><strong>非常规故障增加</strong>：高温高负载下可能触发平时不会出现的严重故障（阵列穿透等）</li>
+<li><strong>温度波动雪上加霜</strong>：温度起伏大导致热胀冷缩频繁，加速硬件老化</li>
+</ol>
+<h3 id="温度控制建议">温度控制建议</h3>
+<p><strong>建议机房温度控制在 22°C ± 2°C</strong>（即20°C~24°C范围内）。</p>
+<p>理由：</p>
+<ul>
+<li>该温度区间内HDD和Server异常率最低</li>
+<li>既能保证设备稳定运行，又不至于过度制冷造成能源浪费</li>
+<li>符合行业标准（ASHRAE推荐服务器机房温度范围18°C~27°C，22°C是理想值）</li>
+</ul>
+<hr>
+<h2 id="改进建议">改进建议</h2>
+<h3 id="1-制冷系统冗余">1. 制冷系统冗余</h3>
+<ul>
+<li>冰机故障切换小空调时温度明显上升，需评估制冷系统冗余能力</li>
+<li>建议建立备用制冷方案，确保单台冰机故障时机房温度仍可控</li>
+</ul>
+<h3 id="2-温度监控告警">2. 温度监控告警</h3>
+<ul>
+<li>现有温湿度监控系统已部署（如B6_Temp1传感器）</li>
+<li>建议设置多级告警阈值：
+<ul>
+<li><strong>预警</strong>：平均温度 &gt; 24°C</li>
+<li><strong>告警</strong>：平均温度 &gt; 26°C 或 单小时升温 &gt; 2°C</li>
+</ul>
+</li>
+<li>告警需联动运维人员及时响应</li>
+</ul>
+<h3 id="3-高温季节专项巡检">3. 高温季节专项巡检</h3>
+<ul>
+<li>每年5月进入高温季前，对机房制冷系统、散热风道做全面检查</li>
+<li>高温季增加HDD SMART信息巡检频次，提前预警潜在故障</li>
+</ul>
+<h3 id="4-数据持续积累">4. 数据持续积累</h3>
+<ul>
+<li>持续收集温度与故障关联数据，建立更精准的预测模型</li>
+<li>分析不同品牌/型号HDD的温度敏感度差异，指导采购选型</li>
+</ul>
+<hr>
+<h2 id="经验总结">经验总结</h2>
+<ol>
+<li><strong>温度是机房稳定性的隐形杀手</strong>：平时不起眼的温度波动，长期积累会显著提升硬件故障率</li>
+<li><strong>数据说话最有力</strong>：横跨3年的历史数据清晰展现了季节性规律，比单次事件更有说服力</li>
+<li><strong>预防胜于抢修</strong>：将温度控制在合理范围（22±2°C），成本远低于故障停线的损失</li>
+<li><strong>监控数据要用起来</strong>：温湿度传感器不只是摆样子，要做趋势分析、阈值告警、联动处置</li>
+</ol>
+<hr>
+<p>✅ 分析完成，温度与Server/HDD异常的关联性已确认，温度控制目标已明确！</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2019-09-17
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E6%9C%BA%E6%88%BF%E8%BF%90%E7%BB%B4/">机房运维</a>
+          <a href="/tags/%E6%B8%A9%E5%BA%A6%E7%9B%91%E6%8E%A7/">温度监控</a>
+          <a href="/tags/Server/">Server</a>
+          <a href="/tags/HDD/">HDD</a>
+          <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/Zabbix-Introduction/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Zabbix Intro &amp; Demo</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/lion-zc-network-slow-analysis/">
+            <span class="next-text nav-default">Lion ZC 网络连接慢问题分析</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

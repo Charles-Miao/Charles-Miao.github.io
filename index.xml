@@ -93,6 +93,13 @@
       <description>摘要：本文介绍了一个生产环境中的实际案例——如何使用 Python 将车电测试日志自动转换为 EDA 系统所需的 XML 格式。从需求分析、架构设计到 20+ 个 Bug 修复，完整记录</description>
     </item>
     <item>
+      <title>Wallaby DL OS NG 失效分析</title>
+      <link>https://Charles-Miao.github.io/post/wallaby-dl-os-ng-fa-report/</link>
+      <pubDate>Tue, 17 May 2022 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/wallaby-dl-os-ng-fa-report/</guid>
+      <description>摘要：本文记录了Wallaby机型TV阶段Shipping Image下载失败（DL OS NG）问题的完整失效分析过程，涵盖问题描述、人机料法环全</description>
+    </item>
+    <item>
       <title>Windows实时同步文件至NAS</title>
       <link>https://Charles-Miao.github.io/post/windows-rsync-realtime/</link>
       <pubDate>Tue, 13 Jul 2021 22:58:21 +0800</pubDate>
@@ -168,6 +175,20 @@
       <pubDate>Thu, 14 Nov 2019 18:26:47 +0800</pubDate>
       <guid>https://Charles-Miao.github.io/post/Zabbix-Introduction/</guid>
       <description>&lt;p&gt;主要简单介绍Zabbix的特性、安装和配置，以及一些常用手册，并demo实现常见的一些数据采集方法、图形展示、触发报警等&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Server异常与机房温度关联分析</title>
+      <link>https://Charles-Miao.github.io/post/server-temp-correlation-analysis/</link>
+      <pubDate>Tue, 17 Sep 2019 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/server-temp-correlation-analysis/</guid>
+      <description>摘要：本文基于2017年至2019年的HDD/Server异常记录，结合2019年6~9月机房温度监控数据，深入分析了机房温度与服务器故障之</description>
+    </item>
+    <item>
+      <title>Lion ZC 网络连接慢问题分析</title>
+      <link>https://Charles-Miao.github.io/post/lion-zc-network-slow-analysis/</link>
+      <pubDate>Wed, 05 Dec 2018 12:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/lion-zc-network-slow-analysis/</guid>
+      <description>摘要：本文记录了Lion机型ZC阶段网络连接慢（上电后ping通时间从15秒延长至60秒）的完整分析过程，涵盖测试网络架构排查、交叉验证、数</description>
     </item>
   </channel>
 </rss>
