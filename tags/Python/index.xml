@@ -6,8 +6,15 @@
     <description>Recent content in Python on Charles&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 10 Dec 2024 12:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2026 09:00:00 +0800</lastBuildDate>
     <atom:link href="https://Charles-Miao.github.io/tags/Python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>36,000 张照片搬家记：从 Google Takeout 到一刻相册</title>
+      <link>https://Charles-Miao.github.io/post/google-photos-migration/</link>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0800</pubDate>
+      <guid>https://Charles-Miao.github.io/post/google-photos-migration/</guid>
+      <description>摘要：把 Google Takeout 导出的 36,000 多个照片/视频迁到一刻相册，听起来只是&amp;quot;上传&amp;quot;一件事，实际做下来是分类、上传、限流对抗、时间还原、去</description>
+    </item>
     <item>
       <title>Python 实战：自动化测试日志转 XML 系统实践</title>
       <link>https://Charles-Miao.github.io/post/python-log-to-xml-automation/</link>

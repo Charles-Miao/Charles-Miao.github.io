@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>36,000 张照片搬家记：从 Google Takeout 到一刻相册 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="摘要：把 Google Takeout 导出的 36,000 多个照片/视频迁到一刻相册，听起来只是&amp;quot;上传&amp;quot;一件事，实际做下来是分类、上传、限流对抗、时间还原、去" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/google-photos-migration/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/google-photos-migration/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="36,000 张照片搬家记：从 Google Takeout 到一刻相册">
+  <meta property="og:description" content="摘要：把 Google Takeout 导出的 36,000 多个照片/视频迁到一刻相册，听起来只是&#34;上传&#34;一件事，实际做下来是分类、上传、限流对抗、时间还原、去">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-10-30T09:00:00+08:00">
+    <meta property="article:modified_time" content="2026-10-30T09:00:00+08:00">
+    <meta property="article:tag" content="照片迁移">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="EXIF">
+    <meta property="article:tag" content="MP4">
+    <meta property="article:tag" content="工程实践">
+    <meta property="article:tag" content="AI Agent">
+
+  <meta itemprop="name" content="36,000 张照片搬家记：从 Google Takeout 到一刻相册">
+  <meta itemprop="description" content="摘要：把 Google Takeout 导出的 36,000 多个照片/视频迁到一刻相册，听起来只是&#34;上传&#34;一件事，实际做下来是分类、上传、限流对抗、时间还原、去">
+  <meta itemprop="datePublished" content="2026-10-30T09:00:00+08:00">
+  <meta itemprop="dateModified" content="2026-10-30T09:00:00+08:00">
+  <meta itemprop="wordCount" content="5473">
+  <meta itemprop="keywords" content="照片迁移,Python,EXIF,MP4,工程实践,AI Agent">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="36,000 张照片搬家记：从 Google Takeout 到一刻相册">
+  <meta name="twitter:description" content="摘要：把 Google Takeout 导出的 36,000 多个照片/视频迁到一刻相册，听起来只是&#34;上传&#34;一件事，实际做下来是分类、上传、限流对抗、时间还原、去">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">36,000 张照片搬家记：从 Google Takeout 到一刻相册</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2026-10-30 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+            <a href="/categories/ai%E5%BA%94%E7%94%A8/"> ai应用 </a>
+            </div>
+          <span class="more-meta"> 约 5473 字 </span>
+          <span class="more-meta"> 预计阅读 11 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一背景">一、背景</a></li>
+    <li><a href="#二第一步先分类再动手">二、第一步：先分类，再动手</a></li>
+    <li><a href="#三上传链路">三、上传链路</a>
+      <ul>
+        <li><a href="#31-三次握手">3.1 三次握手</a></li>
+        <li><a href="#32-断点续传">3.2 断点续传</a></li>
+        <li><a href="#33-大文件分片">3.3 大文件分片</a></li>
+      </ul>
+    </li>
+    <li><a href="#四时间最容易出错也最致命的一环">四、时间：最容易出错、也最致命的一环</a>
+      <ul>
+        <li><a href="#41-google-给的是-utc">4.1 Google 给的是 UTC</a></li>
+        <li><a href="#42-图片认-exif视频认-mvhd">4.2 图片认 EXIF，视频认 mvhd</a></li>
+        <li><a href="#43-mvhd-解析-bug">4.3 mvhd 解析 bug</a></li>
+      </ul>
+    </li>
+    <li><a href="#五限流-errno-50005与其对抗不如配合">五、限流 errno 50005：与其对抗，不如配合</a></li>
+    <li><a href="#六异常照片处理">六、异常照片处理</a>
+      <ul>
+        <li><a href="#61-实况照片的三件套重复">6.1 实况照片的&quot;三件套重复&quot;</a></li>
+        <li><a href="#62-无-livp-的照片--实况片段二选一">6.2 无 livp 的&quot;照片 + 实况片段&quot;二选一</a></li>
+        <li><a href="#63-日期系统性错误三批">6.3 日期系统性错误（三批）</a></li>
+        <li><a href="#64-600-个打不开的视频moov-头损坏">6.4 600 个打不开的视频：moov 头损坏</a></li>
+      </ul>
+    </li>
+    <li><a href="#七删除比上传更需要敬畏">七、删除：比上传更需要敬畏</a></li>
+    <li><a href="#八验收不能靠看起来对">八、验收：不能靠&quot;看起来对&quot;</a></li>
+    <li><a href="#九复盘">九、复盘</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p><strong>摘要</strong>：把 Google Takeout 导出的 36,000 多个照片/视频迁到一刻相册，听起来只是&quot;上传&quot;一件事，实际做下来是分类、上传、限流对抗、时间还原、去重、删旧、验收七个环节的工程问题。本文按时间顺序复盘每一步的做法与踩过的坑，重点不是某个工具怎么用，而是<strong>如何在&quot;没有官方 API、数据量大、错误不可逆&quot;的约束下把事情做对</strong>。</p>
+</blockquote>
+<hr>
+<h2 id="一背景">一、背景</h2>
+<p>Google Photos 里攒了十几年的照片，用 Takeout 导出后躺在移动硬盘上：约 36,000 个文件，分在 <code>PVGX</code>、<code>PXGV</code>、<code>PVGVV</code> 等若干目录里（Takeout 的分卷命名），每个媒体文件旁边可能跟着一个 <code>.supplemental-metadata.json</code>，记录着 Google 认定的拍摄时间、地理信息等。</p>
+<p>目标：全部搬进一刻相册（百度网盘的相册产品），并且<strong>拍摄时间必须正确</strong>——照片一旦按错误日期落进时间线，找起来就废了。</p>
+<p>网页端上传试过，大批量时经常中断，且无法按自己的规则处理时间。于是改用命令行直连接口（社区项目 <code>pybaiduphoto</code> 已经把协议封装好）。</p>
+<p>约束条件很苛刻：</p>
+<ul>
+<li>没有官方开放 API，随时可能限流或失效；</li>
+<li>数据量大（4GB 只是其中一批坏视频的体积）；</li>
+<li><strong>云端删除不可逆</strong>，一旦删错没有任何回收站兜底。</li>
+</ul>
+<p>这三条决定了后面所有设计：<strong>一切以&quot;可断点、可回滚、可验证&quot;为前提</strong>。</p>
+<hr>
+<h2 id="二第一步先分类再动手">二、第一步：先分类，再动手</h2>
+<p>拿到 36,000 个文件，第一反应是&quot;传就完了&quot;，但盲传会把问题带进云端，之后再修成本翻倍。所以先写了个评估脚本 <code>assess_folder.py</code>，对<strong>每个目录</strong>做一次体检：</p>
+<ol>
+<li>读同名 <code>.supplemental-metadata.json</code>，取出 <code>photoTakenTime</code>（Google 的权威拍摄时间）；</li>
+<li>计算文件 md5，去云端清单里比对；</li>
+<li>比对&quot;云端已记录的拍摄时间&quot;与&quot;Google 记录的时间&quot;是否一致。</li>
+</ol>
+<p>按结果把文件分成几类：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>含义</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>没问题</td>
+<td>云端已有且时间一致，或本地时间可信</td>
+<td>直接上传</td>
+</tr>
+<tr>
+<td>可能有问题</td>
+<td>云端时间存疑/无 json</td>
+<td>人工评估后再定</td>
+</tr>
+<tr>
+<td>有问题</td>
+<td>确认异常</td>
+<td>单独处理或舍弃</td>
+</tr>
+</tbody>
+</table>
+<p>评估产出一份 <code>assessment_*.txt</code>，人看了拍板，脚本才动手。这一步的价值在于：<strong>把&quot;36,000 个未知&quot;变成&quot;几类已知问题&quot;</strong>，后面每一步都能针对性处理。</p>
+<p>其中 <code>异常/PXGX</code>（160 个）和 <code>异常/PXGV_有问题</code>（1,295 个）经确认是彻底无用的损坏件，用户拍板永久舍弃，不参与上传。</p>
+<blockquote>
+<p><strong>经验</strong>：批量处理任何数据前，先花 10% 的时间做分类评估。分类不是拖延，是把不确定性前置。</p>
+</blockquote>
+<hr>
+<h2 id="三上传链路">三、上传链路</h2>
+<h3 id="31-三次握手">3.1 三次握手</h3>
+<p>文件上传走的是标准的三段式协议：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">precreate  →  superfile2  →  create
+</span></span><span class="line"><span class="cl"> 声明文件      传内容        落库
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>precreate</code> 会带文件的 md5 与大小去询问服务端：</p>
+<ul>
+<li><code>return_type=1</code>：服务端没有，需要真正上传；</li>
+<li><code>return_type=3</code>：命中去重，秒传完成。</li>
+</ul>
+<p>这个返回值后面被我用作<strong>免费的查询接口</strong>（见第八节）。</p>
+<h3 id="32-断点续传">3.2 断点续传</h3>
+<p>上传器 <code>yike_upload.py</code> 的设计：</p>
+<ul>
+<li>每个文件成功后追加一行到 <code>yike_upload_log.tsv</code>（时间 / 路径 / 大小 / md5 / 状态）；</li>
+<li>下次启动先读日志，已成功的（路径 + md5 同时匹配）直接跳过；</li>
+<li>日志里区分 <code>ok</code> / <code>dup</code> / <code>skip</code> / <code>fail</code> 四种状态。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 续传判断：路径和 md5 都对得上才算真的传过</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">md5_of</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="ow">in</span> <span class="n">done</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">continue</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>用 md5 而不是&quot;文件出现过&quot;做判断很关键——后面我们会反复修改文件字节再重传，如果只认路径，重传就会被错误跳过。</p>
+<h3 id="33-大文件分片">3.3 大文件分片</h3>
+<p>大于 32MB 的文件一次性 POST 会被服务端掐断。补丁 <code>bigfile_patch.py</code> 改成 4MB 一片的分片上传。注意补丁内部<strong>不能再传 <code>timeout</code> 参数</strong>，会和已有的请求封装冲突。</p>
+<hr>
+<h2 id="四时间最容易出错也最致命的一环">四、时间：最容易出错、也最致命的一环</h2>
+<p>照片迁移的核心不是&quot;传上去&quot;，而是&quot;落在正确的时间点上&quot;。这里踩了三个坑。</p>
+<h3 id="41-google-给的是-utc">4.1 Google 给的是 UTC</h3>
+<p><code>.supplemental-metadata.json</code> 里的 <code>photoTakenTime.timestamp</code> 是 <strong>UTC 秒</strong>。直接当成本地时间用，会整体差 8 小时，遇到跨天的照片连日期都错。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CST</span> <span class="o">=</span> <span class="n">timezone</span><span class="p">(</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">shot</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ts</span><span class="p">),</span> <span class="n">CST</span><span class="p">)</span>   <span class="c1"># 必须显式指定时区</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="42-图片认-exif视频认-mvhd">4.2 图片认 EXIF，视频认 mvhd</h3>
+<p>服务端解析拍摄时间的规则并不统一：</p>
+<ul>
+<li><strong>图片</strong>：读 EXIF 的 <code>DateTimeOriginal</code>；</li>
+<li><strong>mp4 / mov</strong>：读容器里 <code>moov → mvhd</code> 的 <code>creation_time</code>；</li>
+<li><strong>AVI</strong>：只认文件头里的 <code>IDIT</code> 标记（相机写入的墙钟时间），你传什么元数据它都不理。</li>
+</ul>
+<p>也就是说，<strong>改文件系统的 mtime 完全没用</strong>，唯一可控的是改文件内部的字节。这条结论后来救了 600 个视频（见 6.4）。</p>
+<p>顺带一个坑：<code>mvhd</code> 的 <code>creation_time</code> 用的是 <strong>Mac 1904 纪元</strong>，不是 Unix 纪元：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">EPOCH_1904_TO_1970</span> <span class="o">=</span> <span class="mi">2082844800</span>
+</span></span><span class="line"><span class="cl"><span class="n">creation</span> <span class="o">=</span> <span class="n">unix_ts</span> <span class="o">+</span> <span class="n">EPOCH_1904_TO_1970</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="43-mvhd-解析-bug">4.3 mvhd 解析 bug</h3>
+<p>批量校验时发现 620 个&quot;云端时间和本地不一致&quot;的视频，一度以为上传出错了。逐条核对后发现：<strong>大部分是云端反而正确，是我们的解析代码错了</strong>——<code>fix_media_info</code> 里解析 <code>mvhd</code> 的 <code>creation</code> 与 <code>modification</code> 时取错了字段顺序。修掉解析 bug 后，620 个里 556 个自动对齐。</p>
+<blockquote>
+<p><strong>经验</strong>：当&quot;不一致&quot;的数量很大时，先怀疑自己的比对代码，而不是数据。</p>
+</blockquote>
+<hr>
+<h2 id="五限流-errno-50005与其对抗不如配合">五、限流 errno 50005：与其对抗，不如配合</h2>
+<p>传到几千个时开始报错：<code>errno 50005 操作过于频繁</code>。</p>
+<p>排查过程：</p>
+<ol>
+<li>换 cookie —— 无效（cookie 本身有效，其他请求正常）；</li>
+<li>换 <code>clienttype</code> —— 无效，只有 <code>70</code> 是合法值，其余返回 <code>errno=2</code>；</li>
+<li>观察错误发生的位置：<strong>只在最后一步 <code>create</code> 失败</strong>，<code>precreate</code> 和 <code>superfile2</code> 都正常。</li>
+</ol>
+<p>结论：这是<strong>账号级的上传限流</strong>，没有绕过办法。但实测它是<strong>间歇放行</strong>的——手动重试 4 次大约能成功 1 次。这意味着&quot;长时间干等&quot;是错的选择，正确策略是<strong>短间隔反复试探</strong>，别错过放行窗口。</p>
+<p>最终退避策略：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 连续失败 2 个以上，判定为限流：每个文件只试 1 次（快速失败），避免把窗口越拖越长</span>
+</span></span><span class="line"><span class="cl"><span class="n">tries</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">consec_fail</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 连续失败 3 个后进入退避：5min → 10min → 20min → 30min（封顶）</span>
+</span></span><span class="line"><span class="cl"><span class="n">nap</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">300</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">backoff_cycles</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1800</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配合断点续传，脚本被限流打断后直接重跑即可继续，不需要人工介入。整个 PVGVV（22,239 个文件）就是这么一夜夜跑完的。</p>
+<blockquote>
+<p><strong>经验</strong>：对抗型限流没有银弹，能做的是「快速失败 + 指数退避 + 断点续传」三件套，把&quot;被限流&quot;从一个事故降级成一次重试。</p>
+</blockquote>
+<hr>
+<h2 id="六异常照片处理">六、异常照片处理</h2>
+<h3 id="61-实况照片的三件套重复">6.1 实况照片的&quot;三件套重复&quot;</h3>
+<p>iPhone 的实况照片（Live Photo）在 Takeout 里<strong>不会合成单个文件</strong>，而是被拆成两份：一张静态帧（HEIC/JPG）+ 一段 2~3 秒的视频（MP4/MOV）。而用户自己从 App 上传的是 Apple 原始包 <code>.livp</code>。</p>
+<p>结果同一秒凑齐三条：<code>.livp</code> + <code>.HEIC</code> + <code>.MP4</code>，md5 各不相同，校验脚本不会报警。</p>
+<p>处理方案（用户拍板）：<strong>保留 <code>.livp</code>，删掉 Google 拆出来的那两份</strong>。</p>
+<p>配对时踩了两个坑：</p>
+<ol>
+<li><strong>Takeout 的静态帧与同名视频拍摄时间系统性差 1 秒</strong>（视频早 1 秒），连拍时还会错位一格（HEIC=IMG_0639 配 MP4=IMG_0640）。所以不能用&quot;同一秒&quot;硬碰，必须给 ±5 秒容差；</li>
+<li>光有时间容差会误伤&quot;用户真视频 + 同名封面图&quot;。于是加了一道<strong>时长锁</strong>：实况片段的真实时长在 0.5~6 秒之间，超过就不配对。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 三重判据，缺一不可</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ① shoot_time 相差 ±5 秒内</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ② 剥离 _\d{10,}_\d+ 后缀后 basename 必须一致</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ③ MP4 真实时长 ≤ 6 秒（排除真视频）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>反例很能说明问题：云端有 6 个不同年份的文件都叫 <code>IMG_0574</code>，只看文件名必误配。</p>
+<p>这一类前后做了四轮，合计清理 <strong>270 组 / 540 条</strong>，释放约 21.8 GB，实况本体全部完好。</p>
+<h3 id="62-无-livp-的照片--实况片段二选一">6.2 无 livp 的&quot;照片 + 实况片段&quot;二选一</h3>
+<p>还有一批只有静态图 + 视频片段、没有 <code>.livp</code> 的：4,699 组。判断依据是分辨率——静态图 4032×3024（1200 万像素），视频 1920×1440（280 万像素），<strong>视频是低一档的衍生物</strong>，而且体量是照片的两倍。</p>
+<p>用户拍板：<strong>删 2~3 秒视频，保留静态照片</strong>。执行 4,683 条，零失败，释放 20 GB。</p>
+<p>安全判据又加了一层：<strong>配对的照片若不在云端，该组视频绝不删</strong>。</p>
+<h3 id="63-日期系统性错误三批">6.3 日期系统性错误（三批）</h3>
+<p>有几天照片的日期明显不对。修正思路不是&quot;改个数字&quot;，而是<strong>找证据链反推真实日期</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>批次</th>
+<th>原显示</th>
+<th>修正为</th>
+<th>推断依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>83+88 张</td>
+<td>2008-08-16/17/18</td>
+<td>2011-06-04/05/06（+1022 天）</td>
+<td>相册名写着&quot;周日在上海市&quot;，平移必须保持星期不变，2011-06-05 正是周日</td>
+</tr>
+<tr>
+<td>344 张</td>
+<td>2010-05-06/07</td>
+<td>2010-09-22/23（+139 天）</td>
+<td>穿着、场景与前后照片序列比对</td>
+</tr>
+<tr>
+<td>83 张</td>
+<td>2010-08-13</td>
+<td>2010-12-24（+133 天）</td>
+<td>照片里拍到期末&quot;考试通知&quot;白板（1.05 周三 / 1.10 周一 / 1.12 周三，正是 2011 年 1 月）、背景挂圣诞装饰、冬装、相册名&quot;周五&quot; → 2010-12-24 是周五</td>
+</tr>
+</tbody>
+</table>
+<p>修完再重传、再删旧副本，全部零失败。EXIF 修改前整机备份 1,254 个文件，并生成 <code>exif_rollback.tsv</code>（含旧 fsid），随时可回滚。</p>
+<blockquote>
+<p><strong>经验</strong>：给照片&quot;改日期&quot;是高风险操作，必须先有<strong>独立证据</strong>（画面内容、星期、穿着、前后序列），而不是凭感觉调。</p>
+</blockquote>
+<h3 id="64-600-个打不开的视频moov-头损坏">6.4 600 个打不开的视频：moov 头损坏</h3>
+<p>用户反馈&quot;2017 年不少 10 秒视频打不开&quot;。扫描全部 mp4/mov 后发现：<strong>600 个文件的 <code>moov</code> box 里，第一个子 box 本该是 <code>mvhd</code>（<code>6d 76 68 64</code>），实际被写成了时间戳数字</strong>（如 <code>d5dcb7b1</code>）。播放器和服务端都认不出 mvhd，于是读不到时长、读不到时间 → 无法播放。</p>
+<p>视频/音频数据其实完好（H.264 + AAC，trak 完整），<strong>只是文件头坏了</strong>。</p>
+<p>修复办法：重写 mvhd 头 28 字节。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">new</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&#34;&gt;I&#34;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&#34;mvhd&#34;</span> <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&#34;&gt;I&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">    <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&#34;&gt;I&#34;</span><span class="p">,</span> <span class="n">creation</span><span class="p">)</span> <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&#34;&gt;I&#34;</span><span class="p">,</span> <span class="n">modification</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">    <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&#34;&gt;I&#34;</span><span class="p">,</span> <span class="n">timescale</span><span class="p">)</span> <span class="o">+</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&#34;&gt;I&#34;</span><span class="p">,</span> <span class="n">duration</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>timescale</code> / <code>duration</code> 沿用原文件的值（时长本来就是对的，绝不改动）；</li>
+<li><code>creation</code> / <code>modification</code> 取 Google json 的 <code>photoTakenTime</code>（保证云端时间不变）；</li>
+<li>修改前整机字节备份到 <code>_mvhd_fix_backup/</code>。</li>
+</ul>
+<p>修完 md5 变了 → 重传 → 服务端重新入库 → 可播放。最后删除云端 600 条旧坏记录。</p>
+<p>这里有一个<strong>值得记住的调试细节</strong>：我第一版扫描脚本取子 box 类型时用了 <code>raw[8:12]</code>（那其实是 size 字段），导致 11,351 个文件全部误报为损坏。修正为 <code>raw[12:16]</code> 后才得到真实的 600。<strong>改二进制解析后必须先用已知样本验证</strong>——正常文件是好的、坏文件是坏的，两头都要能识别。</p>
+<hr>
+<h2 id="七删除比上传更需要敬畏">七、删除：比上传更需要敬畏</h2>
+<p>上传错了可以重来，删除错了就真没了。所以删除环节设了三道闸：</p>
+<p><strong>1. 定位靠 md5，不靠文件名</strong>
+云端有大量重名文件（前面提到 6 个 <code>IMG_0574</code>）。所有待删目标都先导出 <code>cloud_items.json</code>（含 fsid / md5 / path / shoot_time），再按 md5 精确定位 fsid。</p>
+<p><strong>2. 三重安全判据（缺一不可）</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">① 新副本已经上传成功且时间正确
+</span></span><span class="line"><span class="cl">② 待删的旧 md5 在云端恰好只有 1 条（有多条说明存在歧义，不敢删）
+</span></span><span class="line"><span class="cl">③ 待删 fsid 不在任何&#34;保留列表&#34;里（脚本硬拦截）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. dry-run → 试点 → 全量</strong></p>
+<p>先打印待删清单给人看；再 <code>--limit 3 --commit</code> 试删 3 个，用只读探测接口确认（存在的 fsid 返回 <code>errno=0</code>，已删的返回 <code>50504</code>），<strong>并且必须配对照组</strong>（拿一个确定存在的 fsid 一起查），这样才能区分&quot;真删掉了&quot;和&quot;接口报错&quot;；确认零误伤后才全量执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">getReqJson</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://photo.baidu.com/youai/file/v1/delete&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;clienttype&#34;</span><span class="p">:</span> <span class="s2">&#34;70&#34;</span><span class="p">,</span> <span class="s2">&#34;fsid_list&#34;</span><span class="p">:</span> <span class="s2">&#34;[</span><span class="si">{}</span><span class="s2">]&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fsid</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># errno == 0 即成功</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="八验收不能靠看起来对">八、验收：不能靠&quot;看起来对&quot;</h2>
+<p>踩过两次验收口径的坑，值得单独说。</p>
+<p><strong>坑一：统计口径错误</strong>
+第一次验收报告&quot;照片丢了 9 张&quot;，查下来这 9 张在操作<strong>之前</strong>就不在云端（用户自己删过）。原因是判据顺序把&quot;视频不在 → continue&quot;写在了前面，导致图片视频双缺的组只被计一次。</p>
+<p>正确做法：<strong>分母必须是 <code>base 快照 ∩ 保留集</code></strong>，也就是&quot;操作前确实存在、且本次应该保留&quot;的集合。多出来的、少的，都相对这个集合来算。</p>
+<p><strong>坑二：日志不等于事实</strong>
+有一批 1,299 个文件是用户在网页端传的，上传日志里没有任何记录，按日志统计会误报成&quot;全部未传&quot;。所以<strong>判断&quot;是否传完&quot;必须查云端</strong>，不能查自己的日志。</p>
+<p><strong>几个好用的验证手段：</strong></p>
+<ul>
+<li><strong>秒级查云端时间</strong>：对文件跑一次 <code>precreate</code>，返回值里的 <code>data.shoot_time</code> 就是云端当前记录的时间。比全库翻页快几个数量级。</li>
+<li><strong>字节级验证</strong>：下载云端条目的文件头（Range 请求前 512KB），直接解析 <code>moov</code> 判断能否播放。这是最硬的证据——不依赖&quot;能不能打开&quot;这种主观判断。</li>
+<li><strong>分页上限</strong>：早期一次全量核对误报 1,836 个&quot;未找到&quot;，原因是拉取云端清单时 <code>max_pages</code> 设得太小，根本没翻完。<strong>分页工具一定要确认翻到了底</strong>。</li>
+</ul>
+<p>最终验收结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">新副本在云端：600 / 600
+</span></span><span class="line"><span class="cl">旧坏副本残留：0 条
+</span></span><span class="line"><span class="cl">云端拍摄时间发生变化：0 个
+</span></span><span class="line"><span class="cl">随机抽样 10 条字节级校验：10 / 10 全部 mvhd 正常
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="九复盘">九、复盘</h2>
+<p>从 10 月 22 日到 10 月 29 日，最终结果：</p>
+<ul>
+<li>36,084 个文件全部进入云端，时间错位清零；</li>
+<li>四轮实况去重释放约 21.8 GB，零误伤；</li>
+<li>三批日期修正全部落地，重传与删旧零失败；</li>
+<li>600 个损坏视频全部修复可播放。</li>
+</ul>
+<p><strong>方法论上最值得留下的几条：</strong></p>
+<ol>
+<li><strong>先分类再动手</strong>——把 36,000 个未知变成几类已知问题。</li>
+<li><strong>断点续传是一切的前提</strong>——有了它，限流、断网、崩溃都只是&quot;重跑一次&quot;。</li>
+<li><strong>不要用文件名做判据，要用内容指纹（md5 / 尺寸 / 时长）</strong>。</li>
+<li><strong>删除前先证明&quot;新的一定在&quot;</strong>，再动手删旧的；删之前先试 3 个。</li>
+<li><strong>验收要用独立证据</strong>：字节、md5、云端快照，而不是&quot;我看了一下好像没问题&quot;。</li>
+<li><strong>改二进制前先备份，改完先用已知样本验证解析代码</strong>。</li>
+<li><strong>用户/领域知识不可替代</strong>——&ldquo;2010-12-24 是周五&quot;&ldquo;这张照片里的白板写着考试通知&rdquo;，这类信息只有人能提供，脚本再聪明也推不出来。</li>
+</ol>
+<p>最后一点感受：这类任务真正的难点从来不是&quot;调用某个接口&rdquo;，而是<strong>在不可逆、无官方文档、数据量大的约束下，把每一步都做成可验证、可回滚的</strong>。工具会失效，接口会变，这套方法论不会。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2026-10-30
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E7%85%A7%E7%89%87%E8%BF%81%E7%A7%BB/">照片迁移</a>
+          <a href="/tags/Python/">Python</a>
+          <a href="/tags/EXIF/">EXIF</a>
+          <a href="/tags/MP4/">MP4</a>
+          <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a>
+          <a href="/tags/AI-Agent/">AI Agent</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/blog_projecth_swdl_trae/">
+            <span class="next-text nav-default">Agent应用：基于TRAE的项目理解</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
