@@ -9,6 +9,20 @@
   </url>
   
   <url>
+    <loc>https://Charles-Miao.github.io/</loc>
+    <lastmod>2026-11-03T10:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://Charles-Miao.github.io/post/</loc>
+    <lastmod>2026-11-03T10:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://Charles-Miao.github.io/post/google-photos-migration/</loc>
     <lastmod>2026-10-30T09:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -37,13 +51,6 @@
   </url>
   
   <url>
-    <loc>https://Charles-Miao.github.io/</loc>
-    <lastmod>2026-10-30T09:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://Charles-Miao.github.io/tags/EXIF/</loc>
     <lastmod>2026-10-30T09:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -52,13 +59,6 @@
   
   <url>
     <loc>https://Charles-Miao.github.io/tags/MP4/</loc>
-    <lastmod>2026-10-30T09:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://Charles-Miao.github.io/post/</loc>
     <lastmod>2026-10-30T09:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
