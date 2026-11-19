@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>一个旁路式文件变更审计系统的设计与落地 - Charles&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="" /><meta name="description" content="摘要：本文记录 FileGuard 从想法到落地的全过程。我们需要追踪生产服务器上的文件变更，但又面临三个硬约束：不想改研发流程（引入 Git/SVN 管控需要研发配合 comm" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.128.2 with theme even" />
+
+
+<link rel="canonical" href="https://Charles-Miao.github.io/post/fileguard-design-review/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/reset-even.css">
+
+
+<meta property="og:url" content="https://Charles-Miao.github.io/post/fileguard-design-review/">
+  <meta property="og:site_name" content="Charles&#39;s Blog">
+  <meta property="og:title" content="一个旁路式文件变更审计系统的设计与落地">
+  <meta property="og:description" content="摘要：本文记录 FileGuard 从想法到落地的全过程。我们需要追踪生产服务器上的文件变更，但又面临三个硬约束：不想改研发流程（引入 Git/SVN 管控需要研发配合 comm">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-11-19T08:00:00+08:00">
+    <meta property="article:modified_time" content="2026-11-19T08:00:00+08:00">
+    <meta property="article:tag" content="FileGuard">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Watchdog">
+    <meta property="article:tag" content="变更审计">
+    <meta property="article:tag" content="架构">
+    <meta property="article:tag" content="AI">
+
+  <meta itemprop="name" content="一个旁路式文件变更审计系统的设计与落地">
+  <meta itemprop="description" content="摘要：本文记录 FileGuard 从想法到落地的全过程。我们需要追踪生产服务器上的文件变更，但又面临三个硬约束：不想改研发流程（引入 Git/SVN 管控需要研发配合 comm">
+  <meta itemprop="datePublished" content="2026-11-19T08:00:00+08:00">
+  <meta itemprop="dateModified" content="2026-11-19T08:00:00+08:00">
+  <meta itemprop="wordCount" content="4712">
+  <meta itemprop="keywords" content="FileGuard,Python,Watchdog,变更审计,架构,AI">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="一个旁路式文件变更审计系统的设计与落地">
+  <meta name="twitter:description" content="摘要：本文记录 FileGuard 从想法到落地的全过程。我们需要追踪生产服务器上的文件变更，但又面临三个硬约束：不想改研发流程（引入 Git/SVN 管控需要研发配合 comm">
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Charles&#39;s Blog</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Charles&#39;s Blog</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">一个旁路式文件变更审计系统的设计与落地</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2026-11-19 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+            </div>
+          <span class="more-meta"> 约 4712 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一为什么要造这个轮子">一、为什么要造这个轮子</a></li>
+    <li><a href="#二整体架构">二、整体架构</a></li>
+    <li><a href="#三collector-核心设计让-watchdog-不再丢事件">三、Collector 核心设计：让 watchdog 不再丢事件</a>
+      <ul>
+        <li><a href="#问题watchdog-在-windows-上的缓冲区溢出">问题：watchdog 在 Windows 上的缓冲区溢出</a></li>
+        <li><a href="#解法生产者-消费者--多-worker-线程池">解法：生产者-消费者 + 多 worker 线程池</a></li>
+        <li><a href="#为什么不把所有逻辑塞进一个线程">为什么不把所有逻辑塞进一个线程？</a></li>
+        <li><a href="#额外加成调大-windows-通知缓冲区">额外加成：调大 Windows 通知缓冲区</a></li>
+      </ul>
+    </li>
+    <li><a href="#四我做的几个关键决策">四、我做的几个关键决策</a>
+      <ul>
+        <li><a href="#决策-1watchdog-回调里绝不做重操作">决策 1：watchdog 回调里<strong>绝不做重操作</strong></a></li>
+        <li><a href="#决策-2用-sqlite-做持久化缓冲不用文件">决策 2：用 SQLite 做持久化缓冲，不用文件</a></li>
+        <li><a href="#决策-3全量对账做兜底">决策 3：全量对账做兜底</a></li>
+        <li><a href="#决策-4per-path-锁保证同一路径事件顺序">决策 4：per-path 锁保证同一路径事件顺序</a></li>
+        <li><a href="#决策-5ai-能力全部落在-agent-侧网关只做规则">决策 5：AI 能力全部落在 Agent 侧，网关只做规则</a></li>
+        <li><a href="#决策-6空目录--只含-log-目录对称过滤">决策 6：「空目录 / 只含 log 目录」对称过滤</a></li>
+      </ul>
+    </li>
+    <li><a href="#五其他值得记录的踩坑简化条列">五、其他值得记录的踩坑（简化条列）</a></li>
+    <li><a href="#六运维侧让-collector-像真正的服务一样活着">六、运维侧：让 collector 像真正的服务一样活着</a></li>
+    <li><a href="#七现状与局限">七、现状与局限</a></li>
+    <li><a href="#八结语">八、结语</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p><strong>摘要</strong>：本文记录 FileGuard 从想法到落地的全过程。我们需要追踪生产服务器上的文件变更，但又面临三个硬约束：<strong>不想改研发流程</strong>（引入 Git/SVN 管控需要研发配合 commit）、<strong>不想侵入非自维护服务器</strong>（装个 agent 可以，但搞复杂同步机制不行）、<strong>生产服务器不能联网</strong>。FileGuard 就是在这些约束下催生的旁路式变更审计方案。文章重点展开 collector 侧的<strong>多 worker 线程池 + 无界内存队列</strong>架构——它是解决&quot;文件操作过多时 watchdog 缓冲区溢出、事件丢失&quot;的核心设计——并条列了网关、Agent 侧的设计决策和踩坑。</p>
+</blockquote>
+<hr>
+<h2 id="一为什么要造这个轮子">一、为什么要造这个轮子</h2>
+<p>先讲清楚为什么<strong>不</strong>用已有的方案：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>为什么不行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Git / SVN 管控</strong></td>
+<td>最好的方案，但需要研发配合 commit、需要在服务器端做代码同步。生产服务器不是我们自己维护的，没法要求研发去改工作流</td>
+</tr>
+<tr>
+<td><strong>inotifywait / auditd</strong></td>
+<td>Linux 生态的成熟方案，但我们线上是 Windows Server，套不上</td>
+</tr>
+<tr>
+<td><strong>商业审计产品</strong></td>
+<td>贵，且客户端装在不能联网的生产机上也没法上报</td>
+</tr>
+<tr>
+<td><strong>写个 watchdog 脚本</strong></td>
+<td>调 <code>watchdog.observer</code>，每个事件打日志——听起来简单，实际上就是这个&quot;简单&quot;的想法后来踩了一堆坑</td>
+</tr>
+</tbody>
+</table>
+<p>所以 FileGuard 的定位从第一天就很明确：<strong>旁路式、低侵入、零改造研发流程</strong>。它的能力边界也是天生限定的：</p>
+<ul>
+<li>✅ 能记录：哪个<strong>服务器</strong>上、哪个<strong>路径</strong>、发生了什么<strong>变更</strong></li>
+<li>❌ 不能记录：<strong>谁</strong>在操作（没有 Windows 审计 API hook）</li>
+<li>❌ 没有 commit 信息（不是 Git）</li>
+<li>❌ AI 只能看表象总结，<strong>推不出操作背后的真实意图</strong>（&ldquo;删了 RackAgent&quot;到底是正常清理还是被入侵了？AI 只能猜）</li>
+</ul>
+<p>这些局限是架构约束，不是技术 bug。写在这里是给读者一个诚实的预期。</p>
+<h2 id="二整体架构">二、整体架构</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[生产服务器，不能联网]                 [汇聚服务器，有公网]                [本地电脑]
+</span></span><span class="line"><span class="cl">┌─────────────────────────┐        ┌─────────────────────────┐        ┌─────────────────────────┐
+</span></span><span class="line"><span class="cl">│  collector（进程常驻）    │   HTTPS│  gateway（FastAPI）       │  WS    │  agent（CLI）            │
+</span></span><span class="line"><span class="cl">│  ┌─────────────────────┐ │ ────▶ │  ┌─────────────────────┐ │ ◀──── │  ┌─────────────────────┐ │
+</span></span><span class="line"><span class="cl">│  │ watchdog 回调线程    │ │       │  │ 事件入库              │ │       │  │ 实时告警订阅          │ │
+</span></span><span class="line"><span class="cl">│  │  ↓ 只入队（微秒级）  │ │       │  │ 变更集聚合             │ │       │  │ 历史查询 / diff       │ │
+</span></span><span class="line"><span class="cl">│  │ raw_queue（无界）    │ │       │  │ Blob 去重存储          │ │       │  │ 版本还原（blob）       │ │
+</span></span><span class="line"><span class="cl">│  │  ↓ N worker 消费    │ │       │  │ 规则层风险分层         │ │       │  │ LLM 每日总结          │ │
+</span></span><span class="line"><span class="cl">│  │ SQLite 上传队列      │ │       │  └─────────────────────┘ │       │  └─────────────────────┘ │
+</span></span><span class="line"><span class="cl">│  │  ↓ 批量上传+指数退避 │ │       │  DB: SQLite / PostgreSQL │       │  LLM: 本地离线调用      │
+</span></span><span class="line"><span class="cl">│  └─────────────────────┘ │       └─────────────────────────┘       └─────────────────────────┘
+</span></span><span class="line"><span class="cl">└─────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>三段式分工：collector 只管采集和上传、gateway 只管入库聚合和推送、agent 只管查询和 AI 总结。关键约束<strong>生产服务器不能联网</strong>决定了 AI 能力全部落在本地 Agent 侧——网关是纯规则引擎，不调 LLM。</p>
+<h2 id="三collector-核心设计让-watchdog-不再丢事件">三、Collector 核心设计：让 watchdog 不再丢事件</h2>
+<p>这是整个系统最有价值的部分。先讲问题，再讲解法。</p>
+<h3 id="问题watchdog-在-windows-上的缓冲区溢出">问题：watchdog 在 Windows 上的缓冲区溢出</h3>
+<p>watchdog 底层用的是 Windows <code>ReadDirectoryChangesW</code>。这个 API 有一个<strong>固定大小的内核缓冲区</strong>（默认 8KB），短时间内大量文件操作（<code>git checkout</code>、解压、批量 <code>cp</code>）会把缓冲区灌满，<strong>新事件直接被内核丢弃</strong>——watchdog 的 handler 根本收不到。</p>
+<p>更糟糕的是，watchdog 的 handler 是在 watchdog 自己的内部线程里执行的。如果 handler 里做了任何重操作（读文件、算哈希、写磁盘），就会<strong>阻塞 watchdog 线程</strong>，让内核缓冲区更快溢出。</p>
+<h3 id="解法生产者-消费者--多-worker-线程池">解法：生产者-消费者 + 多 worker 线程池</h3>
+<p>核心思想一句话：<strong>watchdog 回调里只做一件事——往内存队列里 put</strong>。所有重操作扔给后面的 worker 线程池异步处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">watchdog</span> <span class="err">回调线程</span>        <span class="err">内存队列</span> <span class="p">(</span><span class="n">raw_queue</span><span class="p">)</span>         <span class="n">N</span> <span class="err">个</span> <span class="n">worker</span> <span class="err">线程（</span><span class="n">CPU</span> <span class="err">核数）</span>
+</span></span><span class="line"><span class="cl">      <span class="err">│</span>                       <span class="err">│</span>                           <span class="err">│</span>
+</span></span><span class="line"><span class="cl">      <span class="err">│</span>  <span class="n">queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>     <span class="err">│</span>                           <span class="err">│</span>
+</span></span><span class="line"><span class="cl">      <span class="err">│</span>  <span class="err">（微秒级，永不阻塞）</span> <span class="err">├──────────▶</span>  <span class="err">各自独立取事件</span>  <span class="err">│</span>
+</span></span><span class="line"><span class="cl">      <span class="err">│</span>                       <span class="err">│</span>       <span class="err">├──</span> <span class="err">计算哈希</span><span class="o">/</span><span class="n">diff</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl">      <span class="err">▼</span>                       <span class="err">│</span>       <span class="err">├──</span> <span class="err">维护</span> <span class="n">per</span><span class="o">-</span><span class="n">path</span> <span class="err">快照</span>
+</span></span><span class="line"><span class="cl">    <span class="err">立即返回</span>                   <span class="err">│</span>       <span class="err">└──</span> <span class="err">写入</span> <span class="n">SQLite</span> <span class="err">上传队列</span>
+</span></span><span class="line"><span class="cl">                              <span class="err">│</span>
+</span></span><span class="line"><span class="cl">                              <span class="err">▼</span>
+</span></span><span class="line"><span class="cl">                         <span class="n">SQLite</span> <span class="err">上传队列</span> <span class="err">──▶</span> <span class="n">uploader</span> <span class="err">线程批量上传</span> <span class="err">──▶</span> <span class="err">网关</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体实现（collector.py 第 484-503 行）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 无界内存队列 —— 防止任何情况下阻塞 watchdog 回调</span>
+</span></span><span class="line"><span class="cl"><span class="n">raw_queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">()</span>           <span class="c1"># Python queue.Queue 本身无界，永远不会 put 阻塞</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># watchdog handler 只做入队</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ChangeHandler</span><span class="p">(</span><span class="n">FileSystemEventHandler</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">on_created</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">raw_queue</span><span class="o">.</span><span class="n">put</span><span class="p">({</span><span class="o">...</span><span class="p">})</span>        <span class="c1"># 微秒级返回，绝不在这读文件算哈希</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># worker 池 —— 默认 CPU 核数，最少 2</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_workers</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="ow">or</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_workers</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">worker_loop</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">raw_queue</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&#34;fg-worker-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这条流水线的每一个环节都有明确的职责：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>做什么</th>
+<th>为什么这样设计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>watchdog 回调线程</td>
+<td><strong>只</strong>往 <code>raw_queue</code> put 事件</td>
+<td>任何重操作都会阻塞它，导致内核缓冲区溢出</td>
+</tr>
+<tr>
+<td><code>raw_queue</code>（内存无界队列）</td>
+<td>解耦 watchdog 和 worker</td>
+<td>watchdog 只负责生产，worker 负责消费，生产速率 &gt; 消费速率时积压在内存里——反正内存足够</td>
+</tr>
+<tr>
+<td>N 个 worker 线程</td>
+<td>取事件、算哈希、算 diff、写 SQLite</td>
+<td>并行处理不同路径的事件；同一路径用 per-path 锁串行保证顺序正确</td>
+</tr>
+<tr>
+<td>SQLite 上传队列（持久化）</td>
+<td>worker 写入、uploader 读取</td>
+<td>断网时事件积压在本地，恢复后批量补发，<strong>不丢数据</strong></td>
+</tr>
+<tr>
+<td>uploader 线程</td>
+<td>定时批量上传 + 指数退避重试</td>
+<td>减少 HTTP 往返；失败时 10s→20s→40s→最多 10min 退避</td>
+</tr>
+<tr>
+<td>full_scan 线程</td>
+<td>每 5 分钟全量对账</td>
+<td><strong>兜底</strong>——哪怕前三层都漏了事件，定时扫描监控目录和上一次快照 diff，把遗漏的事件重新推入 raw_queue</td>
+</tr>
+</tbody>
+</table>
+<h3 id="为什么不把所有逻辑塞进一个线程">为什么不把所有逻辑塞进一个线程？</h3>
+<p>一开始我也想过让 watchdog handler 直接做所有事——简单，省内存，省线程。结果真实跑了一次：解压一个 5000 文件的 zip，<strong>丢了 3000+ 事件</strong>。原因就是 handler 里算哈希、写 SQLite 的时候阻塞了 watchdog，内核缓冲区爆了。</p>
+<p>改成现在的流水线后，同样的测试<strong>零丢失</strong>。watchdog 回调的 put 是微秒级，内核缓冲区在它之前根本没机会被填满。</p>
+<h3 id="额外加成调大-windows-通知缓冲区">额外加成：调大 Windows 通知缓冲区</h3>
+<p>collector 启动时还做了一个操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">watchdog.observers.api</span> <span class="kn">import</span> <span class="n">NativeDispatcher</span>
+</span></span><span class="line"><span class="cl"><span class="n">NativeDispatcher</span><span class="o">.</span><span class="n">buffer_size</span> <span class="o">=</span> <span class="mi">65536</span>   <span class="c1"># 默认 8192，提到 64KB</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>双重保险——哪怕流水线设计没问题，内核缓冲区本身也提了 8 倍上限。</p>
+<h2 id="四我做的几个关键决策">四、我做的几个关键决策</h2>
+<h3 id="决策-1watchdog-回调里绝不做重操作">决策 1：watchdog 回调里<strong>绝不做重操作</strong></h3>
+<p>这是最核心的设计，其他都是它的衍生。原则就一条：<strong>任何可能超过 1ms 的操作都不能放在 watchdog handler 里</strong>。读文件、算哈希、写磁盘——全扔给 worker 异步处理。</p>
+<h3 id="决策-2用-sqlite-做持久化缓冲不用文件">决策 2：用 SQLite 做持久化缓冲，不用文件</h3>
+<p>一开始想过用本地文件存队列，后来选了 SQLite。原因有三：</p>
+<ol>
+<li>SQLite 单文件、零配置，生产服务器不需要额外装数据库服务。</li>
+<li>有事务语义——worker 写入成功才 commit，失败回滚，避免半写状态。</li>
+<li><code>queue.push() / queue.pop_batch() / queue.ack()</code> 这三个方法天然对应 SQLite 的 insert / select+delete，实现简单。</li>
+</ol>
+<h3 id="决策-3全量对账做兜底">决策 3：全量对账做兜底</h3>
+<p><strong>任何依赖内核事件的机制都可能漏</strong>——这是我从那次 5000 文件解压测试里学到的。所以加了一个 full_scan 线程，每 5 分钟扫描一次监控目录的文件清单，和上一次快照 diff，把遗漏的事件重新推入 raw_queue。<strong>慢，但可靠</strong>。</p>
+<h3 id="决策-4per-path-锁保证同一路径事件顺序">决策 4：per-path 锁保证同一路径事件顺序</h3>
+<p>worker 是多线程并行的，但同一路径的事件必须串行处理——不然 &ldquo;先 A 后 B&rdquo; 变成 &ldquo;先 B 后 A&rdquo;，diff 就反了。做法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">_path_locks</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">worker_loop</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">raw_queue</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">event</span> <span class="o">=</span> <span class="n">raw_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s2">&#34;path&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">with</span> <span class="n">_path_locks</span><span class="p">[</span><span class="n">path</span><span class="p">]:</span>    <span class="c1"># 同路径串行，不同路径并行</span>
+</span></span><span class="line"><span class="cl">            <span class="n">build_event</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">queue</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">event</span><span class="p">[</span><span class="s2">&#34;event_type&#34;</span><span class="p">],</span> <span class="n">event</span><span class="p">[</span><span class="s2">&#34;occurred_at&#34;</span><span class="p">])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="决策-5ai-能力全部落在-agent-侧网关只做规则">决策 5：AI 能力全部落在 Agent 侧，网关只做规则</h3>
+<p>生产服务器不能联网 → 网关跑不了 LLM → AI 能力只能在本地 Agent 上实现。这带来一个架构分工：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">网关侧（纯规则，确定性）：
+</span></span><span class="line"><span class="cl">├── 事件入库、去重、Blob 存储
+</span></span><span class="line"><span class="cl">├── 变更集聚合（actor + root_dir + 时间窗）
+</span></span><span class="line"><span class="cl">├── 目录删除兜底推断（从子文件反推父目录）
+</span></span><span class="line"><span class="cl">├── 风险等级基线（删除=critical、修改=high、创建=low）
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Agent 侧（AI + 查询）：
+</span></span><span class="line"><span class="cl">├── 实时告警订阅（WebSocket）
+</span></span><span class="line"><span class="cl">├── 历史查询、diff、版本还原
+</span></span><span class="line"><span class="cl">├── summarize-pending：LLM 每日批量总结未总结变更集
+</span></span><span class="line"><span class="cl">└── （待做）AI 日报、跨变更集叙事合并、自然语言查询
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>规则做确定性判断，AI 只做规则做不了的语义理解。这个分工<strong>不会把规则算出的正确结论推翻</strong>——LLM 总结的风险等级只是覆盖，不修改基线逻辑；下次 rules 重新聚合还是按基线来。</p>
+<h3 id="决策-6空目录--只含-log-目录对称过滤">决策 6：「空目录 / 只含 log 目录」对称过滤</h3>
+<p>一堆 &ldquo;创建 LogDir&rdquo; 的事件淹没了真正重要的变更，所以 collector 在 <code>dir_created</code> 事件里加了过滤逻辑：等 500ms 让子文件事件落盘，<code>os.walk</code> 扫描目录，如果所有文件都被 ignore patterns 过滤（<code>*.log</code>、<code>*.tmp</code>、<code>.git/*</code>）就跳过不上报，同时把这个目录记进 <code>_ignored_dirs</code> 集合。<strong>删除时查这个集合</strong>——命中就跳过。创建和删除完全对称。</p>
+<h2 id="五其他值得记录的踩坑简化条列">五、其他值得记录的踩坑（简化条列）</h2>
+<p>这些不是我上面重点讲的架构设计，但落地过程中踩到了，记下来省得下次再踩：</p>
+<ol>
+<li><strong>watchdog 的 <code>on_deleted</code> 不给 <code>is_directory</code></strong>——删除目录树时只发子文件 deleted，完全不给父目录 deleted 事件。<strong>解法</strong>：不在 collector 侧挣扎，网关聚合器兜底——从所有 deleted 路径取 dirname，找被覆盖次数最多的公共父目录，推断为 <code>dir_deleted</code>。</li>
+<li><strong>Blob 重复上报冲突</strong>——collector 重启时同一个文件内容（哈希相同）被重新上报，<code>UNIQUE constraint failed: blobs.sha256</code>。<strong>解法</strong>：先 add + flush，失败则 delete 再 add。</li>
+<li><strong>Agent <code>api()</code> 参数乱传</strong>——<code>**kwargs</code> 把业务参数和 requests 库内部参数混了。<strong>解法</strong>：GET 显式 <code>params={}</code>，POST 显式 <code>json=json_body</code>，不再用 <code>**kwargs</code>。</li>
+<li><strong>目录事件命名统一</strong>——watchdog 原生只有 created/modified/deleted/moved，目录级事件走自定义 <code>dir_created</code> / <code>dir_deleted</code>，下游直接按 event_type 分流。</li>
+<li><strong>事件去重用 <code>(server_id, path, event_type, 秒级时间桶)</code></strong>——collector 重启时 watchdog 会重复上报同一秒内的事件。</li>
+</ol>
+<h2 id="六运维侧让-collector-像真正的服务一样活着">六、运维侧：让 collector 像真正的服务一样活着</h2>
+<p>生产服务器不能有人常驻操作，collector 必须开机自启、崩溃自恢复。NSSM 注册成 Windows 服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">nssm</span> <span class="n">install</span> <span class="n">FileGuardCollector</span> <span class="s2">&#34;C:\Python310\python.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppDirectory</span> <span class="s2">&#34;C:\apps\FileGuard\collector&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppParameters</span> <span class="s2">&#34;collector.py&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="nb">Start </span><span class="n">SERVICE_AUTO_START</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 日志滚动（服务没控制台，不配就看不到任何日志）</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppStdout</span>  <span class="s2">&#34;C:\apps\FileGuard\collector\stdout.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppStderr</span>  <span class="s2">&#34;C:\apps\FileGuard\collector\stderr.log&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppRotateFiles</span> <span class="mf">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppRotateBytes</span> <span class="mf">10485760</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 崩溃 5 秒后自动重启</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppExit</span> <span class="k">Default</span> <span class="n">Restart</span>
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">set </span><span class="n">FileGuardCollector</span> <span class="n">AppRestartDelay</span> <span class="mf">5000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">nssm</span> <span class="nb">start </span><span class="n">FileGuardCollector</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>两个必须记的运维细节：</p>
+<ul>
+<li><code>AppDirectory</code> 必须设成 <strong>collector 目录本身</strong>（不是 FileGuard 根目录），否则 <code>config.yaml</code> 和 SQLite 队列文件找不到。</li>
+<li>NSSM 服务以 SYSTEM 身份运行时读不到用户环境变量——不要指望 API_TOKEN 从环境变量来，所有配置都写在 <code>config.yaml</code> 里。</li>
+</ul>
+<h2 id="七现状与局限">七、现状与局限</h2>
+<table>
+<thead>
+<tr>
+<th>能做到</th>
+<th>做不到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>哪个服务器、哪个路径、什么变更</td>
+<td><strong>谁</strong>在操作（无 Windows 审计 hook）</td>
+</tr>
+<tr>
+<td>文件 diff、版本还原</td>
+<td>commit 历史和版本语义</td>
+</tr>
+<tr>
+<td>规则层风险分层 + 批量 LLM 总结</td>
+<td>操作背后的真实意图</td>
+</tr>
+<tr>
+<td>实时推送告警</td>
+<td>主动阻断高风险变更</td>
+</tr>
+<tr>
+<td>断网事件积压、恢复后补发</td>
+<td>网关端离线（SQLite 够用但不是集群级 HA）</td>
+</tr>
+</tbody>
+</table>
+<p>全部 AI 能力目前只有 <code>summarize-pending</code>（每日批量总结未总结变更集）。值得继续做的：AI 日报、跨变更集叙事合并、自然语言查询、异常变更识别——但都只能跑在 Agent 侧，<strong>网关还是纯规则</strong>。</p>
+<h2 id="八结语">八、结语</h2>
+<p>回到文章开头的那个选择：为什么不引入 Git/SVN？答案其实很简单——<strong>在不是自己维护的服务器上，介入越少越好</strong>。</p>
+<p>FileGuard 就是在&quot;少介入&quot;这个前提下能做到的最好结果。它不完美——不知道谁在操作，不知道为什么操作，AI 总结也只能看表象。但它做到了三件事：</p>
+<ol>
+<li><strong>不丢事件</strong>——多 worker + 无界队列 + SQLite 持久化 + 全量对账兜底。</li>
+<li><strong>不改研发流程</strong>——旁路监听，零侵入。</li>
+<li><strong>生产机离线也能工作</strong>——断网时事件积压，恢复后自动批量补发。</li>
+</ol>
+<p>这三点，就是 FileGuard 的全部价值。</p>
+<hr>
+<p>✅ 已在 3 台生产服务器稳定运行 2 个月，未再出现事件丢失。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content"></span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2026-11-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/FileGuard/">FileGuard</a>
+          <a href="/tags/Python/">Python</a>
+          <a href="/tags/watchdog/">watchdog</a>
+          <a href="/tags/%E5%8F%98%E6%9B%B4%E5%AE%A1%E8%AE%A1/">变更审计</a>
+          <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>
+          <a href="/tags/AI/">AI</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/blog-dimlight/">
+            <span class="next-text nav-default">应用开发：DimLight节能项目</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:fengkuang33@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/Crazy_big_cat" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/Charles-Miao" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/fengkuang21" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.douban.com/people/51896933/" class="iconfont icon-douban" title="douban"></a>
+  
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2026<span class="heart"><i class="iconfont icon-heart"></i></span><span></span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script>
+    var languageCode = "zh-CN".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
